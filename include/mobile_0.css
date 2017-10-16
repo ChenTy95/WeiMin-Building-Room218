@@ -1,0 +1,214 @@
+/* StyleName: 北欧极简 */
+
+.DateBtn {
+	font-size: 14px;
+	width: 28%;
+	height: 25px;
+	float: left;
+	background-color: #FFF;
+	border-left: 2px solid #000;
+	border-top: 2px solid #000;
+}
+
+.TimeBtn {
+	width: 100%;
+	height: 40px;
+	font-size: 10px;
+	float: left;
+	background-color: #FFF;
+	border-top: 2px solid #000;
+}
+
+.StatusBtnGreen {
+	pointer-events: auto;
+	font-size: 14px;
+	font-weight: bold;
+	width: 100%;
+	height: 40px;
+	float: left;
+	background-color: #FFF;
+	color: #000;
+	border-left: 2px solid #000;
+	border-top: 2px solid #000;
+}
+.StatusBtnGreen:hover {
+	background-color: #6495ED;
+	color: #FFF;
+}
+.StatusBtnGreen:focus {
+	background-color: #305496;
+	color: #FFF;
+}
+
+.StatusBtnBlue {
+	pointer-events: auto;
+	font-size: 14px;
+	width: 100%;
+	height: 40px;
+	float: left;
+	background-color: #305496;
+	color: #FFF;
+	border-left: 2px solid #000;
+	border-top: 2px solid #000;
+}
+.StatusBtnBlue:hover {
+	background-color: #6495ED;
+}
+
+.StatusBtnGrey {
+	pointer-events: auto;
+	font-size: 14px;
+	width: 100%;
+	height: 40px;
+	float: left;
+	background-color: #ECEFF1;
+	color: #90A4AE;
+	border-left: 2px solid #000;
+	border-top: 2px solid #000;
+}
+.StatusBtnGrey:hover {
+	background-color: #808080;
+	color: #FFF;
+}
+
+.StatusBtnGreyN {
+	pointer-events: auto;
+	font-size: 14px;
+	width: 100%;
+	height: 40px;
+	float: left;
+	background-color: #CFD8DC;
+	color: #90A4AE;
+	border-left: 2px solid #000;
+	border-top: 2px solid #000;
+}
+
+
+.TextBtn1 {
+	width: 95%;
+	height: 35px;
+	background-color: #305496;
+	color: #FFF;
+	
+	margin-top: 5px;
+	border-width: 0px;
+	
+	font-size: 16px;
+	font-weight: bold;
+	text-align: left;
+}
+
+.TextBtn2 {
+	width: 95%;
+	height: 30px;
+	background-color: #FFF;
+	
+	margin-top: 0px;
+	border-width: 2px;
+	border-color: #305496;	
+	
+	font-size: 14px;
+	text-align: left;
+}
+
+.TextBtn3 {
+	width: 95%;
+	height: 30px;
+	background-color: #305496;
+	
+	margin-top: 5px;
+	border-width: 0px;
+	
+	font-size: 14px;
+	font-weight: bold;
+	text-align: center;
+	color: #FFF;
+}
+
+.InfoDiv {
+	width: 95%;
+	height: auto;
+	margin: 0 auto;
+
+	border: 2px solid #FFD700;
+}
+
+.InfoLabel {
+	height: 35px;
+	width: 40%;
+	
+	font-family: "Helvetica","Microsoft Yahei","微软雅黑","sans-serif";
+	font-size: 16px;
+	font-weight: bold;
+	text-align: center;
+	color: #000;
+	line-height: 35px;
+
+	margin-left: 2.5%;
+	float:left;
+	
+	background-color: #FFF;
+	border-top-style: solid;
+	border-top-color: #305496;
+	border-top-width: 1.5px;
+	
+}
+
+.InfoText {
+	height: 35px;
+	width: 55%;
+	
+	font-family: "Helvetica","Microsoft Yahei","微软雅黑","sans-serif";
+	font-size: 16px;
+	font-weight: bold;
+	text-align: center;
+	color: #000;
+	line-height: 35px;
+	
+	float: left;
+	
+	background-color: #FFF;
+	border-top-style: solid;
+	border-top-color: #305496;
+	border-top-width: 1.5px;
+}
+
+.InputBox {
+	height: 35px;
+	width: 90%;
+	
+	font-family: "Helvetica","Microsoft Yahei","微软雅黑","sans-serif";
+	font-size: 16px;
+	font-weight: bold;
+	text-align: center;
+	color: #000;
+	
+	border: 0px;
+	background-color: transparent;
+}
+
+#logoutText {
+	font-size: 12px;
+	color: #FFF;
+}
+
+@media screen and (max-width: 350px){
+	.TextBtn2 {
+		font-size: 12px;
+	}
+	.TextBtn3 {
+		font-size: 12px;
+	}
+	.TimeBtn {
+		font-size: 8px;
+	}
+	.DateBtn {
+		font-size: 12px;
+	}
+	.StatusBtnBlue {
+		font-size: 13px;
+	}
+	.StatusBtnBlue:hover {
+		font-size: 13px;
+	}
+}

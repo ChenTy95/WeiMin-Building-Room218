@@ -1,0 +1,158 @@
+body {
+	background-color: #FAFAD2;
+	font-family: "Microsoft Yahei","微软雅黑","sans-serif";
+}
+
+.bg_yellow {
+	background-color: #F0E68C;
+}
+
+.Topic {
+	height: 30px;
+	padding: 10px 0 0 10px;
+	margin: 10px 0 0 0;
+	background-color: #F0E68C;
+	color: #F00;
+	font-family: "Microsoft Yahei","微软雅黑","sans-serif";
+}
+
+button {
+	pointer-events: none;
+	font-family: "Microsoft Yahei","微软雅黑","sans-serif";
+	border-width: 0px;
+}
+
+.ChartTop {
+	width: 100px;
+	height: 42px;
+	font-size: 14px;
+	float: left;
+	background-color: #00BFFF;
+	color: #FFF;
+	border-top: 2px solid #000;
+	border-left: 2px solid #000;
+}
+
+.DateBtn {
+	width: 80px;
+	height: 42px;
+	font-size: 14px;
+	float: left;
+	background-color: transparent;
+	border-top: 2px solid #000;
+	border-left: 2px solid #000;
+}
+.DateBtnHL {
+	width: 80px;
+	height: 42px;
+	font-size: 14px;
+	float: left;
+	background-color: #FF8C00;
+	color: #FFF;
+	border-top: 2px solid #000;
+	border-left: 2px solid #000;
+}
+
+.WeekDayBtn {
+	width: 50px;
+	height: 42px;
+	font-size: 14px;
+	float: left;
+	background-color: transparent;
+	border-top: 2px solid #000;
+	border-left: 2px solid #000;
+}
+.WeekDayBtnHL {
+	width: 50px;
+	height: 42px;
+	font-size: 14px;
+	float: left;
+	background-color: #FF8C00;
+	color: #FFF;
+	border-top: 2px solid #000;
+	border-left: 2px solid #000;
+}
+
+.InfoBtn {
+	pointer-events: auto;
+	width: 100px;
+	height: 42px;
+	font-size: 12px;
+	float: left;
+	background-color: transparent;
+	border-top: 2px solid #000;
+	border-left: 2px solid #000;
+}
+.InfoBtn:hover {
+	background-color: #00BFFF;
+	color: #FFF;
+}
+.InfoBtn:focus {
+	background-color: #305496;
+	color: #FFF;
+}
+.InfoBtnHL {
+	pointer-events: auto;
+	width: 100px;
+	height: 42px;
+	font-size: 10px;
+	float: left;
+	background-color: #FF8C00;
+	color: #FFF;
+	border-top: 2px solid #000;
+	border-left: 2px solid #000;
+}
+.InfoBtnHL:hover {
+	background-color: #00BFFF;
+	color: #FFF;
+}
+.InfoBtnHL:focus {
+	background-color: #305496;
+	color: #FFF;
+}
+.rightHead {
+	width: 90px;
+	height: 36px;
+	font-size: 16px;
+	font-weight: bold;
+	float: left;
+	background-color: #00BFFF;
+	color: #FFF;
+}
+.rightColor1 {
+	height: 36px;
+	font-size: 16px;
+	
+	background-color: #F0E68C;
+	color: #000;
+}
+.rightColor2 {
+	height: 36px;
+	font-size: 16px;
+	
+	background-color: #FF8C00;
+	color: #FFF;
+}
+
+.selector {
+	font-family: "Microsoft Yahei","微软雅黑","sans-serif";
+	height: 36px;
+	width: 185px;
+	font-size: 16px;
+	
+	border: 0;
+	background-color: #FF8C00;
+	color: #FFF;
+}
+
+#FileRead {
+	font-family: "Consolas","Microsoft Yahei","微软雅黑","sans-serif";
+	font-size: 12px;
+	pointer-events: none;
+	overflow: hidden;
+	background-color: transparent;
+	width: 114px;
+	height: 80px;
+	border: 0px;
+	padding: 0px 0px 0px 6px;
+}

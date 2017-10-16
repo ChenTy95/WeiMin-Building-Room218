@@ -1,0 +1,185 @@
+body {
+	background-repeat: no-repeat;
+	background-attachment: fixed;
+	background-size: 100% 100%;
+}
+
+.TopDiv {
+	margin-top: 10px;
+	text-align: center;
+}
+
+.ChartDiv {
+	width: 100%;
+	height: 370px;
+	margin-top: 5px;
+	text-align: center;
+}
+
+.TimeDiv {
+	width: 16%;
+	float: left;
+}
+
+.StatusDiv {
+	width: 28%;
+	float: left;
+}
+
+button {
+	pointer-events: none;
+	font-family: "Helvetica","Microsoft Yahei","微软雅黑","sans-serif";
+	border-width: 0px;
+}
+
+.DateBtn {
+	font-size: 14px;
+	width: 28%;
+	height: 25px;
+	float: left;
+	background-color: #FFD700;
+	border-left: 2px solid #FF8C00;
+	border-top: 2px solid #FF8C00;
+}
+
+.TimeBtn {
+	width: 100%;
+	height: 40px;
+	font-size: 10px;
+	float: left;
+	background-color: #87CEFA;
+	border-top: 2px solid #6495ED;
+}
+
+.StatusBtnGreen {
+	pointer-events: auto;
+	font-size: 14px;
+	width: 100%;
+	height: 40px;
+	float: left;
+	background-color: #ADFF2F;
+	color: #808080;
+	border-left: 2px solid #FF8C00;
+	border-top: 2px solid #FF8C00;
+}
+.StatusBtnGreen:hover {
+	pointer-events: auto;
+	font-size: 14px;
+	width: 100%;
+	height: 40px;
+	float: left;
+	background-color: #6495ED;
+	color: #FFF;
+	border-left: 2px solid #FF8C00;
+	border-top: 2px solid #FF8C00;
+}
+
+.StatusBtnGrey {
+	pointer-events: auto;
+	font-size: 14px;
+	width: 100%;
+	height: 40px;
+	float: left;
+	background-color: #D3D3D3;
+	color: #F00;
+	border-left: 2px solid #FF8C00;
+	border-top: 2px solid #FF8C00;
+}
+.StatusBtnGrey:hover {
+	pointer-events: auto;
+	font-size: 14px;
+	width: 100%;
+	height: 40px;
+	float: left;
+	background-color: #696969;
+	color: #FFF;
+	border-left: 2px solid #FF8C00;
+	border-top: 2px solid #FF8C00;
+}
+
+.TextBtn1 {
+	width: 95%;
+	height: 35px;
+	background-color: #FFD700;
+	
+	margin-top: 5px;
+	border-width: 0px;
+	
+	font-size: 16px;
+	font-weight: bold;
+	text-align: left;
+}
+
+.TextBtn2 {
+	width: 95%;
+	height: 30px;
+	
+	margin-top: 0px;
+	background-color: #FFF;
+	border-width: 2px;
+	border-color: #FFD700;	
+	
+	font-size: 14px;
+	text-align: left;
+}
+
+.InfoDiv {
+	width: 95%;
+	height: auto;
+	margin: 0 auto;
+
+	border: 2px solid #FFD700;
+}
+
+.InfoLabel {
+	height: 35px;
+	width: 40%;
+	
+	font-family: "Helvetica","Microsoft Yahei","微软雅黑","sans-serif";
+	font-size: 16px;
+	font-weight: bold;
+	text-align: center;
+	color: #FFF;
+	line-height: 35px;
+
+	margin-left: 2.5%;
+	float:left;
+	
+	background-color: #FFA500;
+	border-top-style: solid;
+	border-top-color: #FFF;
+	border-top-width: 1.5px;
+}
+
+.InfoText {
+	height: 35px;
+	width: 55%;
+	
+	font-family: "Helvetica","Microsoft Yahei","微软雅黑","sans-serif";
+	font-size: 16px;
+	font-weight: bold;
+	text-align: center;
+	color: #FFF;
+	line-height: 35px;
+	
+	float:left;
+	
+	background-color: #FF8C00;
+	border-top-style: solid;
+	border-top-color: #FFF;
+	border-top-width: 1.5px;
+}
+
+.InputBox {
+	height: 35px;
+	width: 90%;
+	
+	font-family: "Helvetica","Microsoft Yahei","微软雅黑","sans-serif";
+	font-size: 16px;
+	font-weight: bold;
+	text-align: center;
+	color: #FFF;
+	
+	border: 0px;
+	background-color: transparent;
+}

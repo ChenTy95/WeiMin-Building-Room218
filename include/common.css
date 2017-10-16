@@ -1,0 +1,60 @@
+.ResDiv {
+	width: 100%;
+	margin: 0 auto;
+}
+
+@media screen and (min-width: 550px){
+	.ResDiv {
+		width: 550px;
+	}
+}
+
+body {
+	background-repeat: no-repeat;
+	background-attachment: fixed;
+	background-size: 100% 100%;
+}
+
+.TopDiv {
+	margin-top: 10px;
+	text-align: center;
+}
+
+.ChartDiv {
+	width: 100%;
+	height: 370px;
+	margin-top: 5px;
+	text-align: center;
+}
+
+.TimeDiv {
+	width: 16%;
+	float: left;
+}
+
+.StatusDiv {
+	width: 28%;
+	float: left;
+}
+
+button {
+	pointer-events: none;
+	font-family: "Helvetica","Microsoft Yahei","微软雅黑","sans-serif";
+	border-width: 0px;
+}
+
+.cssTag {
+	pointer-events: auto;
+	
+	height: 35px;
+	
+	font-family: "Helvetica","Microsoft Yahei","微软雅黑","sans-serif";
+	font-size: 14px;
+	text-align: center;
+	color: #FFF;
+	line-height: 35px;
+	
+	float: left;
+	
+	background-color: #FF8C00;
+}

@@ -39,7 +39,7 @@
 		$result = mysqli_query($conn,$sql);
 		if ($num = mysqli_num_rows($result))
 		{
-			while ($rows = mysqli_fetch_array($result,MYSQL_ASSOC))
+			while ($rows = mysqli_fetch_array($result,MYSQLI_ASSOC))
 			{
 				if ($rows['COUNT(*)']==0)
 				{
@@ -132,7 +132,7 @@
 		$result = mysqli_query($conn,$sql);
 		if ($num = mysqli_num_rows($result))
 		{
-			while ($rows = mysqli_fetch_array($result,MYSQL_ASSOC))
+			while ($rows = mysqli_fetch_array($result,MYSQLI_ASSOC))
 			{
 				if ($rows['COUNT(*)'] % 2 != 0)
 				{
@@ -148,7 +148,7 @@
 		$result = mysqli_query($conn,$sql);
 		if ($num = mysqli_num_rows($result))
 		{
-			while ($rows = mysqli_fetch_array($result,MYSQL_ASSOC))
+			while ($rows = mysqli_fetch_array($result,MYSQLI_ASSOC))
 			{
 				if ($rows[check_input($_POST['InputTime'])]!=NULL)
 				{
@@ -166,7 +166,7 @@
 					$result = mysqli_query($conn,$sql);
 					if ($num = mysqli_num_rows($result))
 					{
-						while ($rows = mysqli_fetch_array($result,MYSQL_ASSOC))
+						while ($rows = mysqli_fetch_array($result,MYSQLI_ASSOC))
 						{
 							$_SESSION['ApplyNoToken'] = $rows['no'];
 						}
@@ -202,7 +202,7 @@
 		$result = mysqli_query($conn,$sql);
 		if ($num = mysqli_num_rows($result))
 		{
-			while ($rows = mysqli_fetch_array($result,MYSQL_ASSOC))
+			while ($rows = mysqli_fetch_array($result,MYSQLI_ASSOC))
 			{
 				$DBid = substr($rows[check_input($_POST['InputTime'])],strpos($rows[check_input($_POST['InputTime'])],"|") + 1,strlen($rows[check_input($_POST['InputTime'])])-strpos($rows[check_input($_POST['InputTime'])],"|") - 1);
 				if ($DBid!=$_SESSION['IdToken'])

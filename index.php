@@ -40,7 +40,7 @@
 	$result = mysqli_query($conn,$sql) OR die("<br /> Error: ".mysqli_error()."<br /> Wrong SQL: ".$sql);
 	if ($num = mysqli_num_rows($result))
 	{
-		while ($rows = mysqli_fetch_array($result,MYSQL_ASSOC))
+		while ($rows = mysqli_fetch_array($result,MYSQLI_ASSOC))
 		{
 ?>
 	<div style="margin-top:10px; text-align:center;">
@@ -60,7 +60,7 @@
 	$result = mysqli_query($conn,$sql_check);
 	if ($num = mysqli_num_rows($result))
 	{
-		while ($rows = mysqli_fetch_array($result,MYSQL_ASSOC))
+		while ($rows = mysqli_fetch_array($result,MYSQLI_ASSOC))
 		{
 			// 更新status表
 			if ($rows['COUNT(*)']==0)
@@ -74,7 +74,7 @@
 					$result = mysqli_query($conn,$sqli);
 					if ($num = mysqli_num_rows($result))
 					{
-						while ($rows = mysqli_fetch_array($result,MYSQL_ASSOC))
+						while ($rows = mysqli_fetch_array($result,MYSQLI_ASSOC))
 						{
 							if ($rows['COUNT(*)']==0)
 							{
@@ -93,7 +93,7 @@
 	$result = mysqli_query($conn,$sql);
 	if ($num = mysqli_num_rows($result))
 	{
-		while ($rows = mysqli_fetch_array($result,MYSQL_ASSOC))
+		while ($rows = mysqli_fetch_array($result,MYSQLI_ASSOC))
 		{
 			$dateNo = $rows['No'];
 		}
@@ -111,7 +111,7 @@
 				{
 					$row = 0;
 					$ti = 0;
-					while ($rows = mysqli_fetch_array($result,MYSQL_ASSOC))
+					while ($rows = mysqli_fetch_array($result,MYSQLI_ASSOC))
 					{
 						$row++;
 						echo "<button class='DateBtn' id='".$rows['Date']."'>".substr($rows['Date'],2,8)."</button>";
@@ -124,7 +124,7 @@
 				if ($num = mysqli_num_rows($result))
 				{
 					$row = 0;
-					while ($rows = mysqli_fetch_array($result,MYSQL_ASSOC))
+					while ($rows = mysqli_fetch_array($result,MYSQLI_ASSOC))
 					{
 						$row++;
 						echo "<button class='DateBtn' style='border-top-style:dashed;'>".date("D",strtotime($rows['Date']))."</button>";
@@ -146,7 +146,7 @@
 				if ($num = mysqli_num_rows($result))
 				{
 					$row = 0;
-					while ($rows = mysqli_fetch_array($result,MYSQL_ASSOC))
+					while ($rows = mysqli_fetch_array($result,MYSQLI_ASSOC))
 					{
 						$row++;
 						echo "<div class='StatusDiv'>";
@@ -174,7 +174,7 @@
 								$result_info = mysqli_query($conn,$sql_info);
 								if ($numi = mysqli_num_rows($result_info))
 								{
-									while ($rowsi = mysqli_fetch_array($result_info,MYSQL_ASSOC))
+									while ($rowsi = mysqli_fetch_array($result_info,MYSQLI_ASSOC))
 									{
 										// 本人预约的时段突出显示
 										if ($rowsi['id']==$_SESSION['IdToken'])

@@ -47,7 +47,7 @@
 		$result = mysqli_query($conn,$sql);
 		if ($num = mysqli_num_rows($result))
 		{
-			while ($rows = mysqli_fetch_array($result,MYSQL_ASSOC))
+			while ($rows = mysqli_fetch_array($result,MYSQLI_ASSOC))
 			{
 ?>
 	<div style="margin-top:10px; text-align:center;">

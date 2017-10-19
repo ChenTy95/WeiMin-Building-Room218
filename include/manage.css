@@ -156,3 +156,15 @@ button {
 	border: 0px;
 	padding: 0px 0px 0px 6px;
 }
+
+.delete_btn {
+	height: 26px;
+	width: 30px;
+	padding: 0px;
+	border: 2px solid #1E90FF;
+	font-size: 14px;
+	font-weight: bold;
+	pointer-events: auto;
+	background-color: #FAFAD2;
+	color: #000;
+}

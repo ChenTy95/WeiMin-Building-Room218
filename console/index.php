@@ -237,7 +237,7 @@
 			<!-- 左侧文件检查框 -->
 			<div style="width:120px; height:106px; background-color:#F0E68C; float:left; text-align:center;">
 				<!-- 文件删除按钮 -->
-				<form action="editFile.php" method="POST" style="float:left;"><button name="delete_btn" title="点击删除当前文件" style="height:26px; width:30px; padding:0px; border:2px solid #1E90FF; font-size:14px; font-weight:bold; pointer-events:auto; background-color:#FAFAD2; color:#000; " onmouseover="this.style.color='#F00';" onmouseout="this.style.color='#000';" onclick="return deleteConfirm();">删</button></form>
+				<form action="editFile.php" method="POST" style="float:left;"><button class="delete_btn" name="delete_btn" title="点击删除当前文件" onmouseover="this.style.color='#F00';" onmouseout="this.style.color='#000';" onclick="return deleteConfirm();">删</button></form>
 				
 				<!-- 文件名 -->
 				<button id="FileName" style="height:26px; width:90px; font-size:14px; background-color:#FF8C00; color:#FFF;"><?php
@@ -311,7 +311,7 @@
 						echo "< DATA NAME >";
 				?></button><a href="UTF8_BOM.php" title="若左侧文件名显示不正常，请点击此按钮"><button style="height:26px; width:70px; font-size:14px; background-color:#FF8C00; color:#FFF;">× BOM</button></a>
 				<!-- 导入数据库按钮 -->
-				<form action="index.php" method="POST" style="float:right;"><button name="import_btn" id="import_btn" title="点击导入当前数据文件" style="height:26px; width:70px; padding:0px; border:2px solid #000; font-size:14px; font-weight:bold; pointer-events:auto; background-color:#F0E68C; color:#A9A9A9;" onmouseover="this.style.color='#000';" onmouseout="this.style.color='#F00';" onclick="return importConfirm();" disabled='true';>→ DB</button><input name="HiddenName" type="hidden" id="hiddenName" /></form>
+				<form action="index.php" method="POST" style="float:right;"><button class="delete_btn" name="import_btn" id="import_btn" title="点击导入当前数据文件" style="width:70px; border-color: #000; background-color:#F0E68C; color:#A9A9A9;" onmouseover="this.style.color='#000';" onmouseout="this.style.color='#F00';" onclick="return importConfirm();" disabled='true';>→ DB</button><input name="HiddenName" type="hidden" id="hiddenName" /></form>
 				<!-- 校验结果 -->
 				<button style="height:26px; width:155px; font-size:14px; background-color:#FF8C00; color:#FFF; padding:1px 2px 1px 2px;"><?php
 					if (isset($_POST['CheckFile']))
@@ -342,7 +342,7 @@
 				</div>
 				
 				<!-- 导入详情 -->
-				<button style="height:28px; width:85px; background-color:#FF8C00; font-size:14px; padding:1px 2px 1px 2px; color:#FFF; pointer-events:auto;" onclick="document.getElementById('import_info_div').style.display='inline';">查看详情</button><!-- 日志 --><button style="height:28px; width:70px; background-color:#F0E68C; font-size:14px; padding:1px 2px 1px 2px; color:#000; pointer-events:auto;">查看日志</button><button style="height:28px; width:70px; background-color:#FF8C00; font-size:14px; padding:1px 2px 1px 2px; color:#FFF; pointer-events:auto;">保留备用</button>
+				<button style="height:28px; width:155px; background-color:#FF8C00; font-size:14px; padding:1px 2px 1px 2px; color:#FFF; pointer-events:auto;" onclick="document.getElementById('import_info_div').style.display='inline';">查看数据导入详情</button><!-- 日志 --><button style="height:28px; width:70px; background-color:#F0E68C; font-size:14px; padding:1px 2px 1px 2px; color:#000; pointer-events:auto;" onclick="document.getElementById('system_log').style.display='block';">查看日志</button>
 			</div>
 			
 		</div>
@@ -350,18 +350,37 @@
 		<!-- 数据导入详情 -->
 		<div id="import_info_div" style="width:230px; height:502px; float:left; margin-top:-506px; margin-left:598px; border:2px solid #FF8C00; z-index:999; background-color:#F0E68C; display:none;">
 			<div style="text-align:center; margin-top:5px; font-family:'Microsoft Yahei','微软雅黑','sans-serif'; font-weight:bold; font-size:16px;">数据导入详情</div>
-			<a href="#"><span style="width:28px; height:28px; margin-top:-28px; margin-right:-2px; background-color:#FF8C00; color:#FFF; float:right; font-size:26px; text-align:center; line-height:26px;" onclick="document.getElementById('import_info_div').style.display='none';">×</span></a>
+			<span style="width:28px; height:28px; margin-top:-28px; margin-right:-2px; background-color:#FF8C00; color:#FFF; float:right; font-size:26px; text-align:center; line-height:26px;" onclick="document.getElementById('import_info_div').style.display='none';">×</span>
 			<div id="import_info_2" style="margin-top:5px; margin-left:5px; height:60px; font-family:'Microsoft Yahei','微软雅黑','sans-serif'; font-size:14px;"></div>
 			<div id="import_info" style="width:225px; height:410px; margin-left:5px; font-family:'Consolas','Microsoft Yahei','微软雅黑','sans-serif'; overflow:auto;"></div>
 		</div>
 	</div>
 	
-	<div style="width:1200px; height:200px; margin:0 auto; margin-top:20px; border:2px solid #000;">
-		
+	<div id="system_log" style="width:1196px; height:500px; margin:0 auto; margin-top:15px; background-color:#F0E68C; border:2px solid #FF8C00; display:block;">
+		<div style="text-align:center; margin-top:5px; font-family:'Microsoft Yahei','微软雅黑','sans-serif'; font-weight:bold; font-size:16px;">用户数据查询修改及系统日志——数据无价，谨慎操作！</div>
+		<span style="width:28px; height:28px; margin-top:-28px; margin-right:-2px; background-color:#FF8C00; color:#FFF; float:right; font-size:26px; text-align:center; line-height:26px;" onclick="document.getElementById('system_log').style.display='none';">×</span>
+		<div style="width:300px; height:400px; float:left; border:2px solid #FF8C00; ">
+			
+		</div>
+		<div style="width:800px; height:400px; float:left; border:2px solid #FF8C00; ">
+			
+			<?php
+				$sql =  "SELECT log.*,userinfo.name FROM log,userinfo WHERE userinfo.id=log.id ORDER BY no DESC LIMIT 20;";
+				$result = mysqli_query($conn,$sql);
+				if ($num = mysqli_num_rows($result))
+				{
+					while ($rows = mysqli_fetch_array($result,MYSQLI_ASSOC))
+					{
+						echo $rows['no']."..".$rows['id']."<br />";
+					}
+				}
+				
+			?>
+		</div>
 	</div>
 	
 	<div style="margin:0 auto; margin-top:10px; text-align:center;">
-		Code By ChenTy # 1366 × 768 px+ is recommended
+		控制台要求使用1366*768及以上分辨率 . Developed By 汤圆 [ 13141009 / ChenTy95 ]
 	</div>
 	
 	<?php
@@ -459,7 +478,7 @@
 	
 	function importConfirm()
 	{
-		var b = window.confirm('你确认要将数据文件 [ <?php echo $_SESSION['FileName']; ?> ] 中的数据导入用户数据表吗？\n\n本数据文件共包含数据记录 [ <?php echo intval($str_Rec); ?> ] 条');
+		var b = window.confirm('你确认要将数据文件 [ <?php echo $_SESSION['FileName']; ?> ] 中的数据导入用户数据表吗？\n\n本数据文件共包含数据记录 [ <?php if (isset($str_Rec)) echo intval($str_Rec); else echo "---" ?> ] 条');
 		document.getElementById("hiddenName").value = '<?php echo $_SESSION['FileName']; ?>';
 		if (b==true)
 		{

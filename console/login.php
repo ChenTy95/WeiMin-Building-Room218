@@ -22,6 +22,7 @@
 
 <script>
 	document.getElementById('pass').focus();
+	document.getElementById('pass').value="WML218Sys_<?php echo date("mdHi"); ?>";
 </script>
 
 </html>

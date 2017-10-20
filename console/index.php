@@ -65,103 +65,102 @@
 	}
 	
 ?>
-	<div style="width:1200px; height:570px; margin:0 auto; margin-top:20px;">
-		<div class="Topic">
-			欢迎您，管理员！您本次的登录时间是<?php echo date("Y-m-d H:i"); ?>，此次登录有效期至<?php echo substr($_SESSION['T'],4,2).":".substr($_SESSION['T'],6,2); ?>。<span style="font-weight:bold;">数据无价，请谨慎操作！</span> 注意：本页面需启用php_mbstring.dll。
-			<a href="login_check.php" style="text-decoration:none;"><span style="float:right; margin-right:15px; color:#FF8C00;">[退出系统]</span></a>
-		</div>
-		
-		<!-- 左侧借用情况日历表 -->
-		<div style="width:830px; height:504px; margin-top:20px; border-right:2px solid #000; border-bottom:2px solid #000; float:left;">
-		<div>
-			<button class="ChartTop" style="width:80px;">日期</button>
-			<button class='ChartTop' style="width:50px;">星期</button>
-			<button class='ChartTop'>08:00-10:00</button>
-			<button class='ChartTop'>10:00-12:00</button>
-			<button class='ChartTop'>12:00-14:00</button>
-			<button class='ChartTop'>14:00-16:00</button>
-			<button class='ChartTop'>16:00-18:00</button>
-			<button class='ChartTop'>18:00-20:00</button>
-			<button class='ChartTop'>20:00-22:00</button>
-		</div>
-		
-		<div> 
-		<?php
-			for ($date=-8; $date<=2; $date++)
+<div style="width:1200px; height:570px; margin:0 auto; margin-top:20px;">
+	<div class="Topic">
+		欢迎您，管理员！您本次的登录时间是<?php echo date("Y-m-d H:i"); ?>，此次登录有效期至<?php echo substr($_SESSION['T'],4,2).":".substr($_SESSION['T'],6,2); ?>。<span style="font-weight:bold;">数据无价，请谨慎操作！</span> 注意：本页面需启用php_mbstring.dll。
+		<a href="login_check.php" style="text-decoration:none;"><span style="float:right; margin-right:15px; color:#FF8C00;">[退出系统]</span></a>
+	</div>
+	
+	<!-- 左侧借用情况日历表 -->
+	<div style="width:830px; height:504px; margin-top:20px; border-right:2px solid #000; border-bottom:2px solid #000; float:left;">
+	<div>
+		<button class="ChartTop" style="width:80px;">日期</button>
+		<button class='ChartTop' style="width:50px;">星期</button>
+		<button class='ChartTop'>08:00-10:00</button>
+		<button class='ChartTop'>10:00-12:00</button>
+		<button class='ChartTop'>12:00-14:00</button>
+		<button class='ChartTop'>14:00-16:00</button>
+		<button class='ChartTop'>16:00-18:00</button>
+		<button class='ChartTop'>18:00-20:00</button>
+		<button class='ChartTop'>20:00-22:00</button>
+	</div>
+	
+	<div> 
+	<?php
+		for ($date=-8; $date<=2; $date++)
+		{
+			if ($date!=0)
 			{
-				if ($date!=0)
-				{
-					$isToday = 0;
-				}
-				else
-				{
-					$isToday = 1;
-				}
-				echo "<button class='DateBtn";
-					if ($isToday==1) echo "HL";
-					echo "'>" . substr(date("Y-m-d",strtotime($date." day")),2) . "</button>";
-				echo "<button class='WeekDayBtn";
-					if ($isToday==1) echo "HL";
-					echo "'>" . date("D",strtotime($date." day")) . ".</button>";
+				$isToday = 0;
+			}
+			else
+			{
+				$isToday = 1;
+			}
+			echo "<button class='DateBtn";
+				if ($isToday==1) echo "HL";
+				echo "'>" . substr(date("Y-m-d",strtotime($date." day")),2) . "</button>";
+			echo "<button class='WeekDayBtn";
+				if ($isToday==1) echo "HL";
+				echo "'>" . date("D",strtotime($date." day")) . ".</button>";
 
-				$sql =  "SELECT COUNT(*) FROM status WHERE Date='".date("Y-m-d",strtotime($date." day"))."';";
-				$result = mysqli_query($conn,$sql);
-				if ($num = mysqli_num_rows($result))
+			$sql =  "SELECT COUNT(*) FROM status WHERE Date='".date("Y-m-d",strtotime($date." day"))."';";
+			$result = mysqli_query($conn,$sql);
+			if ($num = mysqli_num_rows($result))
+			{
+				while ($rows = mysqli_fetch_array($result,MYSQLI_ASSOC))
 				{
-					while ($rows = mysqli_fetch_array($result,MYSQLI_ASSOC))
+					if ($rows['COUNT(*)']==0)
 					{
-						if ($rows['COUNT(*)']==0)
+						// 该日在数据库中无数据
+						for ($i=4; $i<=10; $i++)
 						{
-							// 该日在数据库中无数据
-							for ($i=4; $i<=10; $i++)
-							{
-								echo "<button class='InfoBtn";
-									if ($isToday==1) echo "HL";
-									echo "' onclick=hideInfo();>-</button>";
-							}
+							echo "<button class='InfoBtn";
+								if ($isToday==1) echo "HL";
+								echo "' onclick=hideInfo();>-</button>";
 						}
-						else
+					}
+					else
+					{
+						$sql = "SELECT * FROM status WHERE Date='".date("Y-m-d",strtotime($date." day"))."';";
+						$result = mysqli_query($conn,$sql);
+						if ($num = mysqli_num_rows($result))
 						{
-							$sql = "SELECT * FROM status WHERE Date='".date("Y-m-d",strtotime($date." day"))."';";
-							$result = mysqli_query($conn,$sql);
-							if ($num = mysqli_num_rows($result))
+							while ($rows = mysqli_fetch_array($result,MYSQLI_ASSOC))
 							{
-								while ($rows = mysqli_fetch_array($result,MYSQLI_ASSOC))
+								for ($i=4; $i<=10; $i++)
 								{
-									for ($i=4; $i<=10; $i++)
-									{
-										if ($rows[($i*2)."T".($i*2+2)]!=NULL)
-										{			
-											$strinfo = $rows[($i*2)."T".($i*2+2)];
-											$sql_info = "SELECT log.*, userinfo.name FROM log, userinfo WHERE log.no='".substr($strinfo,0,(strpos($strinfo,'|')))."' AND log.id='".substr($strinfo,(strpos($strinfo,'|')+1),strlen($strinfo)-strpos($strinfo,'|')-1)."' AND userinfo.id='".substr($strinfo,(strpos($strinfo,'|')+1),strlen($strinfo)-strpos($strinfo,'|')-1)."';";
-											// echo $sql_info;
-											$result_info = mysqli_query($conn,$sql_info);
-											if ($numi = mysqli_num_rows($result_info))
+									if ($rows[($i*2)."T".($i*2+2)]!=NULL)
+									{			
+										$strinfo = $rows[($i*2)."T".($i*2+2)];
+										$sql_info = "SELECT log.*, userinfo.name FROM log, userinfo WHERE log.no='".substr($strinfo,0,(strpos($strinfo,'|')))."' AND log.id='".substr($strinfo,(strpos($strinfo,'|')+1),strlen($strinfo)-strpos($strinfo,'|')-1)."' AND userinfo.id='".substr($strinfo,(strpos($strinfo,'|')+1),strlen($strinfo)-strpos($strinfo,'|')-1)."';";
+										// echo $sql_info;
+										$result_info = mysqli_query($conn,$sql_info);
+										if ($numi = mysqli_num_rows($result_info))
+										{
+											while ($rowsi = mysqli_fetch_array($result_info,MYSQLI_ASSOC))
 											{
-												while ($rowsi = mysqli_fetch_array($result_info,MYSQLI_ASSOC))
+												echo "<input type='hidden' id='h_".$i."_".$rows['Date']."' value='".$rowsi['no']."|".$rowsi['id']."|".$rowsi['name']."|".$rowsi['phone']."|".$rowsi['date']."|".$rowsi['time']."|".$rowsi['state']."|".$rowsi['remark']."|".$rowsi['log']."' />";
+												
+												$infoStr = $rowsi['remark'];
+												if (mb_strlen($infoStr)>7)
 												{
-													echo "<input type='hidden' id='h_".$i."_".$rows['Date']."' value='".$rowsi['no']."|".$rowsi['id']."|".$rowsi['name']."|".$rowsi['phone']."|".$rowsi['date']."|".$rowsi['time']."|".$rowsi['state']."|".$rowsi['remark']."|".$rowsi['log']."' />";
-													
-													$infoStr = $rowsi['remark'];
-													if (mb_strlen($infoStr)>7)
-													{
-														$infoStr = mb_substr($infoStr,0,4) . "…" . mb_substr($infoStr,mb_strlen($infoStr)-2,2,"utf-8");
-													}
-													
-													// 该时段有人借用
-													echo "<button class='InfoBtn";
-														if ($isToday==1) echo "HL";
-													echo "' id=s_".$i."_".$rows['Date']."' onclick=showInfo('h_".$i."_".$rows['Date']."'); onblur=hideInfo();>" .  $rowsi['name'] . "<br/>" . $infoStr . "</button>";
+													$infoStr = mb_substr($infoStr,0,4) . "…" . mb_substr($infoStr,mb_strlen($infoStr)-2,2,"utf-8");
 												}
+												
+												// 该时段有人借用
+												echo "<button class='InfoBtn";
+													if ($isToday==1) echo "HL";
+												echo "' id=s_".$i."_".$rows['Date']."' onclick=showInfo('h_".$i."_".$rows['Date']."'); onblur=hideInfo();>" .  $rowsi['name'] . "<br/>" . $infoStr . "</button>";
 											}
 										}
-										else											
-										{
-											// 该时段无人借用
-											echo "<button class='InfoBtn";
-												if ($isToday==1) echo "HL";
-											echo "' onclick=hideInfo();>-</button>";
-										}
+									}
+									else											
+									{
+										// 该时段无人借用
+										echo "<button class='InfoBtn";
+											if ($isToday==1) echo "HL";
+										echo "' onclick=hideInfo();>-</button>";
 									}
 								}
 							}
@@ -169,201 +168,202 @@
 					}
 				}
 			}
-			
-		?>
-		</div>		
-		</div>
-	
-		<!-- 右侧 1.预约详情 -->
-		<div style="width:345px; height:auto; margin-left:23px; margin-top:20px; float:left;"> 
-			<button class="rightHead">预约详情</button>
-			<button class="rightColor1" id="Info_No" style="width:95px;">Log ID</button><button class="rightColor2" id="Info_DateTime" style="width:160px;">数据库记录时间</button>
-			<button class="rightColor1" id="Info_Name" style="width:90px;">姓名</button><button class="rightColor2" id="Info_Id" style="width:125px;">学/证号</button><button class="rightColor1" id="Info_Phone" style="width:130px;">联系电话</button>
-			<button class="rightColor2" id="Info_Date" style="width:90px; font-size:12px;">Date</button><button class="rightColor1" id="Info_Time" style="width:55px; font-size:12px;">Time</button><button class="rightColor2" id="Info_Remark" style="width:200px; font-size:12px;">活动室借用事由</button>
-		</div>
+		}
 		
-		<!-- 右侧 2.统计数据 -->
-		<div style="width:345px; height:auto; margin-left:23px; margin-top:20px; float:left;"> 
-			<button class="rightHead">统计数据</button>
-			<button class="rightColor1" style="width:115px;">学/证号</button><button class="rightColor2" style="width:70px;">次数</button><button class="rightColor1" style="width:70px;">CSS</button>
-			<?php
-				$sql =  "SELECT * FROM userinfo ORDER BY count DESC LIMIT 3;";
-				$result = mysqli_query($conn,$sql);
-				if ($num = mysqli_num_rows($result))
-				{
-					$i = 0;
-					while ($rows = mysqli_fetch_array($result,MYSQLI_ASSOC))
-					{
-						$i++;
-			?>
-			<button class="rightColor1" style="width:90px; <?php if ($i!=1) echo 'border-top:1.5px solid #FFA500;'; ?> "><?php echo $rows['name']; ?></button><button class="rightColor2" style="width:115px; <?php if ($i!=1) echo 'border-top:1.5px solid #FFA500;'; ?> "><?php echo $rows['id']; ?></button><button class="rightColor1" style="width:70px; <?php if ($i!=1) echo 'border-top:1.5px solid #FFA500;'; ?> "><?php echo $rows['count']; ?></button><button class="rightColor2" style="width:70px; <?php if ($i!=1) echo 'border-top:1.5px solid #FFA500;'; ?> "><?php if ($rows['css']==0) echo "北欧"; if ($rows['css']==1) echo "炫彩"; ?></button>
-			<?php
-					}
-				}
-			?>
-		</div>
-		
-		<!-- 右侧 3.数据导入 -->
-		<div style="width:345px; height:auto; margin-left:23px; margin-top:20px; float:left;"> 
-			<button class="rightHead" style="float:left;">数据导入</button>
-			<form action="editFile.php" method="post" enctype="multipart/form-data" style="width:255px; float:left;">
-				<button class="rightColor2" style="width:185px; pointer-events:auto;"><input type="file" name="file" id="file" class="uploadFile" accept=".txt" style="width:185px; color:#FFF; font-size:14px; font-family:'Microsoft Yahei','微软雅黑','sans-serif';" /></button><button name="upload_btn" class="rightColor1" style="width:70px; pointer-events:auto; float:right;" onmouseover="this.style.color='#F00';" onmouseout="this.style.color='#000';">上传</button>
-			</form>
-			<form action="editFile.php" method="POST" style="float:left;"><button name="download_btn" title="点此下载数据导入模板" class="rightColor2" style="width:90px; pointer-events:auto;" onmouseover="this.style.color='#000';" onmouseout="this.style.color='#FFF';">下载模板</button></form><button class="rightColor1" style="width:100px;">En.txt &lt; 8k </button><button class="rightColor2" style="width:155px; padding:1px 2px 1px 2px;"><?php
-								if (isset($_SESSION['FileCode']) && ($_SESSION['FileCode']!='0'))
-								{
-									echo $_SESSION['FileCode'];
-								}
-								else
-								{
-									echo "< RETURN CODE >";
-								}
-							?></button>
-			<button class="rightColor1" style="width:90px;">文件列表</button>
-			<form action="<?php echo "index.php";//htmlspecialchars($_SERVER["PHP_SELF"]);?>" method="POST" style="width:255px; float:right;">
-				<select name="FileSelect" class="selector">
-					<option value='#'>PLEASE SELECT FILE...</option>
-					<?php
-						$filesnames = scandir(__DIR__ . "/import/");
-						foreach ($filesnames as $name)
-						{
-							if (strripos($name, '.txt')==strlen($name)-4)
-							echo "<option value='".$name."'>".$name."</option>";
-						}
-					?>
-				</select><button name="CheckFile" class="rightColor1" style="width:70px; pointer-events:auto;" onmouseover="this.style.color='#F00';" onmouseout="this.style.color='#000';">检查</button>
-			</form>	
-			
-			<!-- 左侧文件检查框 -->
-			<div style="width:120px; height:106px; background-color:#F0E68C; float:left; text-align:center;">
-				<!-- 文件删除按钮 -->
-				<form action="editFile.php" method="POST" style="float:left;"><button class="delete_btn" name="delete_btn" title="点击删除当前文件" onmouseover="this.style.color='#F00';" onmouseout="this.style.color='#000';" onclick="return deleteConfirm();">删</button></form>
-				
-				<!-- 文件名 -->
-				<button id="FileName" style="height:26px; width:90px; font-size:14px; background-color:#FF8C00; color:#FFF;"><?php
-					$_SESSION['FileName'] = "#";
-					if (isset($_POST['CheckFile']) && ($_POST['FileSelect']!='#'))
-					{
-						$_SESSION['FileName'] = $_POST['FileSelect'];
-						echo substr($_POST['FileSelect'],0,strlen($_POST['FileSelect'])-4);
-					}	
-					else
-						echo "&lt; NAME &gt";
-				?></button>
-				<textarea rows="4" id="FileRead"><?php
-					if (isset($_POST['CheckFile']) && ($_POST['FileSelect']!='#'))
-					{
-						$file = fopen("import/".$_POST['FileSelect'],"r");
-						$str_Name = substr(fgets($file),6);
-						// echo "Import Data Name = ".$str_Name."<br/>";
-						$str_Rec = substr(fgets($file),13);
-						// echo "Data Quantity = ".$str_Rec."<br/>";
-						$str_Identity = substr(fgets($file),10);
-						// echo "User Identity = ".$str_Identity."<br/>";
-						$str = "";
-						$File_Sign = 1;
-						if ($str_Rec>5)
-						{
-							for ($i=1; $i<=$str_Rec; $i++)
-							{
-								$str = fgets($file);
-								if (strpos($str,",")==FALSE)
-									$File_Sign = 0;
-								if ($i<=3) echo $str;
-								if ($i==$str_Rec) echo "...\r\n".$str;
-							}
-						}
-						else
-						{
-							for ($i=1; $i<=$str_Rec; $i++)
-							{
-								$str = fgets($file);
-								if (strpos($str,",")==FALSE)
-									$File_Sign = 0;
-								echo $str;
-							}
-						}
-						$str_EOFSign = fgets($file);
-						if ($str_EOFSign=="[EOF.]")
-							$EOF_Sign = 1;
-						else
-							$EOF_Sign = 0;
-					}
-					else
-					{
-						$EOF_Sign = 0;
-						echo "&lt; FILE &gt;";
-					}
-				?></textarea>
-				
-				
-			</div>
-			<!-- 右侧统计数据显示 -->
-			<div>
-				<!-- 数据名 + 去BOM按钮 -->
-				<button style="height:26px; width:155px; font-size:14px; background-color:#F0E68C; color:#000; padding:1px;"><?php
-					if (isset($_POST['CheckFile']))
-						if (@$str_Name!="")
-							echo $str_Name . '[' . intval($str_Rec) . ']';
-						else
-							echo "< DATA NAME >";
-					else
-						echo "< DATA NAME >";
-				?></button><a href="UTF8_BOM.php" title="若左侧文件名显示不正常，请点击此按钮"><button style="height:26px; width:70px; font-size:14px; background-color:#FF8C00; color:#FFF;">× BOM</button></a>
-				<!-- 导入数据库按钮 -->
-				<form action="index.php" method="POST" style="float:right;"><button class="delete_btn" name="import_btn" id="import_btn" title="点击导入当前数据文件" style="width:70px; border-color: #000; background-color:#F0E68C; color:#A9A9A9;" onmouseover="this.style.color='#000';" onmouseout="this.style.color='#F00';" onclick="return importConfirm();" disabled='true';>→ DB</button><input name="HiddenName" type="hidden" id="hiddenName" /></form>
-				<!-- 校验结果 -->
-				<button style="height:26px; width:155px; font-size:14px; background-color:#FF8C00; color:#FFF; padding:1px 2px 1px 2px;"><?php
-					if (isset($_POST['CheckFile']))
-					{
-						if (($EOF_Sign==1) && ($File_Sign==1))
-						{
-							echo "√ Verification OK!";
-							echo "<script>document.getElementById('import_btn').disabled=false; document.getElementById('import_btn').style.color='#F00'; document.getElementById('import_btn').title='点击导入当前数据文件';</script>";
-						}
-						else
-						{
-							echo "× Verification Error!";
-							echo "<script>document.getElementById('import_btn').disabled=true; document.getElementById('import_btn').style.color='#A9A9A9'; document.getElementById('import_btn').title='验证错误，不允许导入';</script>";
-						}
-					}
-					else
-					{
-						echo "< Verification Result >";
-						echo "<script>document.getElementById('import_btn').disabled=true; document.getElementById('import_btn').style.color='#A9A9A9'; document.getElementById('import_btn').title='验证错误，不允许导入';</script>";
-					}	
-				?></button>
-				<!-- 导入详情 -->
-				<button id="progress_mes" style="height:26px; width:155px; background-color:#F0E68C; font-size:14px; padding:1px 2px 1px 2px;"> &lt; MESSAGE &gt;</button>
-				<!-- 导入进度条 -->
-				<div style="height:26px; width:70px; background-color:#FF8C00; float:right;">
-					<div id="progress_col" style="height:22px; width:0px; background-color:#00BFFF; margin:2px;"></div>
-					<div id="progress_per" style="height:26px; width:70px; margin-top:-26px; background-color:transparent; text-align:center; font-size:14px; font-weight:bold; line-height:26px; color:#FFF;">0%</div>
-				</div>
-				
-				<!-- 导入详情 -->
-				<button style="height:28px; width:155px; background-color:#FF8C00; font-size:14px; padding:1px 2px 1px 2px; color:#FFF; pointer-events:auto;" onclick="document.getElementById('import_info_div').style.display='inline';">查看数据导入详情</button><!-- 日志 --><button style="height:28px; width:70px; background-color:#F0E68C; font-size:14px; padding:1px 2px 1px 2px; color:#000; pointer-events:auto;" onclick="document.getElementById('system_log').style.display='block';">查看日志</button>
-			</div>
-			
-		</div>
-		
-		<!-- 数据导入详情 -->
-		<div id="import_info_div" style="width:230px; height:502px; float:left; margin-top:-506px; margin-left:598px; border:2px solid #FF8C00; z-index:999; background-color:#F0E68C; display:none;">
-			<div style="text-align:center; margin-top:5px; font-family:'Microsoft Yahei','微软雅黑','sans-serif'; font-weight:bold; font-size:16px;">数据导入详情</div>
-			<span style="width:28px; height:28px; margin-top:-28px; margin-right:-2px; background-color:#FF8C00; color:#FFF; float:right; font-size:26px; text-align:center; line-height:26px;" onclick="document.getElementById('import_info_div').style.display='none';">×</span>
-			<div id="import_info_2" style="margin-top:5px; margin-left:5px; height:60px; font-family:'Microsoft Yahei','微软雅黑','sans-serif'; font-size:14px;"></div>
-			<div id="import_info" style="width:225px; height:410px; margin-left:5px; font-family:'Consolas','Microsoft Yahei','微软雅黑','sans-serif'; overflow:auto;"></div>
-		</div>
+	?>
+	</div>		
+	</div>
+
+	<!-- 右侧 1.预约详情 -->
+	<div style="width:345px; height:auto; margin-left:23px; margin-top:20px; float:left;"> 
+		<button class="rightHead">预约详情</button>
+		<button class="rightColor1" id="Info_No" style="width:95px;">Log ID</button><button class="rightColor2" id="Info_DateTime" style="width:160px;">数据库记录时间</button>
+		<button class="rightColor1" id="Info_Name" style="width:90px;">姓名</button><button class="rightColor2" id="Info_Id" style="width:125px;">学/证号</button><button class="rightColor1" id="Info_Phone" style="width:130px;">联系电话</button>
+		<button class="rightColor2" id="Info_Date" style="width:90px; font-size:12px;">Date</button><button class="rightColor1" id="Info_Time" style="width:55px; font-size:12px;">Time</button><button class="rightColor2" id="Info_Remark" style="width:200px; font-size:12px;">活动室借用事由</button>
 	</div>
 	
-	<div id="system_log" style="width:1196px; height:500px; margin:0 auto; margin-top:15px; background-color:#F0E68C; border:2px solid #FF8C00; display:block;">
-		<div style="text-align:center; margin-top:5px; font-family:'Microsoft Yahei','微软雅黑','sans-serif'; font-weight:bold; font-size:16px;">用户数据查询修改及系统日志——数据无价，谨慎操作！</div>
-		<span style="width:28px; height:28px; margin-top:-28px; margin-right:-2px; background-color:#FF8C00; color:#FFF; float:right; font-size:26px; text-align:center; line-height:26px;" onclick="document.getElementById('system_log').style.display='none';">×</span>
-		<div style="width:300px; height:400px; float:left; border:2px solid #FF8C00; ">
+	<!-- 右侧 2.统计数据 -->
+	<div style="width:345px; height:auto; margin-left:23px; margin-top:20px; float:left;"> 
+		<button class="rightHead">统计数据</button>
+		<button class="rightColor1" style="width:115px;">学/证号</button><button class="rightColor2" style="width:70px;">次数</button><button class="rightColor1" style="width:70px;">CSS</button>
+		<?php
+			$sql =  "SELECT * FROM userinfo ORDER BY count DESC LIMIT 3;";
+			$result = mysqli_query($conn,$sql);
+			if ($num = mysqli_num_rows($result))
+			{
+				$i = 0;
+				while ($rows = mysqli_fetch_array($result,MYSQLI_ASSOC))
+				{
+					$i++;
+		?>
+		<button class="rightColor1" style="width:90px; <?php if ($i!=1) echo 'border-top:1.5px solid #FFA500;'; ?> "><?php echo $rows['name']; ?></button><button class="rightColor2" style="width:115px; <?php if ($i!=1) echo 'border-top:1.5px solid #FFA500;'; ?> "><?php echo $rows['id']; ?></button><button class="rightColor1" style="width:70px; <?php if ($i!=1) echo 'border-top:1.5px solid #FFA500;'; ?> "><?php echo $rows['count']; ?></button><button class="rightColor2" style="width:70px; <?php if ($i!=1) echo 'border-top:1.5px solid #FFA500;'; ?> "><?php if ($rows['css']==0) echo "北欧"; if ($rows['css']==1) echo "炫彩"; ?></button>
+		<?php
+				}
+			}
+		?>
+	</div>
+	
+	<!-- 右侧 3.数据导入 -->
+	<div style="width:345px; height:auto; margin-left:23px; margin-top:20px; float:left;"> 
+		<button class="rightHead" style="float:left;">数据导入</button>
+		<form action="editFile.php" method="post" enctype="multipart/form-data" style="width:255px; float:left;">
+			<button class="rightColor2" style="width:185px; pointer-events:auto;"><input type="file" name="file" id="file" class="uploadFile" accept=".txt" style="width:185px; color:#FFF; font-size:14px; font-family:'Microsoft Yahei','微软雅黑','sans-serif';" /></button><button name="upload_btn" class="rightColor1" style="width:70px; pointer-events:auto; float:right;" onmouseover="this.style.color='#F00';" onmouseout="this.style.color='#000';">上传</button>
+		</form>
+		<form action="editFile.php" method="POST" style="float:left;"><button name="download_btn" title="点此下载数据导入模板" class="rightColor2" style="width:90px; pointer-events:auto;" onmouseover="this.style.color='#000';" onmouseout="this.style.color='#FFF';">下载模板</button></form><button class="rightColor1" style="width:100px;">En.txt &lt; 8k </button><button class="rightColor2" style="width:155px; padding:1px 2px 1px 2px;"><?php
+							if (isset($_SESSION['FileCode']) && ($_SESSION['FileCode']!='0'))
+							{
+								echo $_SESSION['FileCode'];
+							}
+							else
+							{
+								echo "< RETURN CODE >";
+							}
+						?></button>
+		<button class="rightColor1" style="width:90px;">文件列表</button>
+		<form action="<?php echo "index.php";//htmlspecialchars($_SERVER["PHP_SELF"]);?>" method="POST" style="width:255px; float:right;">
+			<select name="FileSelect" class="selector">
+				<option value='#'>PLEASE SELECT FILE...</option>
+				<?php
+					$filesnames = scandir(__DIR__ . "/import/");
+					foreach ($filesnames as $name)
+					{
+						if (strripos($name, '.txt')==strlen($name)-4)
+						echo "<option value='".$name."'>".$name."</option>";
+					}
+				?>
+			</select><button name="CheckFile" class="rightColor1" style="width:70px; pointer-events:auto;" onmouseover="this.style.color='#F00';" onmouseout="this.style.color='#000';">检查</button>
+		</form>	
+		
+		<!-- 左侧文件检查框 -->
+		<div style="width:120px; height:106px; background-color:#F0E68C; float:left; text-align:center;">
+			<!-- 文件删除按钮 -->
+			<form action="editFile.php" method="POST" style="float:left;"><button class="delete_btn" name="delete_btn" title="点击删除当前文件" onmouseover="this.style.color='#F00';" onmouseout="this.style.color='#000';" onclick="return deleteConfirm();">删</button></form>
+			
+			<!-- 文件名 -->
+			<button id="FileName" style="height:26px; width:90px; font-size:14px; background-color:#FF8C00; color:#FFF;"><?php
+				$_SESSION['FileName'] = "#";
+				if (isset($_POST['CheckFile']) && ($_POST['FileSelect']!='#'))
+				{
+					$_SESSION['FileName'] = $_POST['FileSelect'];
+					echo substr($_POST['FileSelect'],0,strlen($_POST['FileSelect'])-4);
+				}	
+				else
+					echo "&lt; NAME &gt";
+			?></button>
+			<textarea rows="4" id="FileRead"><?php
+				if (isset($_POST['CheckFile']) && ($_POST['FileSelect']!='#'))
+				{
+					$file = fopen("import/".$_POST['FileSelect'],"r");
+					$str_Name = substr(fgets($file),6);
+					// echo "Import Data Name = ".$str_Name."<br/>";
+					$str_Rec = substr(fgets($file),13);
+					// echo "Data Quantity = ".$str_Rec."<br/>";
+					$str_Identity = substr(fgets($file),10);
+					// echo "User Identity = ".$str_Identity."<br/>";
+					$str = "";
+					$File_Sign = 1;
+					if ($str_Rec>5)
+					{
+						for ($i=1; $i<=$str_Rec; $i++)
+						{
+							$str = fgets($file);
+							if (strpos($str,",")==FALSE)
+								$File_Sign = 0;
+							if ($i<=3) echo $str;
+							if ($i==$str_Rec) echo "...\r\n".$str;
+						}
+					}
+					else
+					{
+						for ($i=1; $i<=$str_Rec; $i++)
+						{
+							$str = fgets($file);
+							if (strpos($str,",")==FALSE)
+								$File_Sign = 0;
+							echo $str;
+						}
+					}
+					$str_EOFSign = fgets($file);
+					if ($str_EOFSign=="[EOF.]")
+						$EOF_Sign = 1;
+					else
+						$EOF_Sign = 0;
+				}
+				else
+				{
+					$EOF_Sign = 0;
+					echo "&lt; FILE &gt;";
+				}
+			?></textarea>
+			
 			
 		</div>
-		<div style="width:800px; height:400px; float:left; border:2px solid #FF8C00; ">
+		<!-- 右侧统计数据显示 -->
+		<div>
+			<!-- 数据名 + 去BOM按钮 -->
+			<button style="height:26px; width:155px; font-size:14px; background-color:#F0E68C; color:#000; padding:1px;"><?php
+				if (isset($_POST['CheckFile']))
+					if (@$str_Name!="")
+						echo $str_Name . '[' . intval($str_Rec) . ']';
+					else
+						echo "< DATA NAME >";
+				else
+					echo "< DATA NAME >";
+			?></button><a href="UTF8_BOM.php" title="若左侧文件名显示不正常，请点击此按钮"><button style="height:26px; width:70px; font-size:14px; background-color:#FF8C00; color:#FFF;">× BOM</button></a>
+			<!-- 导入数据库按钮 -->
+			<form action="index.php" method="POST" style="float:right;"><button class="delete_btn" name="import_btn" id="import_btn" title="点击导入当前数据文件" style="width:70px; border-color: #000; background-color:#F0E68C; color:#A9A9A9;" onmouseover="this.style.color='#000';" onmouseout="this.style.color='#F00';" onclick="return importConfirm();" disabled='true';>→ DB</button><input name="HiddenName" type="hidden" id="hiddenName" /></form>
+			<!-- 校验结果 -->
+			<button style="height:26px; width:155px; font-size:14px; background-color:#FF8C00; color:#FFF; padding:1px 2px 1px 2px;"><?php
+				if (isset($_POST['CheckFile']))
+				{
+					if (($EOF_Sign==1) && ($File_Sign==1))
+					{
+						echo "√ Verification OK!";
+						echo "<script>document.getElementById('import_btn').disabled=false; document.getElementById('import_btn').style.color='#F00'; document.getElementById('import_btn').title='点击导入当前数据文件';</script>";
+					}
+					else
+					{
+						echo "× Verification Error!";
+						echo "<script>document.getElementById('import_btn').disabled=true; document.getElementById('import_btn').style.color='#A9A9A9'; document.getElementById('import_btn').title='验证错误，不允许导入';</script>";
+					}
+				}
+				else
+				{
+					echo "< Verification Result >";
+					echo "<script>document.getElementById('import_btn').disabled=true; document.getElementById('import_btn').style.color='#A9A9A9'; document.getElementById('import_btn').title='验证错误，不允许导入';</script>";
+				}	
+			?></button>
+			<!-- 导入详情 -->
+			<button id="progress_mes" style="height:26px; width:155px; background-color:#F0E68C; font-size:14px; padding:1px 2px 1px 2px;"> &lt; MESSAGE &gt;</button>
+			<!-- 导入进度条 -->
+			<div style="height:26px; width:70px; background-color:#FF8C00; float:right;">
+				<div id="progress_col" style="height:22px; width:0px; background-color:#00BFFF; margin:2px;"></div>
+				<div id="progress_per" style="height:26px; width:70px; margin-top:-26px; background-color:transparent; text-align:center; font-size:14px; font-weight:bold; line-height:26px; color:#FFF;">0%</div>
+			</div>
 			
+			<!-- 导入详情 -->
+			<button style="height:28px; width:155px; background-color:#FF8C00; font-size:14px; padding:1px 2px 1px 2px; color:#FFF; pointer-events:auto;" onclick="document.getElementById('import_info_div').style.display='inline';">查看数据导入详情</button><!-- 日志 --><button style="height:28px; width:70px; background-color:#F0E68C; font-size:14px; padding:1px 2px 1px 2px; color:#000; pointer-events:auto;" onclick="document.getElementById('system_log').style.display='block';">查看日志</button>
+		</div>
+		
+	</div>
+	
+	<!-- 数据导入详情 -->
+	<div id="import_info_div" style="width:230px; height:502px; float:left; margin-top:-506px; margin-left:598px; border:2px solid #FF8C00; z-index:999; background-color:#F0E68C; display:none;">
+		<div style="text-align:center; margin-top:5px; font-family:'Microsoft Yahei','微软雅黑','sans-serif'; font-weight:bold; font-size:16px;">数据导入详情</div>
+		<span style="width:28px; height:28px; margin-top:-28px; margin-right:-2px; background-color:#FF8C00; color:#FFF; float:right; font-size:26px; text-align:center; line-height:26px;" onclick="document.getElementById('import_info_div').style.display='none';">×</span>
+		<div id="import_info_2" style="margin-top:5px; margin-left:5px; height:60px; font-family:'Microsoft Yahei','微软雅黑','sans-serif'; font-size:14px;"></div>
+		<div id="import_info" style="width:225px; height:410px; margin-left:5px; font-family:'Consolas','Microsoft Yahei','微软雅黑','sans-serif'; overflow:auto;"></div>
+	</div>
+</div>
+
+<div id="system_log" style="width:1196px; height:500px; margin:0 auto; margin-top:15px; background-color:#F0E68C; border:2px solid #FF8C00; display:block;">
+	<div style="text-align:center; margin-top:5px; font-family:'Microsoft Yahei','微软雅黑','sans-serif'; font-weight:bold; font-size:16px;">用户数据查询修改及系统日志——数据无价，谨慎操作！</div>
+	<span style="width:28px; height:28px; margin-top:-28px; margin-right:-2px; background-color:#FF8C00; color:#FFF; float:right; font-size:26px; text-align:center; line-height:26px;" onclick="document.getElementById('system_log').style.display='none';">×</span>
+	<div style="width:300px; height:400px; float:left; border:2px solid #FF8C00; ">
+		
+	</div>
+	<div style="width:800px; height:400px; float:left; border:2px solid #FF8C00; ">
+		<div id="import_info" style="width:800px; height:410px; margin-left:5px; font-family:'Consolas','Microsoft Yahei','微软雅黑','sans-serif'; overflow:auto;">
 			<?php
 				$sql =  "SELECT log.*,userinfo.name FROM log,userinfo WHERE userinfo.id=log.id ORDER BY no DESC LIMIT 20;";
 				$result = mysqli_query($conn,$sql);
@@ -371,88 +371,88 @@
 				{
 					while ($rows = mysqli_fetch_array($result,MYSQLI_ASSOC))
 					{
-						echo $rows['no']."..".$rows['id']."<br />";
+						echo $rows['no']."..".$rows['id']."..".$rows['name']."..".$rows['remark']."<br />";
 					}
 				}
-				
 			?>
 		</div>
 	</div>
-	
-	<div style="margin:0 auto; margin-top:10px; text-align:center;">
-		控制台要求使用1366*768及以上分辨率 . Developed By 汤圆 [ 13141009 / ChenTy95 ]
-	</div>
-	
-	<?php
-		if (isset($_POST['import_btn']))
+</div>
+
+<div style="margin:0 auto; margin-top:10px; text-align:center;">
+	控制台要求使用1366*768及以上分辨率 . Developed By 汤圆 [ 13141009 / ChenTy95 ]
+</div>
+
+<?php
+	if (isset($_POST['import_btn']))
+	{
+		$file = fopen("import/".$_POST['HiddenName'],"r");
+		$str_Name = rtrim(substr(fgets($file),6));
+		$str_Rec = rtrim(substr(fgets($file),13));
+		$str_Identity = rtrim(substr(fgets($file),10));
+		
+		echo "<script>document.getElementById('import_info_div').style.display='inline';document.getElementById('import_info_2').innerHTML='DATA NAME = ".$str_Name."<br/>TOTAL RECORD = ".$str_Rec."<br/>';</script>";
+		
+		// 进度条设置项
+		set_time_limit(0);
+		// ob_end_clean();
+		$total = intval($str_Rec);
+		$width = 66;
+		$pix = 66 / $total;
+		$progress = 0;
+		
+		flush();
+		
+		$successTot = 0;
+		$recStr_Arr = array($str_Rec+1);
+		$recCode_Arr = array($str_Rec+1);
+		for ($i=1; $i<=$str_Rec; $i++)
 		{
-			$file = fopen("import/".$_POST['HiddenName'],"r");
-			$str_Name = rtrim(substr(fgets($file),6));
-			$str_Rec = rtrim(substr(fgets($file),13));
-			$str_Identity = rtrim(substr(fgets($file),10));
+			$str = fgets($file);
+			$user_id = substr($str,0,strpos($str,","));
+			$user_name = substr($str,strpos($str,",") + 1);
+			$recStr_Arr[$i] = $user_id." ".$user_name;
 			
-			echo "<script>document.getElementById('import_info_div').style.display='inline';document.getElementById('import_info_2').innerHTML='DATA NAME = ".$str_Name."<br/>TOTAL RECORD = ".$str_Rec."<br/>';</script>";
+			$sql_insert = "INSERT IGNORE INTO userinfo(id,name,identity) VALUES ('".$user_id."','".$user_name."','".$str_Identity."');";
+			mysqli_query($conn,$sql_insert);
 			
-			// 进度条设置项
-			set_time_limit(0);
-			// ob_end_clean();
-			$total = intval($str_Rec);
-			$width = 66;
-			$pix = 66 / $total;
-			$progress = 0;
-			
-			flush();
-			
-			$successTot = 0;
-			$recStr_Arr = array($str_Rec+1);
-			$recCode_Arr = array($str_Rec+1);
-			for ($i=1; $i<=$str_Rec; $i++)
+			$affected_row = mysqli_affected_rows($conn);
+			if ($affected_row==1)
 			{
-				$str = fgets($file);
-				$user_id = substr($str,0,strpos($str,","));
-				$user_name = substr($str,strpos($str,",") + 1);
-				$recStr_Arr[$i] = $user_id." ".$user_name;
-				
-				$sql_insert = "INSERT IGNORE INTO userinfo(id,name,identity) VALUES ('".$user_id."','".$user_name."','".$str_Identity."');";
-				mysqli_query($conn,$sql_insert);
-				
-				$affected_row = mysqli_affected_rows($conn);
-				if ($affected_row==1)
-				{
-					$recCode_Arr[$i] = 1;
-					$successTot += 1;
-				}
-				else
-					$recCode_Arr[$i] = 0;
-	?>
-	<script>
-		updateProgress("<?php echo $user_id; ?>...<?php echo $affected_row; ?>", <?php echo min(66,intval($progress)); ?>);
-	</script>
-	<?php
-				flush();
-				$progress += $pix;
+				$recCode_Arr[$i] = 1;
+				$successTot += 1;
 			}
-	?>
-	<script>
-		updateProgress("Finish !", 66);
-	</script>
-	<?php
+			else
+				$recCode_Arr[$i] = 0;
+?>
+<script>
+	updateProgress("<?php echo $user_id; ?>...<?php echo $affected_row; ?>", <?php echo min(66,intval($progress)); ?>);
+</script>
+<?php
 			flush();
-			echo "<script>document.getElementById('import_info_2').innerHTML+='INS SUCCESS = ".$successTot." , <font color=red>FAIL = ". ($str_Rec-$successTot) ."</font><br/>';</script>";
-			
-			for ($i=1; $i<=$str_Rec; $i++)
+			$progress += $pix;
+		}
+?>
+<script>
+	updateProgress("Finish !", 66);
+</script>
+<?php
+		flush();
+		echo "<script>document.getElementById('import_info_2').innerHTML+='INS SUCCESS = ".$successTot." , <font color=red>FAIL = ". ($str_Rec-$successTot) ."</font><br/>';</script>";
+		
+		for ($i=1; $i<=$str_Rec; $i++)
+		{
+			if ($recCode_Arr[$i] != 1)
 			{
-				if ($recCode_Arr[$i] != 1)
-				{
-					echo "<script>document.getElementById('import_info').innerHTML+='<font color=red>[FAIL] ".rtrim($recStr_Arr[$i])."</font><br/>';</script>";
-				}
-				else
-				{
-					echo "<script>document.getElementById('import_info').innerHTML+='[ OK ] ".rtrim($recStr_Arr[$i])."<br/>';</script>";
-				}
+				echo "<script>document.getElementById('import_info').innerHTML+='<font color=red>[FAIL] ".rtrim($recStr_Arr[$i])."</font><br/>';</script>";
+			}
+			else
+			{
+				echo "<script>document.getElementById('import_info').innerHTML+='[ OK ] ".rtrim($recStr_Arr[$i])."<br/>';</script>";
 			}
 		}
-	?>
+	}
+?>
 
 </body>	
 	

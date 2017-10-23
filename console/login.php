@@ -7,16 +7,16 @@
 </head>
 
 <body>
-	<div class="bg" style="width:550px; height:300px; margin:0 auto; margin-top:160px; text-align:center;">
+	<div class="login_bg" style="width:550px; height:300px; margin:0 auto; margin-top:160px; text-align:center;">
 		<p style="padding-top:40px; font-size:36px; font-weight:bold; color:#FFF;">管理员登录</p>
 		<form action="login_check.php" method="POST">
-			<input name="pass" type="password" id="pass"/><br/>
+			<input name="pass" type="password" id="pass" style="font-size:16px; font-family:'Segoe UI','Microsoft Yahei','微软雅黑','sans-serif';"/><br/>
 			<input id="loginBtn" type="submit" value=">  登录  <"/>
 		</form>
 		<?php
 			date_default_timezone_set("Asia/Shanghai");
 		?>
-		<p id="timeInfo"><?php echo date("Y-m-d H:i"); ?> # Code By ChenTy</p>
+		<p id="timeInfo" style="font-size:16px; font-family:'Microsoft Yahei Light','微软雅黑','sans-serif';"><?php echo date("Y-m-d H:i"); ?> # Code By ChenTy</p>
 	</div>
 </body>
 

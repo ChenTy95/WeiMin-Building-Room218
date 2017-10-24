@@ -289,11 +289,51 @@ button {
 	cursor: pointer;
 }
 
-.logBtn {
+.logBtnBlue {
+	height: 26px;
+	background-color: #8192D6;
+	color: #FFF;
+	font-size: 12px; 
+	margin-top: 5px; 
+	margin-left: 5px;
+}
+.logBtnDarkBlue {
 	height: 26px;
 	background-color: #305496;
 	color: #FFF;
 	font-size: 12px;
 	margin-top: 5px;
+	margin-left: 5px;
+}
+.logBtnGray {
+	height: 26px;
+	background-color: #696969;
+	color: #FFF;
+	font-size: 12px; 
+	margin-top: 5px; 
+	margin-left: 5px;
+}
+.logBtnPink {
+	height: 26px;
+	background-color: #C1194E;
+	color: #FFF;
+	font-size: 12px; 
+	margin-top: 5px; 
+	margin-left: 5px;
+}
+.logBtnOrange {
+	height: 26px;
+	background-color: #FF8C00;
+	color: #FFF;
+	font-size: 12px; 
+	margin-top: 5px; 
+	margin-left: 5px;
+}
+.logBtnGreen {
+	height: 26px;
+	background-color: #008000;
+	color: #FFF;
+	font-size: 12px; 
+	margin-top: 5px; 
 	margin-left: 5px;
 }

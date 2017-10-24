@@ -363,8 +363,38 @@
 	</div>
 	<div style="width:800px; height:400px; float:left; border:2px solid #FF8C00; ">
 		<div id="import_info" style="width:800px; height:410px; margin-left:5px; overflow:auto;">
-		<button class="logBtn" style="width:50px;">ID</button><button class="logBtn" style="width:100px;">证件号码</button><button class="logBtn" style="width:100px;">姓名</button><button class="logBtn" style="width:140px;">操作时间</button><button class="logBtn" style="width:240px;">内容</button><button class="logBtn" style="width:120px;">IP地址</button>
+		<button class="logBtnDarkBlue" style="width:50px;">ID</button><button class="logBtnDarkBlue" style="width:100px;">证件号码</button><button class="logBtnDarkBlue" style="width:100px;">姓名</button><button class="logBtnDarkBlue" style="width:140px;">操作时间</button><button class="logBtnDarkBlue" style="width:240px;">内容</button><button class="logBtnDarkBlue" style="width:120px;">IP地址</button>
 			<?php
+				function diffColor($stateType)
+				{
+					switch ($stateType)
+					{
+						case "Login":
+							echo "Orange";
+							break;
+						case "Logout":
+							echo "Gray";
+							break;
+						case "Reserve":
+							echo "DarkBlue";
+							break;
+						case "Cancel":
+							echo "Pink";
+							break;
+						case "FileUpload":
+							echo "Blue";
+							break;
+						case "FileDelete":
+							echo "Blue";
+							break;
+						case "FileImport":
+							echo "Blue";
+							break;
+						case "AdminLogin":
+							echo "Green";
+							break;
+					}
+				}
 				// $sql =  "SELECT log.*,userinfo.name FROM log,userinfo WHERE userinfo.id=log.id ORDER BY no DESC LIMIT 20;";
 				$sql =  "SELECT log.*,userinfo.name FROM log,userinfo WHERE userinfo.id=log.id ORDER BY no DESC;";
 				$result = mysqli_query($conn,$sql);
@@ -372,25 +402,72 @@
 				{
 					while ($rows = mysqli_fetch_array($result,MYSQLI_ASSOC))
 					{
-						echo "<button class='logBtn' style='width:50px;'>".$rows['no']."</button>";
-						echo "<button class='logBtn' style='width:100px;'>".$rows['id']."</button>";
-						echo "<button class='logBtn' style='width:100px;'>".$rows['name']."</button>";
-						echo "<button class='logBtn' style='width:140px;'>";
+						echo "<button class='logBtn"; diffColor($rows['state']);
+							echo "' style='width:50px;'>".$rows['no']."</button>";
+						echo "<button class='logBtn"; diffColor($rows['state']);
+						echo "' style='width:100px;'>".$rows['id']."</button>";
+						echo "<button class='logBtn"; diffColor($rows['state']);
+						echo "' style='width:100px;'>".$rows['name']."</button>";
+						echo "<button class='logBtn"; diffColor($rows['state']);
+						echo "' style='width:140px;'>";
 							if (strlen($rows['time'])==6)
 								echo $rows['date']." ".substr($rows['time'],0,2).":".substr($rows['time'],2,2);
 							else
 								echo "20".substr($rows['log'],0,2)."-".substr($rows['log'],2,2)."-".substr($rows['log'],4,2)." ".substr($rows['log'],7,2).":".substr($rows['log'],9,2);
 						echo "</button>";
-						echo "<button class='logBtn' style='width:240px;'>".$rows['state']."</button>";
-						echo "<button class='logBtn' style='width:120px;'>";
+						echo "<button class='logBtn"; diffColor($rows['state']);
+						echo "' style='width:240px;'>";
+							switch ($rows['state'])
+							{
+								case "Login":
+									echo "用户登录 （风格：";
+									if (substr($rows['remark'],0,strpos($rows['remark'],'|')) == "CSS=0")
+										echo "北欧）";
+									else if (substr($rows['remark'],0,strpos($rows['remark'],'|')) == "CSS=1")
+										echo "炫彩）";
+									else
+										echo "?)";
+									break;
+								case "Logout":
+									echo "用户注销登录";
+									break;
+								case "Reserve":
+									echo "预约：";
+									echo $rows['date']."，";
+									echo substr($rows['time'],0,strpos($rows['time'],'T'))."-".substr($rows['time'],strpos($rows['time'],'T')+1);
+									break;
+								case "Cancel":
+									echo "取消预约：";
+									echo $rows['date']."，";
+									echo substr($rows['time'],0,strpos($rows['time'],'T'))."-".substr($rows['time'],strpos($rows['time'],'T')+1);
+									break;
+								case "FileUpload":
+									echo "上传数据文件 ".$rows['remark'];
+									break;
+								case "FileDelete":
+									echo "删除数据文件 ".$rows['remark'];
+									break;
+								case "FileImport":
+									echo "导入";
+									echo substr($rows['remark'],0,strpos($rows['remark'],'|'));
+									echo "，成功/失败=".substr($rows['remark'],strpos($rows['remark'],'=')+1,strrpos($rows['remark'],'|')-strpos($rows['remark'],'=')-1);
+									echo "/".substr($rows['remark'],strrpos($rows['remark'],'=')+1);
+									break;
+								case "AdminLogin":
+									echo "管理员登录";
+									break;
+								default:
+									echo "?";
+							}
+						echo "</button>";
+						echo "<button class='logBtn"; diffColor($rows['state']);
+						echo "' style='width:120px;'>";
 							$ip = "?";
 							if (strlen($rows['time'])==6)
 								$ip = substr($rows['log'],strpos($rows['log'],'|')+1);
 							if ($ip=="") $ip="?";
 						echo $ip."</button>";
 						echo "<input type='hidden' id='remark_".$rows['no']."' value='".$rows['remark']."' />";
-						
-						// echo $rows['no']."..".$rows['id']."..".$rows['name']."..".$rows['log']."<br />";
 					}
 				}
 			?>

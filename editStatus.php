@@ -18,8 +18,6 @@
 	include_once("conn.php");
 	// 关闭错误提示
 	ini_set("error_reporting","E_ALL & ~E_NOTICE");
-	// 定义时区
-	date_default_timezone_set("Asia/Shanghai");
 	
 	// POST过滤
 	function check_input($data)

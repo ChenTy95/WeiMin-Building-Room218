@@ -12,4 +12,7 @@
 	}
 	mysqli_query($conn,"SET NAMES UTF8");	
 	mysqli_query($conn,"USE ".$dbname);
+	
+	// 时区设置
+	date_default_timezone_set("Asia/Shanghai");
 ?>

@@ -50,7 +50,6 @@
 <?php
 	include_once("../conn.php");
 	session_start();
-	date_default_timezone_set("Asia/Shanghai");
 	
 	if (!isset($_SESSION['T']))
 	{

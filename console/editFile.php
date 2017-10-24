@@ -1,9 +1,6 @@
 <?php
 	include_once("../conn.php");
 
-	// 时区设置
-	date_default_timezone_set("Asia/Shanghai");
-
 	// download_btn - 下载数据导入模板
 	if (isset($_POST['download_btn']))
 	{

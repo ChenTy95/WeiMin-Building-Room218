@@ -1,4 +1,5 @@
 body {
+	font-size: 0px;
 	background-color: #C7F2E7;
 	font-family: "Microsoft Yahei","微软雅黑","sans-serif";
 }
@@ -23,6 +24,7 @@ body {
 	background-color: #0B456B;
 	margin-top: 30px;
 	font-family: "Microsoft Yahei","微软雅黑","sans-serif";
+	font-size: 14px;
 	font-weight: bold;
 	border: 1.5px solid #FFF;
 	color: #FFF;
@@ -45,6 +47,7 @@ body {
 	background-color: /*#011935;*/ #305496;
 	color: #FFF;
 	font-family: "Microsoft Yahei","微软雅黑","sans-serif";
+	font-size: 16px;
 }
 
 button {
@@ -294,7 +297,7 @@ button {
 	background-color: #8192D6;
 	color: #FFF;
 	font-size: 12px; 
-	margin-top: 5px; 
+	margin-bottom: 5px; 
 	margin-left: 5px;
 }
 .logBtnDarkBlue {
@@ -302,7 +305,7 @@ button {
 	background-color: #305496;
 	color: #FFF;
 	font-size: 12px;
-	margin-top: 5px;
+	margin-bottom: 5px;
 	margin-left: 5px;
 }
 .logBtnGray {
@@ -310,7 +313,7 @@ button {
 	background-color: #696969;
 	color: #FFF;
 	font-size: 12px; 
-	margin-top: 5px; 
+	margin-bottom: 5px; 
 	margin-left: 5px;
 }
 .logBtnPink {
@@ -318,15 +321,15 @@ button {
 	background-color: #C1194E;
 	color: #FFF;
 	font-size: 12px; 
-	margin-top: 5px; 
+	margin-bottom: 5px; 
 	margin-left: 5px;
 }
 .logBtnOrange {
 	height: 26px;
-	background-color: #FF8C00;
+	background-color: #D2691E;
 	color: #FFF;
 	font-size: 12px; 
-	margin-top: 5px; 
+	margin-bottom: 5px; 
 	margin-left: 5px;
 }
 .logBtnGreen {
@@ -334,6 +337,31 @@ button {
 	background-color: #008000;
 	color: #FFF;
 	font-size: 12px; 
-	margin-top: 5px; 
+	margin-bottom: 5px; 
 	margin-left: 5px;
+}
+.logBtnQuery {
+	height: 26px;
+	background-color: #305496;
+	color: #FFF;
+	font-size: 12px; 
+	margin-bottom: 5px; 
+	margin-left: 5px;
+	pointer-events: auto;
+}
+.logBtnQuery:hover {
+	background-color: #D2691E;
+	color: #FFF;
+}
+
+.logQInput {
+	height: 22px;
+	font-size: 13px;
+	background-color: transparent;
+	border: 2px solid #305496;
+	padding: 0px;
+	margin: 0px 0px 5px 5px;
+	text-align: center;
+	color: #305496;
+	font-family: 'Microsoft Yahei','微软雅黑','sans-serif';
 }

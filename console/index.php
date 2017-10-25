@@ -66,8 +66,12 @@
 ?>
 <div style="width:1200px; height:570px; margin:0 auto; margin-top:20px;">
 	<div class="Topic">
-		欢迎您，管理员！您本次的登录时间是<?php echo date("Y-m-d H:i"); ?>，此次登录有效期至<?php echo substr($_SESSION['T'],4,2).":".substr($_SESSION['T'],6,2); ?>。<span style="font-weight:bold;">数据无价，请谨慎操作！</span> 注意：本页面需启用php_mbstring.dll。
-		<a href="login_check.php" style="text-decoration:none;"><span style="float:right; margin-right:15px; color:#C7F2E7;">[退出系统]</span></a>
+		欢迎您，管理员！您本次的登录时间是<?php echo date("Y-m-d H:i"); ?>，此次登录有效期至<?php echo substr($_SESSION['T'],4,2).":".substr($_SESSION['T'],6,2); ?>。
+		<span style="font-weight:bold;">数据无价，请谨慎操作！</span> 
+		注意：本页面需启用php_mbstring.dll。
+		<a href="login_check.php" style="text-decoration:none;">
+			<span style="float:right; margin-right:15px; color:#C7F2E7;">[退出系统]</span>
+		</a>
 	</div>
 	
 	<!-- 左侧借用情况日历表 -->
@@ -98,10 +102,10 @@
 			}
 			echo "<button class='DateBtn";
 				if ($isToday==1) echo "HL";
-				echo "'>" . substr(date("Y-m-d",strtotime($date." day")),2) . "</button>";
+				echo "'>" . substr(date("Y-m-d",strtotime($date." day")),2) . "</button>\r\n";
 			echo "<button class='WeekDayBtn";
 				if ($isToday==1) echo "HL";
-				echo "'>" . date("D",strtotime($date." day")) . ".</button>";
+				echo "'>" . date("D",strtotime($date." day")) . ".</button>\r\n";
 
 			$sql =  "SELECT COUNT(*) FROM status WHERE Date='".date("Y-m-d",strtotime($date." day"))."';";
 			$result = mysqli_query($conn,$sql);
@@ -116,7 +120,7 @@
 						{
 							echo "<button class='InfoBtn";
 								if ($isToday==1) echo "HL";
-								echo "' onclick=hideInfo();>-</button>";
+								echo "' onclick=hideInfo();>-</button>\r\n";
 						}
 					}
 					else
@@ -139,7 +143,7 @@
 										{
 											while ($rowsi = mysqli_fetch_array($result_info,MYSQLI_ASSOC))
 											{
-												echo "<input type='hidden' id='h_".$i."_".$rows['Date']."' value='".$rowsi['no']."|".$rowsi['id']."|".$rowsi['name']."|".$rowsi['phone']."|".$rowsi['date']."|".$rowsi['time']."|".$rowsi['state']."|".$rowsi['remark']."|".$rowsi['log']."' />";
+												echo "<input type='hidden' id='h_".$i."_".$rows['Date']."' value='".$rowsi['no']."|".$rowsi['id']."|".$rowsi['name']."|".$rowsi['phone']."|".$rowsi['date']."|".$rowsi['time']."|".$rowsi['state']."|".$rowsi['remark']."|".$rowsi['log']."' />\r\n";
 												
 												$infoStr = $rowsi['remark'];
 												if (mb_strlen($infoStr)>7)
@@ -150,7 +154,7 @@
 												// 该时段有人借用
 												echo "<button class='InfoBtn";
 													if ($isToday==1) echo "HL";
-												echo "' id=s_".$i."_".$rows['Date']."' onclick=showInfo('h_".$i."_".$rows['Date']."'); onblur=hideInfo();>" .  $rowsi['name'] . "<br/>" . $infoStr . "</button>";
+												echo "' id=s_".$i."_".$rows['Date']."' onclick=showInfo('h_".$i."_".$rows['Date']."'); onblur=hideInfo();>" .  $rowsi['name'] . "<br/>" . $infoStr . "</button>\r\n";
 											}
 										}
 									}
@@ -159,7 +163,7 @@
 										// 该时段无人借用
 										echo "<button class='InfoBtn";
 											if ($isToday==1) echo "HL";
-										echo "' onclick=hideInfo();>-</button>";
+										echo "' onclick=hideInfo();>-</button>\r\n";
 									}
 								}
 							}
@@ -176,15 +180,22 @@
 	<!-- 右侧 1.预约详情 -->
 	<div style="width:345px; height:auto; margin-left:23px; margin-top:20px; float:left;"> 
 		<button class="rightHead">预约详情</button>
-		<button class="rightColor1" id="Info_No" style="width:95px;">Log ID</button><button class="rightColor2" id="Info_DateTime" style="width:160px;">数据库记录时间</button>
-		<button class="rightColor1" id="Info_Name" style="width:90px;">姓名</button><button class="rightColor2" id="Info_Id" style="width:125px;">学/证号</button><button class="rightColor1" id="Info_Phone" style="width:130px;">联系电话</button>
-		<button class="rightColor2" id="Info_Date" style="width:90px; font-size:12px;">Date</button><button class="rightColor1" id="Info_Time" style="width:55px; font-size:12px;">Time</button><button class="rightColor2" id="Info_Remark" style="width:200px; font-size:12px;">活动室借用事由</button>
+		<button class="rightColor1" id="Info_No" style="width:95px;">Log ID</button>
+		<button class="rightColor2" id="Info_DateTime" style="width:160px;">数据库记录时间</button>
+		<button class="rightColor1" id="Info_Name" style="width:90px;">姓名</button>
+		<button class="rightColor2" id="Info_Id" style="width:125px;">学/证号</button>
+		<button class="rightColor1" id="Info_Phone" style="width:130px;">联系电话</button>
+		<button class="rightColor2" id="Info_Date" style="width:90px; font-size:12px;">Date</button>
+		<button class="rightColor1" id="Info_Time" style="width:55px; font-size:12px;">Time</button>
+		<button class="rightColor2" id="Info_Remark" style="width:200px; font-size:12px;">活动室借用事由</button>
 	</div>
 	
 	<!-- 右侧 2.统计数据 -->
 	<div style="width:345px; height:auto; margin-left:23px; margin-top:20px; float:left;"> 
 		<button class="rightHead">统计数据</button>
-		<button class="rightColor1" style="width:115px;">学/证号</button><button class="rightColor2" style="width:70px;">次数</button><button class="rightColor1" style="width:70px;">CSS</button>
+		<button class="rightColor1" style="width:115px;">学/证号</button>
+		<button class="rightColor2" style="width:70px;">次数</button>
+		<button class="rightColor1" style="width:70px;">CSS</button>
 		<?php
 			$sql =  "SELECT * FROM userinfo ORDER BY count DESC LIMIT 3;";
 			$result = mysqli_query($conn,$sql);
@@ -195,7 +206,10 @@
 				{
 					$i++;
 		?>
-		<button class="rightColor1" style="width:90px; <?php if ($i!=1) echo 'border-top:1.5px solid #011935;'; ?> "><?php echo $rows['name']; ?></button><button class="rightColor2" style="width:115px; <?php if ($i!=1) echo 'border-top:1.5px solid #011935;'; ?> "><?php echo $rows['id']; ?></button><button class="rightColor1" style="width:70px; <?php if ($i!=1) echo 'border-top:1.5px solid #011935;'; ?> "><?php echo $rows['count']; ?></button><button class="rightColor2" style="width:70px; <?php if ($i!=1) echo 'border-top:1.5px solid #011935;'; ?> "><?php if ($rows['css']==0) echo "北欧"; if ($rows['css']==1) echo "炫彩"; ?></button>
+		<button class="rightColor1" style="width:90px; <?php if ($i!=1) echo 'border-top:1.5px solid #011935;'; ?> "><?php echo $rows['name']; ?></button>
+		<button class="rightColor2" style="width:115px; <?php if ($i!=1) echo 'border-top:1.5px solid #011935;'; ?> "><?php echo $rows['id']; ?></button>
+		<button class="rightColor1" style="width:70px; <?php if ($i!=1) echo 'border-top:1.5px solid #011935;'; ?> "><?php echo $rows['count']; ?></button>
+		<button class="rightColor2" style="width:70px; <?php if ($i!=1) echo 'border-top:1.5px solid #011935;'; ?> "><?php if ($rows['css']==0) echo "北欧"; if ($rows['css']==1) echo "炫彩"; ?></button>
 		<?php
 				}
 			}
@@ -206,9 +220,17 @@
 	<div style="width:345px; height:auto; margin-left:23px; margin-top:20px; float:left;"> 
 		<button class="rightHead" style="float:left;">数据导入</button>
 		<form action="editFile.php" method="post" enctype="multipart/form-data" style="width:255px; float:left;">
-			<div class="rightColor2" style="width:185px; float:left;"><input type="file" name="file" id="file" class="uploadFile" accept=".txt" /></div><button name="upload_btn" class="submit_btn" style="width:70px; float:right;">上传</button>
+			<div class="rightColor2" style="width:185px; float:left;">
+				<input type="file" name="file" id="file" class="uploadFile" accept=".txt" />
+			</div>
+			<button name="upload_btn" class="submit_btn" style="width:70px; float:right;">上传</button>
 		</form>
-		<form action="editFile.php" method="POST" style="float:left;"><button name="download_btn" title="点此下载数据导入模板" class="submit_btn" style="width:90px;">下载模板</button></form><button class="rightColor1" style="width:100px;">En.txt &lt; 8k </button><button class="rightColor2" style="width:155px; padding:1px 2px 1px 2px;"><?php
+		<form action="editFile.php" method="POST" style="float:left;">
+			<button name="download_btn" title="点此下载数据导入模板" class="submit_btn" style="width:90px;">下载模板</button>
+		</form>
+		<button class="rightColor1" style="width:100px;">En.txt &lt; 8k </button>
+		<button class="rightColor2" style="width:155px; padding:1px 2px 1px 2px;">
+			<?php
 				if (isset($_SESSION['FileCode']) && ($_SESSION['FileCode']!='0'))
 				{
 					echo $_SESSION['FileCode'];
@@ -217,7 +239,8 @@
 				{
 					echo "[上传结果返回值]";
 				}
-			?></button>
+			?>
+		</button>
 		<button class="rightColor1" style="width:90px;">文件列表</button>
 		<form action="<?php echo "index.php";//htmlspecialchars($_SERVER["PHP_SELF"]);?>" method="POST" style="width:255px; float:right;">
 			<select name="FileSelect" class="selector">
@@ -227,19 +250,23 @@
 					foreach ($filesnames as $name)
 					{
 						if (strripos($name, '.txt')==strlen($name)-4)
-						echo "<option value='".$name."'>".$name."</option>";
+						echo "<option value='".$name."'>".$name."</option>\r\n";
 					}
 				?>
-			</select><button name="CheckFile" class="submit_btn" style="width:70px;">检查</button>
+			</select>
+			<button name="CheckFile" class="submit_btn" style="width:70px;">检查</button>
 		</form>	
 		
 		<!-- 左侧文件检查框 -->
 		<div style="width:120px; height:106px; background-color:transparent; float:left; text-align:center;">
 			<!-- 文件删除按钮 -->
-			<form action="editFile.php" method="POST" style="float:left;"><button class="delete_btn" name="delete_btn" title="点击删除当前文件" onclick="return deleteConfirm();">删</button></form>
+			<form action="editFile.php" method="POST" style="float:left;">
+				<button class="delete_btn" name="delete_btn" title="点击删除当前文件" onclick="return deleteConfirm();">删</button>
+			</form>
 			
 			<!-- 文件名 -->
-			<button id="FileName" class="color2Thin" style="width:90px; padding:1px 1px 1px 1px;"><?php
+			<button id="FileName" class="color2Thin" style="width:90px; padding:1px 1px 1px 1px;">
+			<?php
 				$_SESSION['FileName'] = "#";
 				if (isset($_POST['CheckFile']) && ($_POST['FileSelect']!='#'))
 				{
@@ -248,8 +275,10 @@
 				}	
 				else
 					echo "[文件名]";
-			?></button>
-			<textarea rows="4" id="FileRead"><?php
+			?>
+			</button>
+			<textarea rows="4" id="FileRead">
+			<?php
 				if (isset($_POST['CheckFile']) && ($_POST['FileSelect']!='#'))
 				{
 					$file = fopen("import/".$_POST['FileSelect'],"r");
@@ -293,14 +322,14 @@
 					$EOF_Sign = 0;
 					echo "&lt; FILE &gt;";
 				}
-			?></textarea>
-			
-			
+			?>
+			</textarea>
 		</div>
 		<!-- 右侧统计数据显示 -->
 		<div>
 			<!-- 数据名 + 去BOM按钮 -->
-			<button id="dataFileName" class="color1Thin" style="width:155px; padding:1px;"><?php
+			<button id="dataFileName" class="color1Thin" style="width:155px; padding:1px;">
+			<?php
 				if (isset($_POST['CheckFile']))
 					if (@$str_Name!="")
 						echo $str_Name . '[' . intval($str_Rec) . ']';
@@ -308,31 +337,54 @@
 						echo "[数据文件标识名]";
 				else
 					echo "[数据文件标识名]";
-			?></button><a href="UTF8_BOM.php" title="若左侧文件名显示不正常，请点击此按钮"><button class="color2Thin" style="width:70px; font-size:14px;">× BOM</button></a>
+			?>
+			</button>
+			<a href="UTF8_BOM.php" title="若左侧文件名显示不正常，请点击此按钮">
+				<button class="color2Thin" style="width:70px; font-size:14px;">× BOM</button>
+			</a>
 			<!-- 导入数据库按钮 -->
-			<form action="index.php" method="POST" style="float:right;"><button class="delete_btn" name="import_btn" id="import_btn" title="点击导入当前数据文件" style="width:70px;" onclick="return importConfirm();" disabled='true';>→ DB</button><input name="HiddenName" type="hidden" id="hiddenName" /></form>
+			<form action="index.php" method="POST" style="float:right;">
+				<button class="delete_btn" name="import_btn" id="import_btn" title="点击导入当前数据文件" style="width:70px;" onclick="return importConfirm();" disabled='true';>→ DB</button>
+				<input name="HiddenName" type="hidden" id="hiddenName" />
+			</form>
 			<!-- 校验结果 -->
-			<button class="color2Thin" style="width:155px; padding:1px 2px 1px 2px;"><?php
+			<button class="color2Thin" style="width:155px; padding:1px 2px 1px 2px;">
+			<?php
 				if (isset($_POST['CheckFile']))
 				{
 					if (($EOF_Sign==1) && ($File_Sign==1))
 					{
-						echo "√ Verification OK!";
-						echo "<script>document.getElementById('import_btn').disabled=false; document.getElementById('import_btn').title='点击导入当前数据文件';</script>";
+						echo "√ Verification OK!
+						<script>
+							document.getElementById('import_btn').disabled=false; 
+							document.getElementById('import_btn').title='点击导入当前数据文件';
+						</script>";
 					}
 					else
 					{
-						echo "× Verification Error!";
-						echo "<script>document.getElementById('import_btn').disabled=true; document.getElementById('import_btn').style.color='#333333'; document.getElementById('import_btn').title='验证错误，不允许导入'; document.getElementById('dataFileName').innerHTML='[数据文件标识名]';</script>";
+						echo "× Verification Error!
+						<script>
+							document.getElementById('import_btn').disabled=true; 
+							document.getElementById('import_btn').style.color='#333333'; 
+							document.getElementById('import_btn').title='验证错误，不允许导入'; 
+							document.getElementById('dataFileName').innerHTML='[数据文件标识名]';
+						</script>";
 					}
 				}
 				else
 				{
-					echo "[文件校验结果]";
-					echo "<script>document.getElementById('import_btn').disabled=true; document.getElementById('import_btn').style.color='#333333'; document.getElementById('import_btn').title='验证错误，不允许导入'; document.getElementById('dataFileName').innerHTML='[数据文件标识名]';</script>";
+					echo "[文件校验结果]
+					<script>
+						document.getElementById('import_btn').disabled=true; 
+						document.getElementById('import_btn').style.color='#333333'; 
+						document.getElementById('import_btn').title='验证错误，不允许导入'; 
+						document.getElementById('dataFileName').innerHTML='[数据文件标识名]';
+					</script>";
 				}	
-			?></button>
-			<!-- 导入详情 -->
+			?>
+			</button>
+			
+			<!-- 导入状态显示 -->
 			<button id="progress_mes" class="color1Thin" style="width:155px; padding:1px 2px 1px 2px;">[导入状态]</button>
 			<!-- 导入进度条 -->
 			<div class="color2Thin" style="width:70px; float:right; background-color:#011935;">
@@ -358,12 +410,29 @@
 <div id="system_log" class="floatDiv" style="width:1196px; height:500px; margin:0 auto; margin-top:15px; display:block;">
 	<div class="floatTopic">用户数据查询修改及系统日志 #数据无价，谨慎操作！#</div>
 	<button class="xBtn" onclick="document.getElementById('system_log').style.display='none';">×</button>
-	<div style="width:300px; height:400px; float:left; border:2px solid #FF8C00; ">
+	<div style="width:300px; height:400px; float:left; margin-top:10px; border:2px solid #FF8C00; ">
 		
 	</div>
-	<div style="width:800px; height:400px; float:left; border:2px solid #FF8C00; ">
-		<div id="import_info" style="width:800px; height:410px; margin-left:5px; overflow:auto;">
-		<button class="logBtnDarkBlue" style="width:50px;">ID</button><button class="logBtnDarkBlue" style="width:100px;">证件号码</button><button class="logBtnDarkBlue" style="width:100px;">姓名</button><button class="logBtnDarkBlue" style="width:140px;">操作时间</button><button class="logBtnDarkBlue" style="width:240px;">内容</button><button class="logBtnDarkBlue" style="width:120px;">IP地址</button>
+	<div style="width:880px; height:400px; float:left; margin-top:5px;">
+		<div style="width:880px; height:60px; float:left; margin-top:5px;">
+			<input id="NoTo" class="logQInput" style="width:46px;" />
+			<button class="logBtnDarkBlue" style="width:185px; height:26px; border:2px solid #305496;">系统日志</button>
+			<input id="DateFrom" onclick="laydate();" class="logQInput" style="width:126px;" />
+			<br/>
+			<input id="NoFrom" class="logQInput" style="width:46px;" value="1" />
+			<input id="IdInput" class="logQInput" style="width:86px;" />
+			<input id="NameInput" class="logQInput" style="width:86px;" />
+			<input id="DateTo" class="logQInput" onfocus="document.getElementById('DateTo').value=document.getElementById('DateFrom').value;" onclick="laydate();" style="width:126px;" />
+			<button class="logBtnQuery" style="width:185px; height:26px; pointer-events:auto;" onclick="setFilter();">Click</button>
+		</div>
+		<button class="logBtnDarkBlue" style="width:50px; margin:5px 0px 5px 5px;">ID</button>
+		<button class="logBtnDarkBlue" style="width:90px;">证件号码</button>
+		<button class="logBtnDarkBlue" style="width:90px;">姓名</button>
+		<button class="logBtnDarkBlue" style="width:130px;">操作时间</button>
+		<button class="logBtnDarkBlue" style="width:370px;">内容</button>
+		<button class="logBtnDarkBlue" style="width:110px;">IP地址</button>
+
+		<div style="width:890px; height:367px; overflow:auto;">
 			<?php
 				function diffColor($stateType)
 				{
@@ -398,47 +467,59 @@
 				// $sql =  "SELECT log.*,userinfo.name FROM log,userinfo WHERE userinfo.id=log.id ORDER BY no DESC LIMIT 20;";
 				$sql =  "SELECT log.*,userinfo.name FROM log,userinfo WHERE userinfo.id=log.id ORDER BY no DESC;";
 				$result = mysqli_query($conn,$sql);
+				$js = 0;
 				if ($num = mysqli_num_rows($result))
 				{
 					while ($rows = mysqli_fetch_array($result,MYSQLI_ASSOC))
 					{
-						echo "<button class='logBtn"; diffColor($rows['state']);
-							echo "' style='width:50px;'>".$rows['no']."</button>";
-						echo "<button class='logBtn"; diffColor($rows['state']);
-						echo "' style='width:100px;'>".$rows['id']."</button>";
-						echo "<button class='logBtn"; diffColor($rows['state']);
-						echo "' style='width:100px;'>".$rows['name']."</button>";
-						echo "<button class='logBtn"; diffColor($rows['state']);
-						echo "' style='width:140px;'>";
+						$js++;
+						if ($js==1) echo "<input id='maxNo' type='hidden' value='".$rows['no']."' /><script>document.getElementById('NoTo').value=document.getElementById('maxNo').value;</script>";
+						echo "<div id='logdiv_".$rows['no']."'>";
+						echo "  <button id='No_".$rows['no']."' class='logBtn"; diffColor($rows['state']);
+							echo "' style='width:50px;'>".$rows['no']."</button>\r\n";
+						echo "  <button id='Id_".$rows['no']."' class='logBtn"; diffColor($rows['state']);
+						echo "' style='width:90px;'>".$rows['id']."</button>\r\n";
+						echo "  <button id='Name_".$rows['no']."' class='logBtn"; diffColor($rows['state']);
+						echo "' style='width:90px;'>".$rows['name']."</button>\r\n";
+						echo "  <button id='Time_".$rows['no']."' class='logBtn"; diffColor($rows['state']);
+						echo "' style='width:130px;'>";
 							if (strlen($rows['time'])==6)
 								echo $rows['date']." ".substr($rows['time'],0,2).":".substr($rows['time'],2,2);
 							else
 								echo "20".substr($rows['log'],0,2)."-".substr($rows['log'],2,2)."-".substr($rows['log'],4,2)." ".substr($rows['log'],7,2).":".substr($rows['log'],9,2);
-						echo "</button>";
-						echo "<button class='logBtn"; diffColor($rows['state']);
-						echo "' style='width:240px;'>";
+						echo "</button>\r\n";
+						echo "  <input id='State_".$rows['no']."' type='hidden' value='".$rows['state']."' />\r\n";
+						echo "  <button class='logBtn"; diffColor($rows['state']);
+						echo "' style='width:370px;";
+						if ($rows['state']=="Login" || $rows['state']=="AdminLogin")
+						{
+							echo " pointer-events:auto;' title='";
+							echo $rows['remark'];
+						}
+						echo "'>";
 							switch ($rows['state'])
 							{
 								case "Login":
 									echo "用户登录 （风格：";
 									if (substr($rows['remark'],0,strpos($rows['remark'],'|')) == "CSS=0")
-										echo "北欧）";
+										echo "北欧）[…]";
 									else if (substr($rows['remark'],0,strpos($rows['remark'],'|')) == "CSS=1")
-										echo "炫彩）";
+										echo "炫彩）[…]";
 									else
-										echo "?)";
+										echo "?）[…]";
 									break;
 								case "Logout":
 									echo "用户注销登录";
 									break;
 								case "Reserve":
 									echo "预约：";
-									echo $rows['date']."，";
+									echo substr($rows['date'],2)."，";
 									echo substr($rows['time'],0,strpos($rows['time'],'T'))."-".substr($rows['time'],strpos($rows['time'],'T')+1);
+									echo "，".$rows['remark'];
 									break;
 								case "Cancel":
 									echo "取消预约：";
-									echo $rows['date']."，";
+									echo substr($rows['date'],2)."，";
 									echo substr($rows['time'],0,strpos($rows['time'],'T'))."-".substr($rows['time'],strpos($rows['time'],'T')+1);
 									break;
 								case "FileUpload":
@@ -454,20 +535,21 @@
 									echo "/".substr($rows['remark'],strrpos($rows['remark'],'=')+1);
 									break;
 								case "AdminLogin":
-									echo "管理员登录";
+									echo "管理员登录 […]";
 									break;
 								default:
 									echo "?";
 							}
-						echo "</button>";
-						echo "<button class='logBtn"; diffColor($rows['state']);
-						echo "' style='width:120px;'>";
+						echo "</button>\r\n";
+						echo "  <button id='IP_".$rows['no']."' class='logBtn"; diffColor($rows['state']);
+						echo "' style='width:110px;'>";
 							$ip = "?";
 							if (strlen($rows['time'])==6)
 								$ip = substr($rows['log'],strpos($rows['log'],'|')+1);
 							if ($ip=="") $ip="?";
-						echo $ip."</button>";
-						echo "<input type='hidden' id='remark_".$rows['no']."' value='".$rows['remark']."' />";
+						echo $ip."</button>\r\n";
+						
+						echo "</div>\r\n";
 					}
 				}
 			?>
@@ -556,8 +638,14 @@
 
 </body>	
 	
+<script src="..\include\laydate\laydate.js"></script>
 <script>
-
+	;!function(){
+		laydate({
+			elem: '#demo'
+		})
+	}();
+	
 	function deleteConfirm()
 	{
 		if (document.getElementById("FileName").innerHTML=="&lt; NAME &gt;")
@@ -587,6 +675,20 @@
 		return false;
 	}
 	
+	function setFilter()
+	{
+		for (var i=1; i<=document.getElementById('maxNo').value; i++)
+		{
+			if (document.getElementById('logdiv_'+i) != null) 
+			{
+				document.getElementById('logdiv_'+i).style.display='none';
+				if (document.getElementById('Id_'+i).innerHTML.indexOf(document.getElementById('IdInput').value)>=0)
+				{
+					document.getElementById('logdiv_'+i).style.display='inline';
+				}
+			}
+		}
+	}
 </script>
 
 </html>

@@ -415,21 +415,29 @@
 	</div>
 	<div style="width:880px; height:400px; float:left; margin-top:5px;">
 		<div style="width:880px; height:60px; float:left; margin-top:5px;">
-			<input id="NoTo" class="logQInput" style="width:46px;" />
+			<button class="logBtnDarkBlue" style="width:26px;">起</button>
+				<input id="NoFrom" class="logQInput" style="width:36px;" value="1"  onfocus="document.getElementById('NoFrom').select();" />
 			<button class="logBtnDarkBlue" style="width:185px; height:26px; border:2px solid #305496;">系统日志</button>
-			<input id="DateFrom" onclick="laydate();" class="logQInput" style="width:126px;" />
+			<button class="logBtnDarkBlue" style="width:26px;">起</button>
+				<input id="DateFrom" onclick="laydate();" class="logQInput" style="width:100px;" />
 			<br/>
-			<input id="NoFrom" class="logQInput" style="width:46px;" value="1" />
-			<input id="IdInput" class="logQInput" style="width:86px;" />
-			<input id="NameInput" class="logQInput" style="width:86px;" />
-			<input id="DateTo" class="logQInput" onfocus="document.getElementById('DateTo').value=document.getElementById('DateFrom').value;" onclick="laydate();" style="width:126px;" />
+			
+			<button class="logBtnDarkBlue" style="width:26px;">止</button>
+				<input id="NoTo" class="logQInput" style="width:36px;" onfocus="document.getElementById('NoTo').select();"/>
+			<button class="logBtnDarkBlue" style="width:26px;">号</button>
+				<input id="IdInput" class="logQInput" style="width:60px;" onfocus="document.getElementById('IdInput').select();" />
+			<button class="logBtnDarkBlue" style="width:26px;">名</button>
+				<input id="NameInput" class="logQInput" style="width:60px;" onfocus="document.getElementById('NameInput').select();" />
+			<button class="logBtnDarkBlue" style="width:26px;">止</button>
+				<input id="DateTo" class="logQInput" onfocus="document.getElementById('DateTo').value=document.getElementById('DateFrom').value;" onclick="laydate();" style="width:100px;" />
 			<button class="logBtnQuery" style="width:185px; height:26px; pointer-events:auto;" onclick="setFilter();">Click</button>
 		</div>
-		<button class="logBtnDarkBlue" style="width:50px; margin:5px 0px 5px 5px;">ID</button>
+		
+		<button class="logBtnDarkBlue" style="width:65px; margin:5px 0px 5px 5px;">ID</button>
 		<button class="logBtnDarkBlue" style="width:90px;">证件号码</button>
 		<button class="logBtnDarkBlue" style="width:90px;">姓名</button>
 		<button class="logBtnDarkBlue" style="width:130px;">操作时间</button>
-		<button class="logBtnDarkBlue" style="width:370px;">内容</button>
+		<button class="logBtnDarkBlue" style="width:355px;">内容</button>
 		<button class="logBtnDarkBlue" style="width:110px;">IP地址</button>
 
 		<div style="width:890px; height:367px; overflow:auto;">
@@ -474,9 +482,9 @@
 					{
 						$js++;
 						if ($js==1) echo "<input id='maxNo' type='hidden' value='".$rows['no']."' /><script>document.getElementById('NoTo').value=document.getElementById('maxNo').value;</script>";
-						echo "<div id='logdiv_".$rows['no']."'>";
+						echo "<div id='logdiv_".$rows['no']."'>\r\n";
 						echo "  <button id='No_".$rows['no']."' class='logBtn"; diffColor($rows['state']);
-							echo "' style='width:50px;'>".$rows['no']."</button>\r\n";
+							echo "' style='width:65px;'>".$rows['no']."</button>\r\n";
 						echo "  <button id='Id_".$rows['no']."' class='logBtn"; diffColor($rows['state']);
 						echo "' style='width:90px;'>".$rows['id']."</button>\r\n";
 						echo "  <button id='Name_".$rows['no']."' class='logBtn"; diffColor($rows['state']);
@@ -490,7 +498,7 @@
 						echo "</button>\r\n";
 						echo "  <input id='State_".$rows['no']."' type='hidden' value='".$rows['state']."' />\r\n";
 						echo "  <button class='logBtn"; diffColor($rows['state']);
-						echo "' style='width:370px;";
+						echo "' style='width:355px;";
 						if ($rows['state']=="Login" || $rows['state']=="AdminLogin")
 						{
 							echo " pointer-events:auto;' title='";
@@ -677,15 +685,26 @@
 	
 	function setFilter()
 	{
+		document.getElementById('NoFrom').value=document.getElementById('NoFrom').value.trim();
+		document.getElementById('NoTo').value=document.getElementById('NoTo').value.trim();
+		document.getElementById('IdInput').value=document.getElementById('IdInput').value.trim();
+		document.getElementById('NameInput').value=document.getElementById('NameInput').value.trim();
+		// document.getElementById('NoFrom').value=document.getElementById('NoFrom').value.trim();
+		// document.getElementById('NoFrom').value=document.getElementById('NoFrom').value.trim();
 		for (var i=1; i<=document.getElementById('maxNo').value; i++)
 		{
 			if (document.getElementById('logdiv_'+i) != null) 
 			{
 				document.getElementById('logdiv_'+i).style.display='none';
-				if (document.getElementById('Id_'+i).innerHTML.indexOf(document.getElementById('IdInput').value)>=0)
+				
+				if (parseInt(document.getElementById('No_'+i).innerHTML)<=document.getElementById('NoTo').value && parseInt(document.getElementById('No_'+i).innerHTML)>=document.getElementById('NoFrom').value)
 				{
-					document.getElementById('logdiv_'+i).style.display='inline';
-				}
+					if (document.getElementById('Id_'+i).innerHTML.indexOf(document.getElementById('IdInput').value)>=0)
+					{
+						document.getElementById('logdiv_'+i).style.display='inline';
+					}
+				}		
+						
 			}
 		}
 	}

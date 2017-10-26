@@ -223,7 +223,7 @@
 		</div>
 		<div class="InfoLabel">借用事由</div>
 		<div class="InfoText" id="Info_Remark" onclick="if (document.getElementById('InputRemark').value=='（15字以内）') { document.getElementById('InputRemark').value=''; }">
-			<input type="text" id="InputRemark" name="InputRemark" class="InputBox" style="font-size:12px;" value="（15字以内）" />
+			<input type="text" id="InputRemark" name="InputRemark" class="InputBox" style="font-size:12px;" maxlength="15" value="（15字以内）" onblur="if (document.getElementById('InputRemark').value.trim()=='') {document.getElementById('InputRemark').value='（15字以内）';}" />
 		</div>
 		
 		<input id="HiddenDate" name="InputDate" type="hidden" value="" />

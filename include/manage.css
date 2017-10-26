@@ -365,3 +365,28 @@ button {
 	color: #305496;
 	font-family: 'Microsoft Yahei','微软雅黑','sans-serif';
 }
+
+.checkBox {
+	margin: 0px;
+	border: 4px solid #305496;
+	color: #305496;
+	background-color: transparent;
+	padding: 0px;
+	height: 26px;
+	width: 28px;
+	margin-left: 5px;
+	font-size: 12px;
+	pointer-events: auto;
+}
+.checkTxt {
+	margin: 0px;
+	height: 26px;
+	width: 62px;
+	border: 2px solid #305496;
+	padding: 0px;
+	border-left: 0px;
+	background-color: #305496;
+	color: #FFF;
+	font-size: 12px;
+	font-family: 'Microsoft Yahei','微软雅黑','sans-serif';
+}

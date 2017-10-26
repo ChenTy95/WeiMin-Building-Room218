@@ -3,6 +3,7 @@
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<link rel="stylesheet" type="text/css" href="..\include\manage.css" />
+	<script src="..\include\logFilter.js"></script>
 	<title>管理后台 - 为民楼218活动室自助预约平台</title>
 </head>
 
@@ -277,8 +278,7 @@
 					echo "[文件名]";
 			?>
 			</button>
-			<textarea rows="4" id="FileRead">
-			<?php
+			<textarea rows="4" id="FileRead"><?php
 				if (isset($_POST['CheckFile']) && ($_POST['FileSelect']!='#'))
 				{
 					$file = fopen("import/".$_POST['FileSelect'],"r");
@@ -408,36 +408,53 @@
 </div>
 
 <div id="system_log" class="floatDiv" style="width:1196px; height:500px; margin:0 auto; margin-top:15px; display:block;">
-	<div class="floatTopic">用户数据查询修改及系统日志 #数据无价，谨慎操作！#</div>
+	<div class="floatTopic">【用户数据查询修改及系统日志】<span style="color:#F00;">数据无价，谨慎操作！</span></div>
 	<button class="xBtn" onclick="document.getElementById('system_log').style.display='none';">×</button>
 	<div style="width:300px; height:400px; float:left; margin-top:10px; border:2px solid #FF8C00; ">
 		
 	</div>
 	<div style="width:880px; height:400px; float:left; margin-top:5px;">
 		<div style="width:880px; height:60px; float:left; margin-top:5px;">
-			<button class="logBtnDarkBlue" style="width:26px;">起</button>
+			<button class="logBtnDarkBlue" style="width:26px;" disabled="disabled">起</button>
 				<input id="NoFrom" class="logQInput" style="width:36px;" value="1"  onfocus="document.getElementById('NoFrom').select();" />
-			<button class="logBtnDarkBlue" style="width:185px; height:26px; border:2px solid #305496;">系统日志</button>
-			<button class="logBtnDarkBlue" style="width:26px;">起</button>
+			<button class="checkBox" id="showUsers" onclick="checkBoxfunc('showUsers');">&#10004;</button>
+				<button class="checkTxt" disabled="disabled">显示用户</button>
+			<button class="checkBox" id="showAdmin" onclick="checkBoxfunc('showAdmin');">&#10008;</button>
+				<button class="checkTxt" disabled="disabled">显示管理</button>
+			<button class="logBtnDarkBlue" style="width:26px;" disabled="disabled">起</button>
 				<input id="DateFrom" onclick="laydate();" class="logQInput" style="width:100px;" />
+			<button class="checkBox" id="showLogin" onclick="checkBoxfunc('showLogin');">&#10004;</button>
+				<button class="checkTxt" disabled="disabled">用户登录</button>
+			<button class="checkBox" id="showReserve" onclick="checkBoxfunc('showReserve');">&#10004;</button>
+				<button class="checkTxt" disabled="disabled">预约</button>
+				
 			<br/>
 			
-			<button class="logBtnDarkBlue" style="width:26px;">止</button>
-				<input id="NoTo" class="logQInput" style="width:36px;" onfocus="document.getElementById('NoTo').select();"/>
-			<button class="logBtnDarkBlue" style="width:26px;">号</button>
-				<input id="IdInput" class="logQInput" style="width:60px;" onfocus="document.getElementById('IdInput').select();" />
-			<button class="logBtnDarkBlue" style="width:26px;">名</button>
-				<input id="NameInput" class="logQInput" style="width:60px;" onfocus="document.getElementById('NameInput').select();" />
-			<button class="logBtnDarkBlue" style="width:26px;">止</button>
-				<input id="DateTo" class="logQInput" onfocus="document.getElementById('DateTo').value=document.getElementById('DateFrom').value;" onclick="laydate();" style="width:100px;" />
-			<button class="logBtnQuery" style="width:185px; height:26px; pointer-events:auto;" onclick="setFilter();">Click</button>
+			<button class="logBtnDarkBlue" style="width:26px;" disabled="disabled">止</button>
+				<input id="NoTo" class="logQInput" style="width:36px;"
+					onfocus="document.getElementById('NoTo').select();"
+					onblur="if (document.getElementById('NoTo').value=='') {document.getElementById('NoTo').value=document.getElementById('maxNo').value; } setFilter();"
+				/>
+			<button class="logBtnDarkBlue" style="width:26px;" disabled="disabled">号</button>
+				<input id="IdInput" class="logQInput" style="width:60px;" onfocus="document.getElementById('IdInput').select();" onblur="setFilter()" />
+			<button class="logBtnDarkBlue" style="width:26px;" disabled="disabled">名</button>
+				<input id="NameInput" class="logQInput" style="width:60px;" onfocus="document.getElementById('NameInput').select();" onblur="setFilter()" />
+			<button class="logBtnDarkBlue" style="width:26px;" disabled="disabled">止</button>
+				<input id="DateTo" class="logQInput" onfocus="if (document.getElementById('DateTo').value == '') {document.getElementById('DateTo').value=document.getElementById('DateFrom').value;}" onclick="laydate();" style="width:100px;" />
+			<button class="checkBox" id="showLogout" onclick="checkBoxfunc('showLogout');">&#10008;</button>
+				<button class="checkTxt" disabled="disabled">用户登出</button>
+			<button class="checkBox" id="showCancel" onclick="checkBoxfunc('showCancel');">&#10004;</button>
+				<button class="checkTxt" disabled="disabled">取消</button>
+			
+			<button class="logBtnQuery" style="width:95px; height:26px; pointer-events:auto;" onclick="resetFilter();">Reset</button>
+			<button class="logBtnQuery" style="width:95px; height:26px; pointer-events:auto;" onclick="setFilter();">Query</button>
 		</div>
 		
 		<button class="logBtnDarkBlue" style="width:65px; margin:5px 0px 5px 5px;">ID</button>
 		<button class="logBtnDarkBlue" style="width:90px;">证件号码</button>
 		<button class="logBtnDarkBlue" style="width:90px;">姓名</button>
 		<button class="logBtnDarkBlue" style="width:130px;">操作时间</button>
-		<button class="logBtnDarkBlue" style="width:355px;">内容</button>
+		<button class="logBtnDarkBlue" style="width:355px;">具体操作内容</button>
 		<button class="logBtnDarkBlue" style="width:110px;">IP地址</button>
 
 		<div style="width:890px; height:367px; overflow:auto;">
@@ -502,7 +519,10 @@
 						if ($rows['state']=="Login" || $rows['state']=="AdminLogin")
 						{
 							echo " pointer-events:auto;' title='";
-							echo $rows['remark'];
+							if (substr($rows['remark'],3,1) != "=") 
+								echo $rows['remark'];
+							else
+								echo substr($rows['remark'],strpos($rows['remark'],'|')+1);
 						}
 						echo "'>";
 							switch ($rows['state'])
@@ -561,13 +581,16 @@
 					}
 				}
 			?>
+			<script>setFilter();</script>
 		</div>
 	</div>
 </div>
 
-<div style="margin:0 auto; margin-top:10px; color:#011935; text-align:center; font-weight:bold;">
+<div style="margin:0 auto; margin-top:10px; color:#011935; text-align:center; font-weight:bold; font-size:16px;">
 	控制台要求使用1366*768及以上分辨率 . Developed By 汤圆 [ 13141009 / ChenTy95 ]
 </div>
+
+
 
 <?php
 	if (isset($_POST['import_btn']))
@@ -682,32 +705,7 @@
 		}
 		return false;
 	}
-	
-	function setFilter()
-	{
-		document.getElementById('NoFrom').value=document.getElementById('NoFrom').value.trim();
-		document.getElementById('NoTo').value=document.getElementById('NoTo').value.trim();
-		document.getElementById('IdInput').value=document.getElementById('IdInput').value.trim();
-		document.getElementById('NameInput').value=document.getElementById('NameInput').value.trim();
-		// document.getElementById('NoFrom').value=document.getElementById('NoFrom').value.trim();
-		// document.getElementById('NoFrom').value=document.getElementById('NoFrom').value.trim();
-		for (var i=1; i<=document.getElementById('maxNo').value; i++)
-		{
-			if (document.getElementById('logdiv_'+i) != null) 
-			{
-				document.getElementById('logdiv_'+i).style.display='none';
-				
-				if (parseInt(document.getElementById('No_'+i).innerHTML)<=document.getElementById('NoTo').value && parseInt(document.getElementById('No_'+i).innerHTML)>=document.getElementById('NoFrom').value)
-				{
-					if (document.getElementById('Id_'+i).innerHTML.indexOf(document.getElementById('IdInput').value)>=0)
-					{
-						document.getElementById('logdiv_'+i).style.display='inline';
-					}
-				}		
-						
-			}
-		}
-	}
+
 </script>
 
 </html>

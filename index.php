@@ -183,7 +183,7 @@
 											echo "<script>document.getElementById('s_".$i."_".$rows['Date']."').className='StatusBtnBlue'; document.getElementById('s_".$i."_".$rows['Date']."').innerHTML='我的预约';</script>";
 										}
 										// 存入hidden，等待调用
-										echo "<input type='hidden' id='h_".$i."_".$rows['Date']."' value='".$rowsi['no']."|".$rowsi['id']."|".$rowsi['name']."|".$rowsi['phone']."|".$rowsi['date']."|".$rowsi['time']."|".$rowsi['state']."|".$rowsi['remark']."|".$rowsi['log']."' />\r\n";
+										echo "<input type='hidden' id='h_".$i."_".$rows['Date']."' value='".$rowsi['no']."|".$rowsi['id']."|".$rowsi['name']."|".$rowsi['phone']."|".$rowsi['date']."|".$rowsi['time']."|".$rowsi['type']."|".$rowsi['remark']."|".$rowsi['log']."' />\r\n";
 									}
 								}
 							}

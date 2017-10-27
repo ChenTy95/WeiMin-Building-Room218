@@ -128,7 +128,7 @@
 		}
 		
 		// 该账号在该日的预约情况检查（使用id查询当日log中的数量，通过奇偶性判断）
-		$sql = "SELECT COUNT(*) FROM log WHERE id='".$_SESSION['IdToken']."' AND date='".check_input($_POST['InputDate'])."' AND (state='Reserve' OR state='Cancel');";
+		$sql = "SELECT COUNT(*) FROM log WHERE id='".$_SESSION['IdToken']."' AND date='".check_input($_POST['InputDate'])."' AND (type='Reserve' OR type='Cancel');";
 		$result = mysqli_query($conn,$sql);
 		if ($num = mysqli_num_rows($result))
 		{
@@ -159,10 +159,10 @@
 				// 无问题，写入数据库各表
 				elseif ($allowWriteData ==1)
 				{
-					$sql = "INSERT INTO log(id,phone,date,time,state,remark,log) VALUES ('".$_SESSION['IdToken']."','".check_input($_POST['InputPhone'])."','".check_input($_POST['InputDate'])."','".check_input($_POST['InputTime'])."','Reserve','".check_input($_POST['InputRemark'])."','".date("ymd.Hi")."');";
+					$sql = "INSERT INTO log(id,phone,date,time,type,remark,log) VALUES ('".$_SESSION['IdToken']."','".check_input($_POST['InputPhone'])."','".check_input($_POST['InputDate'])."','".check_input($_POST['InputTime'])."','Reserve','".check_input($_POST['InputRemark'])."','".date("ymd.Hi")."');";
 					mysqli_query($conn,$sql);
 					
-					$sql = "SELECT no FROM log WHERE id='".$_SESSION['IdToken']."' AND date='".check_input($_POST['InputDate'])."' AND time='".check_input($_POST['InputTime'])."' AND state='Reserve' ORDER BY no DESC LIMIT 1";
+					$sql = "SELECT no FROM log WHERE id='".$_SESSION['IdToken']."' AND date='".check_input($_POST['InputDate'])."' AND time='".check_input($_POST['InputTime'])."' AND type='Reserve' ORDER BY no DESC LIMIT 1";
 					$result = mysqli_query($conn,$sql);
 					if ($num = mysqli_num_rows($result))
 					{
@@ -223,7 +223,7 @@
 						$sql = "UPDATE log SET log=CONCAT(log,'|Cancel') WHERE no='".$DBno."'";
 						mysqli_query($conn,$sql);
 						
-						$sql = "INSERT INTO log(id,date,time,state,log) VALUES ('".$_SESSION['IdToken']."','".check_input($_POST['InputDate'])."','".check_input($_POST['InputTime'])."','Cancel','".date("ymd.Hi")."');";
+						$sql = "INSERT INTO log(id,date,time,type,log) VALUES ('".$_SESSION['IdToken']."','".check_input($_POST['InputDate'])."','".check_input($_POST['InputTime'])."','Cancel','".date("ymd.Hi")."');";
 						mysqli_query($conn,$sql);
 					}
 				}

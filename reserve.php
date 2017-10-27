@@ -58,7 +58,7 @@
 	
 	<div id="InfoDiv" style="margin-top:0px;">
 		<button class="TextBtn1" style="text-align:center; margin-left:2.5%;">预约详情</button>
-		<div class="InfoLabel">预约状态</div><div class="InfoText"><?php if ($rows['state']=='Reserve') { echo '已预约'; } ?></div>
+		<div class="InfoLabel">预约状态</div><div class="InfoText"><?php if ($rows['type']=='Reserve') { echo '已预约'; } ?></div>
 		<div class="InfoLabel">预约日期</div><div class="InfoText"><?php echo $rows['date']; ?></div>
 		<div class="InfoLabel">预约时间</div>
 			<div class="InfoText" id="TimeStr">

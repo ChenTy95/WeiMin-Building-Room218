@@ -144,7 +144,7 @@
 										{
 											while ($rowsi = mysqli_fetch_array($result_info,MYSQLI_ASSOC))
 											{
-												echo "<input type='hidden' id='h_".$i."_".$rows['Date']."' value='".$rowsi['no']."|".$rowsi['id']."|".$rowsi['name']."|".$rowsi['phone']."|".$rowsi['date']."|".$rowsi['time']."|".$rowsi['state']."|".$rowsi['remark']."|".$rowsi['log']."' />\r\n";
+												echo "<input type='hidden' id='h_".$i."_".$rows['Date']."' value='".$rowsi['no']."|".$rowsi['id']."|".$rowsi['name']."|".$rowsi['phone']."|".$rowsi['date']."|".$rowsi['time']."|".$rowsi['type']."|".$rowsi['remark']."|".$rowsi['log']."' />\r\n";
 												
 												$infoStr = $rowsi['remark'];
 												if (mb_strlen($infoStr)>7)
@@ -416,18 +416,24 @@
 	<div style="width:880px; height:400px; float:left; margin-top:5px;">
 		<div style="width:880px; height:60px; float:left; margin-top:5px;">
 			<button class="logBtnDarkBlue" style="width:26px;" disabled="disabled">起</button>
-				<input id="NoFrom" class="logQInput" style="width:36px;" value="1"  onfocus="document.getElementById('NoFrom').select();" />
+				<input id="NoFrom" class="logQInput" style="width:36px;" value="1" onfocus="document.getElementById('NoFrom').select();" onblur="setFilter();" />
 			<button class="checkBox" id="showUsers" onclick="checkBoxfunc('showUsers');">&#10004;</button>
 				<button class="checkTxt" disabled="disabled">显示用户</button>
 			<button class="checkBox" id="showAdmin" onclick="checkBoxfunc('showAdmin');">&#10008;</button>
 				<button class="checkTxt" disabled="disabled">显示管理</button>
 			<button class="logBtnDarkBlue" style="width:26px;" disabled="disabled">起</button>
 				<input id="DateFrom" onclick="laydate();" class="logQInput" style="width:100px;" />
-			<button class="checkBox" id="showLogin" onclick="checkBoxfunc('showLogin');">&#10004;</button>
-				<button class="checkTxt" disabled="disabled">用户登录</button>
+			<button class="checkBox" id="showLogin" onclick="checkBoxfunc('showLogin');" style="border-color:#D2691E; color:#D2691E;">&#10004;</button>
+				<button class="checkTxt" disabled="disabled" style="border-color:#D2691E; background-color:#D2691E;">用户登录</button>
 			<button class="checkBox" id="showReserve" onclick="checkBoxfunc('showReserve');">&#10004;</button>
-				<button class="checkTxt" disabled="disabled">预约</button>
-				
+				<button class="checkTxt" disabled="disabled" style="width:40px;">预约</button>
+			<button class="checkBox" id="showUpload" onclick="checkBoxfunc('showUpload');" style="border-color:#8192D6; color:#8192D6;">&#10008;</button>
+				<button class="checkTxt" disabled="disabled" style="border-color:#8192D6; background-color:#8192D6;">文件上传</button>
+			<button class="checkBox" id="showImport" onclick="checkBoxfunc('showImport');" style="border-color:#8192D6; color:#8192D6;">&#10008;</button>
+				<button class="checkTxt" disabled="disabled" style="border-color:#8192D6; background-color:#8192D6;">文件导入</button>
+			
+			<button class="logBtnQuery" style="width:60px; height:26px; pointer-events:auto;" onclick="setFilter();">查询</button>
+			<button class="logBtnQuery" style="width:46px; height:26px; pointer-events:auto;" onclick="resetFilter();">重置</button>
 			<br/>
 			
 			<button class="logBtnDarkBlue" style="width:26px;" disabled="disabled">止</button>
@@ -441,13 +447,17 @@
 				<input id="NameInput" class="logQInput" style="width:60px;" onfocus="document.getElementById('NameInput').select();" onblur="setFilter()" />
 			<button class="logBtnDarkBlue" style="width:26px;" disabled="disabled">止</button>
 				<input id="DateTo" class="logQInput" onfocus="if (document.getElementById('DateTo').value == '') {document.getElementById('DateTo').value=document.getElementById('DateFrom').value;}" onclick="laydate();" style="width:100px;" />
-			<button class="checkBox" id="showLogout" onclick="checkBoxfunc('showLogout');">&#10008;</button>
-				<button class="checkTxt" disabled="disabled">用户登出</button>
-			<button class="checkBox" id="showCancel" onclick="checkBoxfunc('showCancel');">&#10004;</button>
-				<button class="checkTxt" disabled="disabled">取消</button>
+			<button class="checkBox" id="showLogout" onclick="checkBoxfunc('showLogout');" style="border-color:#696969; color:#696969;">&#10008;</button>
+				<button class="checkTxt" disabled="disabled" style="border-color:#696969; background-color:#696969;">用户登出</button>
+			<button class="checkBox" id="showCancel" onclick="checkBoxfunc('showCancel');" style="border-color:#C1194E; color:#C1194E;">&#10004;</button>
+				<button class="checkTxt" disabled="disabled" style="width:40px; border-color:#C1194E; background-color:#C1194E;">取消</button>
+			<button class="checkBox" id="showDelete" onclick="checkBoxfunc('showDelete');" style="border-color:#8192D6; color:#8192D6;">&#10008;</button>
+				<button class="checkTxt" disabled="disabled" style="border-color:#8192D6; background-color:#8192D6;">文件删除</button>
+			<button class="checkBox" id="showAdminLogin" onclick="checkBoxfunc('showAdminLogin');" style="border-color:#008000; color:#008000;">&#10008;</button>
+				<button class="checkTxt" disabled="disabled" style="border-color:#008000; background-color:#008000;">管理登录</button>
+			<button class="logBtnDarkBlue" style="width:26px;" disabled="disabled">IP</button>
+				<input id="IPInput" class="logQInput" style="width:81px;" onfocus="document.getElementById('IPInput').select();" onblur="setFilter()" />
 			
-			<button class="logBtnQuery" style="width:95px; height:26px; pointer-events:auto;" onclick="resetFilter();">Reset</button>
-			<button class="logBtnQuery" style="width:95px; height:26px; pointer-events:auto;" onclick="setFilter();">Query</button>
 		</div>
 		
 		<button class="logBtnDarkBlue" style="width:65px; margin:5px 0px 5px 5px;">ID</button>
@@ -500,23 +510,23 @@
 						$js++;
 						if ($js==1) echo "<input id='maxNo' type='hidden' value='".$rows['no']."' /><script>document.getElementById('NoTo').value=document.getElementById('maxNo').value;</script>";
 						echo "<div id='logdiv_".$rows['no']."'>\r\n";
-						echo "  <button id='No_".$rows['no']."' class='logBtn"; diffColor($rows['state']);
+						echo "  <button id='No_".$rows['no']."' class='logBtn"; diffColor($rows['type']);
 							echo "' style='width:65px;'>".$rows['no']."</button>\r\n";
-						echo "  <button id='Id_".$rows['no']."' class='logBtn"; diffColor($rows['state']);
+						echo "  <button id='Id_".$rows['no']."' class='logBtn"; diffColor($rows['type']);
 						echo "' style='width:90px;'>".$rows['id']."</button>\r\n";
-						echo "  <button id='Name_".$rows['no']."' class='logBtn"; diffColor($rows['state']);
+						echo "  <button id='Name_".$rows['no']."' class='logBtn"; diffColor($rows['type']);
 						echo "' style='width:90px;'>".$rows['name']."</button>\r\n";
-						echo "  <button id='Time_".$rows['no']."' class='logBtn"; diffColor($rows['state']);
+						echo "  <button id='Time_".$rows['no']."' class='logBtn"; diffColor($rows['type']);
 						echo "' style='width:130px;'>";
 							if (strlen($rows['time'])==6)
 								echo $rows['date']." ".substr($rows['time'],0,2).":".substr($rows['time'],2,2);
 							else
 								echo "20".substr($rows['log'],0,2)."-".substr($rows['log'],2,2)."-".substr($rows['log'],4,2)." ".substr($rows['log'],7,2).":".substr($rows['log'],9,2);
 						echo "</button>\r\n";
-						echo "  <input id='State_".$rows['no']."' type='hidden' value='".$rows['state']."' />\r\n";
-						echo "  <button class='logBtn"; diffColor($rows['state']);
+						echo "  <input id='Type_".$rows['no']."' type='hidden' value='".$rows['type']."' />\r\n";
+						echo "  <button class='logBtn"; diffColor($rows['type']);
 						echo "' style='width:355px;";
-						if ($rows['state']=="Login" || $rows['state']=="AdminLogin")
+						if ($rows['type']=="Login" || $rows['type']=="AdminLogin")
 						{
 							echo " pointer-events:auto;' title='";
 							if (substr($rows['remark'],3,1) != "=") 
@@ -525,7 +535,7 @@
 								echo substr($rows['remark'],strpos($rows['remark'],'|')+1);
 						}
 						echo "'>";
-							switch ($rows['state'])
+							switch ($rows['type'])
 							{
 								case "Login":
 									echo "用户登录 （风格：";
@@ -537,7 +547,7 @@
 										echo "?）[…]";
 									break;
 								case "Logout":
-									echo "用户注销登录";
+									echo "用户登出";
 									break;
 								case "Reserve":
 									echo "预约：";
@@ -569,7 +579,7 @@
 									echo "?";
 							}
 						echo "</button>\r\n";
-						echo "  <button id='IP_".$rows['no']."' class='logBtn"; diffColor($rows['state']);
+						echo "  <button id='IP_".$rows['no']."' class='logBtn"; diffColor($rows['type']);
 						echo "' style='width:110px;'>";
 							$ip = "?";
 							if (strlen($rows['time'])==6)
@@ -649,7 +659,7 @@
 		flush();
 		echo "<script>document.getElementById('import_info_2').innerHTML+='INS SUCCESS = ".$successTot." , <font color=red>FAIL = ". ($str_Rec-$successTot) ."</font><br/>';</script>";
 		
-		$sql = "INSERT INTO log(id,date,time,state,remark,log) VALUES ('Admin','".date("Y-m-d")."','".date("His")."','FileImport','".$_POST['HiddenName']."|SUCCESS=".$successTot."|FAIL=".($str_Rec-$successTot)."','".date("ymd")."|".getenv('REMOTE_ADDR')."');";
+		$sql = "INSERT INTO log(id,date,time,type,remark,log) VALUES ('Admin','".date("Y-m-d")."','".date("His")."','FileImport','".$_POST['HiddenName']."|SUCCESS=".$successTot."|FAIL=".($str_Rec-$successTot)."','".date("ymd")."|".getenv('REMOTE_ADDR')."');";
 		mysqli_query($conn,$sql);
 		
 		for ($i=1; $i<=$str_Rec; $i++)

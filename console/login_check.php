@@ -21,7 +21,7 @@
 		$_SESSION['T'] = date("mdHi",strtotime("+20 minute"))."<";
 		
 		include_once("../conn.php");
-		$sql = "INSERT INTO log(id,date,time,state,remark,log) VALUES ('admin','".date("Y-m-d")."','".date("His")."','AdminLogin','".$_SERVER['HTTP_USER_AGENT']."','".date("ymd")."|".getenv('REMOTE_ADDR')."');";
+		$sql = "INSERT INTO log(id,date,time,type,remark,log) VALUES ('admin','".date("Y-m-d")."','".date("His")."','AdminLogin','".$_SERVER['HTTP_USER_AGENT']."','".date("ymd")."|".getenv('REMOTE_ADDR')."');";
 		mysqli_query($conn,$sql);
 	
 		header("location:index.php");

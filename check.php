@@ -20,7 +20,7 @@
 	// 注销用户登录
 	if (!isset($_POST['ID']))
 	{
-		$sql = "INSERT INTO log(id,date,time,state,log) VALUES ('".$_SESSION['IdToken']."','".date("Y-m-d")."','".date("His")."','Logout','".date("ymd")."|".$_SESSION['ipInfo']."');";
+		$sql = "INSERT INTO log(id,date,time,type,log) VALUES ('".$_SESSION['IdToken']."','".date("Y-m-d")."','".date("His")."','Logout','".date("ymd")."|".$_SESSION['ipInfo']."');";
 		mysqli_query($conn,$sql);
 		
 		session_destroy();
@@ -47,7 +47,7 @@
 				$_SESSION['IdToken'] = mysqli_real_escape_string($conn,check_input($_POST['ID']));
 				$_SESSION['CSS_No'] = mysqli_real_escape_string($conn,check_input($_POST['CSS_No']));
 				
-				$sql = "INSERT INTO log(id,date,time,state,remark,log) VALUES ('".$_SESSION['IdToken']."','".date("Y-m-d")."','".date("His")."','Login','CSS=".$_SESSION['CSS_No']."|".$_SESSION['sysInfo']."','".date("ymd")."|".$_SESSION['ipInfo']."');";
+				$sql = "INSERT INTO log(id,date,time,type,remark,log) VALUES ('".$_SESSION['IdToken']."','".date("Y-m-d")."','".date("His")."','Login','CSS=".$_SESSION['CSS_No']."|".$_SESSION['sysInfo']."','".date("ymd")."|".$_SESSION['ipInfo']."');";
 				// echo $sql;
 				mysqli_query($conn,$sql);
 				

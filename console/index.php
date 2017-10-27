@@ -4,47 +4,9 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<link rel="stylesheet" type="text/css" href="..\include\manage.css" />
 	<script src="..\include\logFilter.js"></script>
+	<script src="..\include\console.js"></script>
 	<title>管理后台 - 为民楼218活动室自助预约平台</title>
 </head>
-
-<script>
-	function updateProgress(sMsg, iWidth) 
-	{ 
-		document.getElementById("progress_mes").innerHTML = sMsg; 
-		document.getElementById("progress_col").style.width = iWidth + "px"; 
-		document.getElementById("progress_per").innerHTML = parseInt(iWidth / 64 * 100) + "%"; 
-	}
-	
-	function hideInfo()
-	{
-		document.getElementById("Info_No").innerHTML = "Log ID";
-		document.getElementById("Info_Id").innerHTML = "学/证号";
-		document.getElementById("Info_Name").innerHTML = "姓名";
-		document.getElementById("Info_Phone").innerHTML = "联系电话";
-		document.getElementById("Info_Date").innerHTML = "Date";
-		document.getElementById("Info_Time").innerHTML = "Time";
-		document.getElementById("Info_Remark").innerHTML = "活动室借用事由";
-		document.getElementById("Info_DateTime").innerHTML = "数据库记录时间";
-	}
-	
-	function showInfo(strid)
-	{
-		str = document.getElementById(strid).value;
-		var infoArr = new Array();
-		infoArr = str.split("|");
-		document.getElementById("Info_No").innerHTML = "No. " + infoArr[0];
-		document.getElementById("Info_Id").innerHTML = infoArr[1];
-		document.getElementById("Info_Name").innerHTML = infoArr[2];
-		document.getElementById("Info_Phone").innerHTML = infoArr[3];
-		document.getElementById("Info_Date").innerHTML = infoArr[4];
-		document.getElementById("Info_Time").innerHTML = infoArr[5].split("T")[0] + "-" + infoArr[5].split("T")[1];
-		document.getElementById("Info_Remark").innerHTML = infoArr[7];
-		var dt = new Array();
-		dt = infoArr[8].split("");
-		document.getElementById("Info_DateTime").innerHTML = dt[0]+dt[1]+"-"+dt[2]+dt[3]+"-"+dt[4]+dt[5]+" "+dt[7]+dt[8]+":"+dt[9]+dt[10];
-	}
-	
-</script>
 
 <body>
 
@@ -278,6 +240,8 @@
 					echo "[文件名]";
 			?>
 			</button>
+			
+			<!-- 文件预览 -->
 			<textarea rows="4" id="FileRead"><?php
 				if (isset($_POST['CheckFile']) && ($_POST['FileSelect']!='#'))
 				{
@@ -398,7 +362,7 @@
 		
 	</div>
 	
-	<!-- 数据导入详情 -->
+	<!-- 数据导入详情 Div -->
 	<div id="import_info_div" class="floatDiv" style="width:230px; height:502px; float:left; margin-top:-506px; margin-left:598px; z-index:999; display:none;">
 		<div class="floatTopic">数据导入详情</div>
 		<button class="xBtn" onclick="document.getElementById('import_info_div').style.display='none';">×</button>
@@ -407,14 +371,21 @@
 	</div>
 </div>
 
+<!-- 用户数据查询修改 系统日志 Div -->
 <div id="system_log" class="floatDiv" style="width:1196px; height:500px; margin:0 auto; margin-top:15px; display:block;">
 	<div class="floatTopic">【用户数据查询修改及系统日志】<span style="color:#F00;">数据无价，谨慎操作！</span></div>
 	<button class="xBtn" onclick="document.getElementById('system_log').style.display='none';">×</button>
+	
+	<!-- 用户数据查询修改 -->
 	<div style="width:300px; height:400px; float:left; margin-top:10px; border:2px solid #FF8C00; ">
 		
 	</div>
+	
+	<!-- 系统日志查询 -->
 	<div style="width:880px; height:400px; float:left; margin-top:5px;">
+		<!-- 过滤器 -->
 		<div style="width:880px; height:60px; float:left; margin-top:5px;">
+			<!-- 过滤器第一行 -->
 			<button class="logBtnDarkBlue" style="width:26px;" disabled="disabled">起</button>
 				<input id="NoFrom" class="logQInput" style="width:36px;" value="1" onfocus="document.getElementById('NoFrom').select();" onblur="setFilter();" />
 			<button class="checkBox" id="showUsers" onclick="checkBoxfunc('showUsers');">&#10004;</button>
@@ -436,6 +407,7 @@
 			<button class="logBtnQuery" style="width:46px; height:26px; pointer-events:auto;" onclick="resetFilter();">重置</button>
 			<br/>
 			
+			<!-- 过滤器第二行 -->
 			<button class="logBtnDarkBlue" style="width:26px;" disabled="disabled">止</button>
 				<input id="NoTo" class="logQInput" style="width:36px;"
 					onfocus="document.getElementById('NoTo').select();"
@@ -460,15 +432,18 @@
 			
 		</div>
 		
-		<button class="logBtnDarkBlue" style="width:65px; margin:5px 0px 5px 5px;">ID</button>
+		<!-- 日志表头 -->
+		<button class="logBtnDarkBlue" style="width:65px; margin:3px 0px 5px 5px;">ID</button>
 		<button class="logBtnDarkBlue" style="width:90px;">证件号码</button>
 		<button class="logBtnDarkBlue" style="width:90px;">姓名</button>
 		<button class="logBtnDarkBlue" style="width:130px;">操作时间</button>
 		<button class="logBtnDarkBlue" style="width:355px;">具体操作内容</button>
 		<button class="logBtnDarkBlue" style="width:110px;">IP地址</button>
-
+		
+		<!-- 日志 带滚动条 -->
 		<div style="width:890px; height:367px; overflow:auto;">
 			<?php
+				// 分级设色
 				function diffColor($stateType)
 				{
 					switch ($stateType)
@@ -499,7 +474,7 @@
 							break;
 					}
 				}
-				// $sql =  "SELECT log.*,userinfo.name FROM log,userinfo WHERE userinfo.id=log.id ORDER BY no DESC LIMIT 20;";
+
 				$sql =  "SELECT log.*,userinfo.name FROM log,userinfo WHERE userinfo.id=log.id ORDER BY no DESC;";
 				$result = mysqli_query($conn,$sql);
 				$js = 0;
@@ -510,12 +485,16 @@
 						$js++;
 						if ($js==1) echo "<input id='maxNo' type='hidden' value='".$rows['no']."' /><script>document.getElementById('NoTo').value=document.getElementById('maxNo').value;</script>";
 						echo "<div id='logdiv_".$rows['no']."'>\r\n";
+						
 						echo "  <button id='No_".$rows['no']."' class='logBtn"; diffColor($rows['type']);
 							echo "' style='width:65px;'>".$rows['no']."</button>\r\n";
+						
 						echo "  <button id='Id_".$rows['no']."' class='logBtn"; diffColor($rows['type']);
 						echo "' style='width:90px;'>".$rows['id']."</button>\r\n";
+						
 						echo "  <button id='Name_".$rows['no']."' class='logBtn"; diffColor($rows['type']);
 						echo "' style='width:90px;'>".$rows['name']."</button>\r\n";
+						
 						echo "  <button id='Time_".$rows['no']."' class='logBtn"; diffColor($rows['type']);
 						echo "' style='width:130px;'>";
 							if (strlen($rows['time'])==6)
@@ -523,7 +502,9 @@
 							else
 								echo "20".substr($rows['log'],0,2)."-".substr($rows['log'],2,2)."-".substr($rows['log'],4,2)." ".substr($rows['log'],7,2).":".substr($rows['log'],9,2);
 						echo "</button>\r\n";
+						// 操作内容Type
 						echo "  <input id='Type_".$rows['no']."' type='hidden' value='".$rows['type']."' />\r\n";
+						// 操作内容
 						echo "  <button class='logBtn"; diffColor($rows['type']);
 						echo "' style='width:355px;";
 						if ($rows['type']=="Login" || $rows['type']=="AdminLogin")
@@ -535,50 +516,51 @@
 								echo substr($rows['remark'],strpos($rows['remark'],'|')+1);
 						}
 						echo "'>";
-							switch ($rows['type'])
-							{
-								case "Login":
-									echo "用户登录 （风格：";
-									if (substr($rows['remark'],0,strpos($rows['remark'],'|')) == "CSS=0")
-										echo "北欧）[…]";
-									else if (substr($rows['remark'],0,strpos($rows['remark'],'|')) == "CSS=1")
-										echo "炫彩）[…]";
-									else
-										echo "?）[…]";
-									break;
-								case "Logout":
-									echo "用户登出";
-									break;
-								case "Reserve":
-									echo "预约：";
-									echo substr($rows['date'],2)."，";
-									echo substr($rows['time'],0,strpos($rows['time'],'T'))."-".substr($rows['time'],strpos($rows['time'],'T')+1);
-									echo "，".$rows['remark'];
-									break;
-								case "Cancel":
-									echo "取消预约：";
-									echo substr($rows['date'],2)."，";
-									echo substr($rows['time'],0,strpos($rows['time'],'T'))."-".substr($rows['time'],strpos($rows['time'],'T')+1);
-									break;
-								case "FileUpload":
-									echo "上传数据文件 ".$rows['remark'];
-									break;
-								case "FileDelete":
-									echo "删除数据文件 ".$rows['remark'];
-									break;
-								case "FileImport":
-									echo "导入";
-									echo substr($rows['remark'],0,strpos($rows['remark'],'|'));
-									echo "，成功/失败=".substr($rows['remark'],strpos($rows['remark'],'=')+1,strrpos($rows['remark'],'|')-strpos($rows['remark'],'=')-1);
-									echo "/".substr($rows['remark'],strrpos($rows['remark'],'=')+1);
-									break;
-								case "AdminLogin":
-									echo "管理员登录 […]";
-									break;
-								default:
-									echo "?";
-							}
+						switch ($rows['type'])
+						{
+							case "Login":
+								echo "用户登录 （风格：";
+								if (substr($rows['remark'],0,strpos($rows['remark'],'|')) == "CSS=0")
+									echo "北欧）[…]";
+								else if (substr($rows['remark'],0,strpos($rows['remark'],'|')) == "CSS=1")
+									echo "炫彩）[…]";
+								else
+									echo "?）[…]";
+								break;
+							case "Logout":
+								echo "用户登出";
+								break;
+							case "Reserve":
+								echo "预约：";
+								echo substr($rows['date'],2)."，";
+								echo substr($rows['time'],0,strpos($rows['time'],'T'))."-".substr($rows['time'],strpos($rows['time'],'T')+1);
+								echo "，".$rows['remark'];
+								break;
+							case "Cancel":
+								echo "取消预约：";
+								echo substr($rows['date'],2)."，";
+								echo substr($rows['time'],0,strpos($rows['time'],'T'))."-".substr($rows['time'],strpos($rows['time'],'T')+1);
+								break;
+							case "FileUpload":
+								echo "上传数据文件 ".$rows['remark'];
+								break;
+							case "FileDelete":
+								echo "删除数据文件 ".$rows['remark'];
+								break;
+							case "FileImport":
+								echo "导入";
+								echo substr($rows['remark'],0,strpos($rows['remark'],'|'));
+								echo "，成功/失败=".substr($rows['remark'],strpos($rows['remark'],'=')+1,strrpos($rows['remark'],'|')-strpos($rows['remark'],'=')-1);
+								echo "/".substr($rows['remark'],strrpos($rows['remark'],'=')+1);
+								break;
+							case "AdminLogin":
+								echo "管理员登录 […]";
+								break;
+							default:
+								echo "?";
+						}
 						echo "</button>\r\n";
+						
 						echo "  <button id='IP_".$rows['no']."' class='logBtn"; diffColor($rows['type']);
 						echo "' style='width:110px;'>";
 							$ip = "?";
@@ -594,6 +576,7 @@
 			<script>setFilter();</script>
 		</div>
 	</div>
+	
 </div>
 
 <div style="margin:0 auto; margin-top:10px; color:#011935; text-align:center; font-weight:bold; font-size:16px;">

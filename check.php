@@ -29,6 +29,7 @@
 		exit();
 	}
 	
+	// 用户登录检查
 	$sql = sprintf("SELECT COUNT(*) FROM userinfo WHERE id='%s'",mysqli_real_escape_string($conn,check_input($_POST['ID'])));
 	$sql = $sql.sprintf(" AND name='%s' LIMIT 1;",mysqli_real_escape_string($conn,check_input($_POST['Name'])));
 	
@@ -48,7 +49,7 @@
 				$_SESSION['CSS_No'] = mysqli_real_escape_string($conn,check_input($_POST['CSS_No']));
 				
 				$sql = "INSERT INTO log(id,date,time,type,remark,log) VALUES ('".$_SESSION['IdToken']."','".date("Y-m-d")."','".date("His")."','Login','CSS=".$_SESSION['CSS_No']."|".$_SESSION['sysInfo']."','".date("ymd")."|".$_SESSION['ipInfo']."');";
-				// echo $sql;
+
 				mysqli_query($conn,$sql);
 				
 				$sql = "UPDATE userinfo SET css=".$_SESSION['CSS_No']." WHERE id='".$_SESSION['IdToken']."';";

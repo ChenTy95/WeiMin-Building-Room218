@@ -92,6 +92,7 @@
 		}
 	}
 	
+	// 写入及读取cookie
 	function setCookie(strName, strValue, strDay)
 	{
 		var oDate = new Date();

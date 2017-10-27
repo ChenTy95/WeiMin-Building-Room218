@@ -10,7 +10,7 @@
 <body>
 	<div class="ResDiv">
 		<div style="margin-top:200px; text-align:center; margin-left:2.5%; width:95%; height:80px; border:2px solid #305496; color:#305496; font-size:16px; font-weight:bold; font-family:'Helvetica','Microsoft Yahei','微软雅黑','sans-serif'; line-height:30px; padding-top:20px;">
-			正在执行操作，完成后将自动跳转<br/>请耐心等待，不要手动刷新页面......
+			正在执行操作，完成后将自动跳转<br/>请耐心等待，不要手动刷新页面……
 		</div>
 	</div>
 

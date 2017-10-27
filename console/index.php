@@ -393,7 +393,7 @@
 			<button class="checkBox" id="showAdmin" onclick="checkBoxfunc('showAdmin');">&#10008;</button>
 				<button class="checkTxt" disabled="disabled">显示管理</button>
 			<button class="logBtnDarkBlue" style="width:26px;" disabled="disabled">起</button>
-				<input id="DateFrom" onclick="laydate();" class="logQInput" style="width:100px;" />
+				<input id="DateFrom" onclick="laydate();" class="logQInput" style="width:100px;" title="注意：日期填写或修改后需手动点击【查询】" />
 			<button class="checkBox" id="showLogin" onclick="checkBoxfunc('showLogin');" style="border-color:#D2691E; color:#D2691E;">&#10004;</button>
 				<button class="checkTxt" disabled="disabled" style="border-color:#D2691E; background-color:#D2691E;">用户登录</button>
 			<button class="checkBox" id="showReserve" onclick="checkBoxfunc('showReserve');">&#10004;</button>
@@ -418,7 +418,7 @@
 			<button class="logBtnDarkBlue" style="width:26px;" disabled="disabled">名</button>
 				<input id="NameInput" class="logQInput" style="width:60px;" onfocus="document.getElementById('NameInput').select();" onblur="setFilter()" />
 			<button class="logBtnDarkBlue" style="width:26px;" disabled="disabled">止</button>
-				<input id="DateTo" class="logQInput" onfocus="if (document.getElementById('DateTo').value == '') {document.getElementById('DateTo').value=document.getElementById('DateFrom').value;}" onclick="laydate();" style="width:100px;" />
+				<input id="DateTo" class="logQInput" onfocus="if (document.getElementById('DateTo').value == '') {document.getElementById('DateTo').value=document.getElementById('DateFrom').value;}" onclick="laydate();" title="注意：日期填写或修改后需手动点击【查询】" style="width:100px;" />
 			<button class="checkBox" id="showLogout" onclick="checkBoxfunc('showLogout');" style="border-color:#696969; color:#696969;">&#10008;</button>
 				<button class="checkTxt" disabled="disabled" style="border-color:#696969; background-color:#696969;">用户登出</button>
 			<button class="checkBox" id="showCancel" onclick="checkBoxfunc('showCancel');" style="border-color:#C1194E; color:#C1194E;">&#10004;</button>
@@ -493,7 +493,12 @@
 						echo "' style='width:90px;'>".$rows['id']."</button>\r\n";
 						
 						echo "  <button id='Name_".$rows['no']."' class='logBtn"; diffColor($rows['type']);
-						echo "' style='width:90px;'>".$rows['name']."</button>\r\n";
+						echo "' style='width:90px;'>";
+							if (mb_strlen($rows['name'])<=6)
+								echo $rows['name'];
+							else
+								echo mb_substr($rows['name'],0,4)."…".mb_substr($rows['name'],mb_strlen($rows['name'])-1);
+						echo "</button>\r\n";
 						
 						echo "  <button id='Time_".$rows['no']."' class='logBtn"; diffColor($rows['type']);
 						echo "' style='width:130px;'>";
@@ -672,7 +677,7 @@
 	
 	function deleteConfirm()
 	{
-		if (document.getElementById("FileName").innerHTML=="&lt; NAME &gt;")
+		if (document.getElementById("FileName").innerHTML.trim() == "[文件名]")
 		{
 			alert("当前未选择数据文件");
 			return false;

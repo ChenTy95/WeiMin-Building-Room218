@@ -358,10 +358,8 @@ button {
 	height: 22px;
 	font-size: 13px;
 	background-color: transparent;
-	/* border: 2px solid #305496; */
 	border: 0px;
 	padding: 0px;
-	/* margin: 0px 0px 3px 0px; */
 	text-align: center;
 	color: #305496;
 	font-family: 'Microsoft Yahei','微软雅黑','sans-serif';
@@ -413,5 +411,26 @@ button {
 	color: #FFF;
 	font-size: 12px;
 	margin: 0px;
-	line-height: 22px;
+}
+
+.optBlueTip18 {
+	height: 18px;
+	width: 18px;
+	padding: 0px;
+	border-right: 2px solid #305496;
+	background-color: #305496;
+	color: #FFF;
+	font-size: 10px;
+	margin: 0px;
+}
+
+#identitySelector {
+	width: 65px;
+	height: 22px;
+	border: 2px solid #305496;
+	margin-left: 3px;
+	font-family: "Microsoft Yahei","微软雅黑","sans-serif";
+	font-size: 10px;
+	color: #FFF;
+	background-color: #305496;
 }

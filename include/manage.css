@@ -297,56 +297,56 @@ button {
 	background-color: #8192D6;
 	color: #FFF;
 	font-size: 12px; 
-	margin-bottom: 5px; 
-	margin-left: 5px;
+	margin-bottom: 3px; 
+	margin-left: 3px;
 }
 .logBtnDarkBlue {
 	height: 26px;
 	background-color: #305496;
 	color: #FFF;
 	font-size: 12px;
-	margin-bottom: 5px;
-	margin-left: 5px;
+	margin-bottom: 3px;
+	margin-left: 3px;
 }
 .logBtnGray {
 	height: 26px;
 	background-color: #696969;
 	color: #FFF;
 	font-size: 12px; 
-	margin-bottom: 5px; 
-	margin-left: 5px;
+	margin-bottom: 3px; 
+	margin-left: 3px;
 }
 .logBtnPink {
 	height: 26px;
 	background-color: #C1194E;
 	color: #FFF;
 	font-size: 12px; 
-	margin-bottom: 5px; 
-	margin-left: 5px;
+	margin-bottom: 3px; 
+	margin-left: 3px;
 }
 .logBtnOrange {
 	height: 26px;
 	background-color: #D2691E;
 	color: #FFF;
 	font-size: 12px; 
-	margin-bottom: 5px; 
-	margin-left: 5px;
+	margin-bottom: 3px; 
+	margin-left: 3px;
 }
 .logBtnGreen {
 	height: 26px;
 	background-color: #008000;
 	color: #FFF;
 	font-size: 12px; 
-	margin-bottom: 5px; 
-	margin-left: 5px;
+	margin-bottom: 3px; 
+	margin-left: 3px;
 }
 .logBtnQuery {
 	height: 26px;
 	background-color: #305496;
 	color: #FFF;
 	font-size: 12px; 
-	margin-bottom: 5px; 
-	margin-left: 5px;
+	margin-bottom: 3px; 
+	margin-left: 3px;
 	pointer-events: auto;
 }
 .logBtnQuery:hover {
@@ -358,35 +358,60 @@ button {
 	height: 22px;
 	font-size: 13px;
 	background-color: transparent;
-	border: 2px solid #305496;
+	/* border: 2px solid #305496; */
+	border: 0px;
 	padding: 0px;
-	margin: 0px 0px 5px 0px;
+	/* margin: 0px 0px 3px 0px; */
 	text-align: center;
 	color: #305496;
 	font-family: 'Microsoft Yahei','微软雅黑','sans-serif';
 }
 
 .checkBox {
-	margin: 0px;
-	border: 4px solid #305496;
+	border: 0px;
 	color: #305496;
 	background-color: transparent;
 	padding: 0px;
-	height: 26px;
-	width: 28px;
-	margin-left: 5px;
+	height: 19px;
+	width: 20px;
 	font-size: 12px;
 	pointer-events: auto;
 }
 .checkTxt {
 	margin: 0px;
-	height: 26px;
+	height: 19px;
 	width: 62px;
-	border: 2px solid #305496;
 	padding: 0px;
-	border-left: 0px;
+	border-left: 4px solid #305496;
 	background-color: #305496;
 	color: #FFF;
 	font-size: 12px;
 	font-family: 'Microsoft Yahei','微软雅黑','sans-serif';
+}
+
+.optBorder2 {
+	border: 2px solid #305496;
+	margin-left: 3px;
+	height: 22px;
+	float: left;
+}
+
+.optBorder4 {
+	border: 4px solid #305496;
+	margin-left: 3px;
+	width: 82px;
+	height: 18px;
+	float: left;
+}
+
+.optBlueTip {
+	height: 22px;
+	width: 24px;
+	padding: 0px;
+	border-right: 2px solid #305496;
+	background-color: #305496;
+	color: #FFF;
+	font-size: 12px;
+	margin: 0px;
+	line-height: 22px;
 }

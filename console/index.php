@@ -158,7 +158,7 @@
 		<button class="rightHead">统计数据</button>
 		<button class="rightColor1" style="width:115px;">学/证号</button>
 		<button class="rightColor2" style="width:70px;">次数</button>
-		<button class="rightColor1" style="width:70px;">CSS</button>
+		<button class="rightColor1" style="width:70px;">风格</button>
 		<?php
 			$sql =  "SELECT * FROM userinfo ORDER BY count DESC LIMIT 3;";
 			$result = mysqli_query($conn,$sql);
@@ -369,220 +369,255 @@
 		<div id="import_info_2" style="margin-top:5px; margin-left:5px; height:60px; font-family:'Microsoft Yahei','微软雅黑','sans-serif'; font-size:14px;"></div>
 		<div id="import_info" style="width:225px; height:410px; margin-left:5px; font-family:'Consolas','Microsoft Yahei','微软雅黑','sans-serif'; overflow:auto;"></div>
 	</div>
-</div>
-
-<!-- 用户数据查询修改 系统日志 Div -->
-<div id="system_log" class="floatDiv" style="width:1196px; height:500px; margin:0 auto; margin-top:15px; display:block;">
-	<div class="floatTopic">【用户数据查询修改及系统日志】<span style="color:#F00;">数据无价，谨慎操作！</span></div>
-	<button class="xBtn" onclick="document.getElementById('system_log').style.display='none';">×</button>
 	
-	<!-- 用户数据查询修改 -->
-	<div style="width:300px; height:400px; float:left; margin-top:10px; border:2px solid #FF8C00; ">
-		
-	</div>
-	
-	<!-- 系统日志查询 -->
-	<div style="width:880px; height:400px; float:left; margin-top:5px;">
-		<!-- 过滤器 -->
-		<div style="width:880px; height:60px; float:left; margin-top:5px;">
-			<!-- 过滤器第一行 -->
-			<button class="logBtnDarkBlue" style="width:26px;" disabled="disabled">起</button>
-				<input id="NoFrom" class="logQInput" style="width:36px;" value="1" onfocus="document.getElementById('NoFrom').select();" onblur="setFilter();" />
-			<button class="checkBox" id="showUsers" onclick="checkBoxfunc('showUsers');">&#10004;</button>
-				<button class="checkTxt" disabled="disabled">显示用户</button>
-			<button class="checkBox" id="showAdmin" onclick="checkBoxfunc('showAdmin');">&#10008;</button>
-				<button class="checkTxt" disabled="disabled">显示管理</button>
-			<button class="logBtnDarkBlue" style="width:26px;" disabled="disabled">起</button>
-				<input id="DateFrom" onclick="laydate();" class="logQInput" style="width:100px;" title="注意：日期填写或修改后需手动点击【查询】" />
-			<button class="checkBox" id="showLogin" onclick="checkBoxfunc('showLogin');" style="border-color:#D2691E; color:#D2691E;">&#10004;</button>
-				<button class="checkTxt" disabled="disabled" style="border-color:#D2691E; background-color:#D2691E;">用户登录</button>
-			<button class="checkBox" id="showReserve" onclick="checkBoxfunc('showReserve');">&#10004;</button>
-				<button class="checkTxt" disabled="disabled" style="width:40px;">预约</button>
-			<button class="checkBox" id="showUpload" onclick="checkBoxfunc('showUpload');" style="border-color:#8192D6; color:#8192D6;">&#10008;</button>
-				<button class="checkTxt" disabled="disabled" style="border-color:#8192D6; background-color:#8192D6;">文件上传</button>
-			<button class="checkBox" id="showImport" onclick="checkBoxfunc('showImport');" style="border-color:#8192D6; color:#8192D6;">&#10008;</button>
-				<button class="checkTxt" disabled="disabled" style="border-color:#8192D6; background-color:#8192D6;">文件导入</button>
-			
-			<button class="logBtnQuery" style="width:60px; height:26px; pointer-events:auto;" onclick="setFilter();">查询</button>
-			<button class="logBtnQuery" style="width:46px; height:26px; pointer-events:auto;" onclick="resetFilter();">重置</button>
-			<br/>
-			
-			<!-- 过滤器第二行 -->
-			<button class="logBtnDarkBlue" style="width:26px;" disabled="disabled">止</button>
-				<input id="NoTo" class="logQInput" style="width:36px;"
-					onfocus="document.getElementById('NoTo').select();"
-					onblur="if (document.getElementById('NoTo').value=='') {document.getElementById('NoTo').value=document.getElementById('maxNo').value; } setFilter();"
-				/>
-			<button class="logBtnDarkBlue" style="width:26px;" disabled="disabled">号</button>
-				<input id="IdInput" class="logQInput" style="width:60px;" onfocus="document.getElementById('IdInput').select();" onblur="setFilter()" />
-			<button class="logBtnDarkBlue" style="width:26px;" disabled="disabled">名</button>
-				<input id="NameInput" class="logQInput" style="width:60px;" onfocus="document.getElementById('NameInput').select();" onblur="setFilter()" />
-			<button class="logBtnDarkBlue" style="width:26px;" disabled="disabled">止</button>
-				<input id="DateTo" class="logQInput" onfocus="if (document.getElementById('DateTo').value == '') {document.getElementById('DateTo').value=document.getElementById('DateFrom').value;}" onclick="laydate();" title="注意：日期填写或修改后需手动点击【查询】" style="width:100px;" />
-			<button class="checkBox" id="showLogout" onclick="checkBoxfunc('showLogout');" style="border-color:#696969; color:#696969;">&#10008;</button>
-				<button class="checkTxt" disabled="disabled" style="border-color:#696969; background-color:#696969;">用户登出</button>
-			<button class="checkBox" id="showCancel" onclick="checkBoxfunc('showCancel');" style="border-color:#C1194E; color:#C1194E;">&#10004;</button>
-				<button class="checkTxt" disabled="disabled" style="width:40px; border-color:#C1194E; background-color:#C1194E;">取消</button>
-			<button class="checkBox" id="showDelete" onclick="checkBoxfunc('showDelete');" style="border-color:#8192D6; color:#8192D6;">&#10008;</button>
-				<button class="checkTxt" disabled="disabled" style="border-color:#8192D6; background-color:#8192D6;">文件删除</button>
-			<button class="checkBox" id="showAdminLogin" onclick="checkBoxfunc('showAdminLogin');" style="border-color:#008000; color:#008000;">&#10008;</button>
-				<button class="checkTxt" disabled="disabled" style="border-color:#008000; background-color:#008000;">管理登录</button>
-			<button class="logBtnDarkBlue" style="width:26px;" disabled="disabled">IP</button>
-				<input id="IPInput" class="logQInput" style="width:81px;" onfocus="document.getElementById('IPInput').select();" onblur="setFilter()" />
-			
-		</div>
-		
-		<!-- 日志表头 -->
-		<button class="logBtnDarkBlue" style="width:65px; margin:3px 0px 5px 5px;">ID</button>
-		<button class="logBtnDarkBlue" style="width:90px;">证件号码</button>
-		<button class="logBtnDarkBlue" style="width:90px;">姓名</button>
-		<button class="logBtnDarkBlue" style="width:130px;">操作时间</button>
-		<button class="logBtnDarkBlue" style="width:355px;">具体操作内容</button>
-		<button class="logBtnDarkBlue" style="width:110px;">IP地址</button>
-		
-		<!-- 日志 带滚动条 -->
-		<div style="width:890px; height:367px; overflow:auto;">
-			<?php
-				// 分级设色
-				function diffColor($stateType)
-				{
-					switch ($stateType)
-					{
-						case "Login":
-							echo "Orange";
-							break;
-						case "Logout":
-							echo "Gray";
-							break;
-						case "Reserve":
-							echo "DarkBlue";
-							break;
-						case "Cancel":
-							echo "Pink";
-							break;
-						case "FileUpload":
-							echo "Blue";
-							break;
-						case "FileDelete":
-							echo "Blue";
-							break;
-						case "FileImport":
-							echo "Blue";
-							break;
-						case "AdminLogin":
-							echo "Green";
-							break;
-					}
-				}
+	<!-- 系统日志 Div -->
+	<div id="system_log" class="floatDiv" style="width:900px; height:478px; margin:0 auto; margin-top:20px; margin-left:80px; display:block; position:absolute;">
+		<div id="system_logTitle" class="floatTopic" style="cursor:move;">系统日志</div>
+		<button class="xBtn" onclick="document.getElementById('system_log').style.display='none';">×</button>
 
-				$sql =  "SELECT log.*,userinfo.name FROM log,userinfo WHERE userinfo.id=log.id ORDER BY no DESC;";
-				$result = mysqli_query($conn,$sql);
-				$js = 0;
-				if ($num = mysqli_num_rows($result))
-				{
-					while ($rows = mysqli_fetch_array($result,MYSQLI_ASSOC))
+		<!-- 系统日志查询 -->
+		<div style="width:880px; height:auto; float:left; margin-top:5px; margin-left:10px;">
+			<!-- 过滤器 -->
+			<div style="height:60px; float:left; margin-top:5px;">
+				<!-- 过滤器第一行 -->
+				<div class="optBorder2" style="width:61px;">
+					<button class="optBlueTip" disabled="disabled">起</button>
+					<input id="NoFrom" class="logQInput" style="width:37px;" value="1" onfocus="document.getElementById('NoFrom').select();" onblur="setFilter();" />
+				</div>
+				<div class="optBorder4">
+					<button class="checkBox" id="showUsers" onclick="checkBoxfunc('showUsers');">&#10004;</button>
+					<button class="checkTxt" disabled="disabled">显示用户</button>
+				</div>
+				<div class="optBorder4">
+					<button class="checkBox" id="showAdmin" onclick="checkBoxfunc('showAdmin');">&#10008;</button>
+					<button class="checkTxt" disabled="disabled">显示管理</button>
+				</div>
+				<div class="optBorder2" style="width:126px;">
+					<button class="optBlueTip" style="width:24px;" disabled="disabled">起</button>
+					<input id="DateFrom" onclick="laydate();" class="logQInput" style="width:102px;" title="注意：日期填写或修改后需手动点击【查询】" />
+				</div>
+				<div class="optBorder4" style="border-color:#D2691E;">
+					<button class="checkBox" id="showLogin" onclick="checkBoxfunc('showLogin');" style="border-color:#D2691E; color:#D2691E;">&#10004;</button>
+					<button class="checkTxt" disabled="disabled" style="border-color:#D2691E; background-color:#D2691E;">用户登录</button>
+				</div>
+				<div class="optBorder4" style="width:68px;">
+					<button class="checkBox" id="showReserve" onclick="checkBoxfunc('showReserve');">&#10004;</button>
+					<button class="checkTxt" disabled="disabled" style="width:48px;">预约</button>
+				</div>
+				<div class="optBorder4" style="border-color:#8192D6;">
+					<button class="checkBox" id="showUpload" onclick="checkBoxfunc('showUpload');" style="border-color:#8192D6; color:#8192D6;">&#10008;</button>
+					<button class="checkTxt" disabled="disabled" style="border-color:#8192D6; background-color:#8192D6;">文件上传</button>
+				</div>
+				<div class="optBorder4" style="border-color:#8192D6;">
+					<button class="checkBox" id="showImport" onclick="checkBoxfunc('showImport');" style="border-color:#8192D6; color:#8192D6;">&#10008;</button>
+					<button class="checkTxt" disabled="disabled" style="border-color:#8192D6; background-color:#8192D6;">文件导入</button>
+				</div>
+				
+				
+				
+				<button class="logBtnQuery" style="width:60px; height:26px; pointer-events:auto;" onclick="setFilter();">查询</button>
+				<button class="logBtnQuery" style="width:47px; height:26px; pointer-events:auto;" onclick="resetFilter();">重置</button>
+				<br/>
+				
+				<!-- 过滤器第二行 -->
+				<div class="optBorder2" style="width:61px;">
+					<button class="optBlueTip" disabled="disabled">止</button>
+					<input id="NoTo" class="logQInput" style="width:37px;"
+						onfocus="document.getElementById('NoTo').select();"
+						onblur="if (document.getElementById('NoTo').value=='') {document.getElementById('NoTo').value=document.getElementById('maxNo').value; } setFilter();"
+					/>
+				</div>
+				<div class="optBorder2" style="width:86px;">
+					<button class="optBlueTip" disabled="disabled">号</button>
+					<input id="IdInput" class="logQInput" style="width:62px;" onfocus="document.getElementById('IdInput').select();" onblur="setFilter()" />
+				</div>
+				<div class="optBorder2" style="width:86px;">
+					<button class="optBlueTip" disabled="disabled">名</button>
+					<input id="NameInput" class="logQInput" style="width:62px;" onfocus="document.getElementById('NameInput').select();" onblur="setFilter()" />
+				</div>
+				<div class="optBorder2" style="width:126px;">
+					<button class="optBlueTip" disabled="disabled">止</button>
+					<input id="DateTo" class="logQInput" onfocus="if (document.getElementById('DateTo').value == '') {document.getElementById('DateTo').value=document.getElementById('DateFrom').value;}" onclick="laydate();" title="注意：日期填写或修改后需手动点击【查询】" style="width:102px;" />
+				</div>
+				<div class="optBorder4" style="border-color:#696969;">
+					<button class="checkBox" id="showLogout" onclick="checkBoxfunc('showLogout');" style="border-color:#696969; color:#696969;">&#10008;</button>
+					<button class="checkTxt" disabled="disabled" style="border-color:#696969; background-color:#696969;">用户登出</button>
+				</div>
+				<div class="optBorder4" style="width:68px; border-color:#C1194E;">
+					<button class="checkBox" id="showCancel" onclick="checkBoxfunc('showCancel');" style="border-color:#C1194E; color:#C1194E;">&#10004;</button>
+					<button class="checkTxt" disabled="disabled" style="width:48px; border-color:#C1194E; background-color:#C1194E;">取消</button>
+				</div>
+				<div class="optBorder4" style="border-color:#8192D6;">
+					<button class="checkBox" id="showDelete" onclick="checkBoxfunc('showDelete');" style="border-color:#8192D6; color:#8192D6;">&#10008;</button>
+					<button class="checkTxt" disabled="disabled" style="border-color:#8192D6; background-color:#8192D6;">文件删除</button>
+				</div>
+				<div class="optBorder4" style="border-color:#008000;">
+					<button class="checkBox" id="showAdminLogin" onclick="checkBoxfunc('showAdminLogin');" style="border-color:#008000; color:#008000;">&#10008;</button>
+					<button class="checkTxt" disabled="disabled" style="border-color:#008000; background-color:#008000;">管理登录</button>
+				</div>
+				<div class="optBorder2" style="width:106px;">
+					<button class="optBlueTip" disabled="disabled">IP</button>
+					<input id="IPInput" class="logQInput" style="width:82px;" onfocus="document.getElementById('IPInput').select();" onblur="setFilter()" />
+				</div>
+			</div>
+			
+			<!-- 日志表头 -->
+			<button class="logBtnDarkBlue" style="width:65px; margin:0px 0px 3px 3px;">ID</button>
+			<button class="logBtnDarkBlue" style="width:90px;">证件号码</button>
+			<button class="logBtnDarkBlue" style="width:90px;">姓名</button>
+			<button class="logBtnDarkBlue" style="width:130px;">操作时间</button>
+			<button class="logBtnDarkBlue" style="width:355px;">具体操作内容</button>
+			<button class="logBtnDarkBlue" style="width:110px;">IP地址</button>
+			
+			<!-- 日志 带滚动条 -->
+			<div style="height:348px; overflow:auto;">
+				<?php
+					// 分级设色
+					function diffColor($stateType)
 					{
-						$js++;
-						if ($js==1) echo "<input id='maxNo' type='hidden' value='".$rows['no']."' /><script>document.getElementById('NoTo').value=document.getElementById('maxNo').value;</script>";
-						echo "<div id='logdiv_".$rows['no']."'>\r\n";
-						
-						echo "  <button id='No_".$rows['no']."' class='logBtn"; diffColor($rows['type']);
-							echo "' style='width:65px;'>".$rows['no']."</button>\r\n";
-						
-						echo "  <button id='Id_".$rows['no']."' class='logBtn"; diffColor($rows['type']);
-						echo "' style='width:90px;'>".$rows['id']."</button>\r\n";
-						
-						echo "  <button id='Name_".$rows['no']."' class='logBtn"; diffColor($rows['type']);
-						echo "' style='width:90px;'>";
-							if (mb_strlen($rows['name'])<=6)
-								echo $rows['name'];
-							else
-								echo mb_substr($rows['name'],0,4)."…".mb_substr($rows['name'],mb_strlen($rows['name'])-1);
-						echo "</button>\r\n";
-						
-						echo "  <button id='Time_".$rows['no']."' class='logBtn"; diffColor($rows['type']);
-						echo "' style='width:130px;'>";
-							if (strlen($rows['time'])==6)
-								echo $rows['date']." ".substr($rows['time'],0,2).":".substr($rows['time'],2,2);
-							else
-								echo "20".substr($rows['log'],0,2)."-".substr($rows['log'],2,2)."-".substr($rows['log'],4,2)." ".substr($rows['log'],7,2).":".substr($rows['log'],9,2);
-						echo "</button>\r\n";
-						// 操作内容Type
-						echo "  <input id='Type_".$rows['no']."' type='hidden' value='".$rows['type']."' />\r\n";
-						// 操作内容
-						echo "  <button class='logBtn"; diffColor($rows['type']);
-						echo "' style='width:355px;";
-						if ($rows['type']=="Login" || $rows['type']=="AdminLogin")
-						{
-							echo " pointer-events:auto;' title='";
-							if (substr($rows['remark'],3,1) != "=") 
-								echo $rows['remark'];
-							else
-								echo substr($rows['remark'],strpos($rows['remark'],'|')+1);
-						}
-						echo "'>";
-						switch ($rows['type'])
+						switch ($stateType)
 						{
 							case "Login":
-								echo "用户登录 （风格：";
-								if (substr($rows['remark'],0,strpos($rows['remark'],'|')) == "CSS=0")
-									echo "北欧）[…]";
-								else if (substr($rows['remark'],0,strpos($rows['remark'],'|')) == "CSS=1")
-									echo "炫彩）[…]";
-								else
-									echo "?）[…]";
+								echo "Orange";
 								break;
 							case "Logout":
-								echo "用户登出";
+								echo "Gray";
 								break;
 							case "Reserve":
-								echo "预约：";
-								echo substr($rows['date'],2)."，";
-								echo substr($rows['time'],0,strpos($rows['time'],'T'))."-".substr($rows['time'],strpos($rows['time'],'T')+1);
-								echo "，".$rows['remark'];
+								echo "DarkBlue";
 								break;
 							case "Cancel":
-								echo "取消预约：";
-								echo substr($rows['date'],2)."，";
-								echo substr($rows['time'],0,strpos($rows['time'],'T'))."-".substr($rows['time'],strpos($rows['time'],'T')+1);
+								echo "Pink";
 								break;
 							case "FileUpload":
-								echo "上传数据文件 ".$rows['remark'];
+								echo "Blue";
 								break;
 							case "FileDelete":
-								echo "删除数据文件 ".$rows['remark'];
+								echo "Blue";
 								break;
 							case "FileImport":
-								echo "导入";
-								echo substr($rows['remark'],0,strpos($rows['remark'],'|'));
-								echo "，成功/失败=".substr($rows['remark'],strpos($rows['remark'],'=')+1,strrpos($rows['remark'],'|')-strpos($rows['remark'],'=')-1);
-								echo "/".substr($rows['remark'],strrpos($rows['remark'],'=')+1);
+								echo "Blue";
 								break;
 							case "AdminLogin":
-								echo "管理员登录 […]";
+								echo "Green";
 								break;
-							default:
-								echo "?";
 						}
-						echo "</button>\r\n";
-						
-						echo "  <button id='IP_".$rows['no']."' class='logBtn"; diffColor($rows['type']);
-						echo "' style='width:110px;'>";
-							$ip = "?";
-							if (strlen($rows['time'])==6)
-								$ip = substr($rows['log'],strpos($rows['log'],'|')+1);
-							if ($ip=="") $ip="?";
-						echo $ip."</button>\r\n";
-						
-						echo "</div>\r\n";
 					}
-				}
-			?>
-			<script>setFilter();</script>
+
+					$sql =  "SELECT log.*,userinfo.name FROM log,userinfo WHERE userinfo.id=log.id ORDER BY no DESC;";
+					$result = mysqli_query($conn,$sql);
+					$js = 0;
+					if ($num = mysqli_num_rows($result))
+					{
+						while ($rows = mysqli_fetch_array($result,MYSQLI_ASSOC))
+						{
+							$js++;
+							if ($js==1) echo "<input id='maxNo' type='hidden' value='".$rows['no']."' /><script>document.getElementById('NoTo').value=document.getElementById('maxNo').value;</script>";
+							echo "<div id='logdiv_".$rows['no']."'>\r\n";
+							
+							echo "  <button id='No_".$rows['no']."' class='logBtn"; diffColor($rows['type']);
+								echo "' style='width:65px;'>".$rows['no']."</button>\r\n";
+							
+							echo "  <button id='Id_".$rows['no']."' class='logBtn"; diffColor($rows['type']);
+							echo "' style='width:90px;'>".$rows['id']."</button>\r\n";
+							
+							echo "  <button id='Name_".$rows['no']."' class='logBtn"; diffColor($rows['type']);
+							echo "' style='width:90px;'>";
+								if (mb_strlen($rows['name'])<=6)
+									echo $rows['name'];
+								else
+									echo mb_substr($rows['name'],0,4)."…".mb_substr($rows['name'],mb_strlen($rows['name'])-1);
+							echo "</button>\r\n";
+							
+							echo "  <button id='Time_".$rows['no']."' class='logBtn"; diffColor($rows['type']);
+							echo "' style='width:130px;'>";
+								if (strlen($rows['time'])==6)
+									echo $rows['date']." ".substr($rows['time'],0,2).":".substr($rows['time'],2,2);
+								else
+									echo "20".substr($rows['log'],0,2)."-".substr($rows['log'],2,2)."-".substr($rows['log'],4,2)." ".substr($rows['log'],7,2).":".substr($rows['log'],9,2);
+							echo "</button>\r\n";
+							// 操作内容Type
+							echo "  <input id='Type_".$rows['no']."' type='hidden' value='".$rows['type']."' />\r\n";
+							// 操作内容
+							echo "  <button class='logBtn"; diffColor($rows['type']);
+							echo "' style='width:355px;";
+							if ($rows['type']=="Login" || $rows['type']=="AdminLogin")
+							{
+								echo " pointer-events:auto;' title='";
+								if (substr($rows['remark'],3,1) != "=") 
+									echo $rows['remark'];
+								else
+									echo substr($rows['remark'],strpos($rows['remark'],'|')+1);
+							}
+							echo "'>";
+							switch ($rows['type'])
+							{
+								case "Login":
+									echo "用户登录 （风格：";
+									if (substr($rows['remark'],0,strpos($rows['remark'],'|')) == "CSS=0")
+										echo "北欧）[…]";
+									else if (substr($rows['remark'],0,strpos($rows['remark'],'|')) == "CSS=1")
+										echo "炫彩）[…]";
+									else
+										echo "?）[…]";
+									break;
+								case "Logout":
+									echo "用户登出";
+									break;
+								case "Reserve":
+									echo "预约：";
+									echo substr($rows['date'],2)."，";
+									echo substr($rows['time'],0,strpos($rows['time'],'T'))."-".substr($rows['time'],strpos($rows['time'],'T')+1);
+									echo "，".$rows['remark'];
+									break;
+								case "Cancel":
+									echo "取消预约：";
+									echo substr($rows['date'],2)."，";
+									echo substr($rows['time'],0,strpos($rows['time'],'T'))."-".substr($rows['time'],strpos($rows['time'],'T')+1);
+									break;
+								case "FileUpload":
+									echo "上传数据文件 ".$rows['remark'];
+									break;
+								case "FileDelete":
+									echo "删除数据文件 ".$rows['remark'];
+									break;
+								case "FileImport":
+									echo "导入";
+									echo substr($rows['remark'],0,strpos($rows['remark'],'|'));
+									echo "，成功/失败=".substr($rows['remark'],strpos($rows['remark'],'=')+1,strrpos($rows['remark'],'|')-strpos($rows['remark'],'=')-1);
+									echo "/".substr($rows['remark'],strrpos($rows['remark'],'=')+1);
+									break;
+								case "AdminLogin":
+									echo "管理员登录 […]";
+									break;
+								default:
+									echo "?";
+							}
+							echo "</button>\r\n";
+							
+							echo "  <button id='IP_".$rows['no']."' class='logBtn"; diffColor($rows['type']);
+							echo "' style='width:110px;'>";
+								$ip = "?";
+								if (strlen($rows['time'])==6)
+									$ip = substr($rows['log'],strpos($rows['log'],'|')+1);
+								if ($ip=="") $ip="?";
+							echo $ip."</button>\r\n";
+							
+							echo "</div>\r\n";
+						}
+					}
+				?>
+				<script>setFilter();</script>
+			</div>
 		</div>
 	</div>
 	
 </div>
+
+<script type="text/javascript" src="../include/zxx.drag.1.0.js"></script>
+<script>
+	startDrag(document.getElementById('system_logTitle'),document.getElementById('system_log'));
+</script>
 
 <div style="margin:0 auto; margin-top:10px; color:#011935; text-align:center; font-weight:bold; font-size:16px;">
 	控制台要求使用1366*768及以上分辨率 . Developed By 汤圆 [ 13141009 / ChenTy95 ]

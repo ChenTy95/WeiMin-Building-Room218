@@ -212,7 +212,7 @@ button {
 .uploadFile {
 	width: 175px;
 	height: 24px;
-	margin-top: 6px;
+	margin-top: 4px;
 	margin-left: 5px;
 	color: #FFF;
 	font-size: 14px;
@@ -434,3 +434,18 @@ button {
 	color: #FFF;
 	background-color: #305496;
 }
+
+.rightDiv1 .rightHead { height: 32px; }
+.rightDiv1 .rightColor1 { height: 32px; }
+.rightDiv1 .rightColor2 { height: 32px; }
+
+.rightDiv2 .rightHead { height: 32px; }
+.rightDiv2 .rightColor1 { height: 32px; }
+.rightDiv2 .rightColor2 { height: 32px; }
+.rightDiv2 .submit_btn { height: 32px; }
+.rightDiv2 .selector { height: 32px; }
+
+.rightDiv3 .logBtnQuery { background-color: #011935; }
+.rightDiv3 .logBtnQuery:hover { background-color: #D2691E; }
+
+.rightDiv3 .logQInput { font-size: 11px; }

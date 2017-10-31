@@ -7,14 +7,14 @@ function updateProgress(sMsg, iWidth)
 
 function hideInfo()
 {
-	document.getElementById("Info_No").innerHTML = "Log ID";
-	document.getElementById("Info_Id").innerHTML = "学/证号";
+	document.getElementById("Info_No").innerHTML = "日志编号";
+	document.getElementById("Info_Id").innerHTML = "证件号码";
 	document.getElementById("Info_Name").innerHTML = "姓名";
 	document.getElementById("Info_Phone").innerHTML = "联系电话";
-	document.getElementById("Info_Date").innerHTML = "Date";
-	document.getElementById("Info_Time").innerHTML = "Time";
-	document.getElementById("Info_Remark").innerHTML = "活动室借用事由";
-	document.getElementById("Info_DateTime").innerHTML = "数据库记录时间";
+	document.getElementById("Info_Date").innerHTML = "日期";
+	document.getElementById("Info_Time").innerHTML = "时段";
+	document.getElementById("Info_Remark").innerHTML = "借用事由";
+	document.getElementById("Info_DateTime").innerHTML = "数据库访问时间";
 }
 
 function showInfo(strid)
@@ -32,4 +32,17 @@ function showInfo(strid)
 	var dt = new Array();
 	dt = infoArr[8].split("");
 	document.getElementById("Info_DateTime").innerHTML = dt[0]+dt[1]+"-"+dt[2]+dt[3]+"-"+dt[4]+dt[5]+" "+dt[7]+dt[8]+":"+dt[9]+dt[10];
+}
+
+function showUserInfo(userid)
+{
+	document.getElementById('IdInput_data').value = document.getElementById('user_id_'+userid).innerHTML;
+	document.getElementById('NameInput_data').value = document.getElementById('user_name_'+userid).value;
+	for (var i=0; i<=6; i++)
+	{
+		if (document.getElementById('identitySelector')[i].text == document.getElementById('user_identity_'+userid).innerHTML)
+		{
+			document.getElementById('identitySelector').selectedIndex = i;
+		}
+	}
 }

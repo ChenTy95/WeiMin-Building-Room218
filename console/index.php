@@ -141,20 +141,20 @@
 	</div>
 
 	<!-- 右侧 1.预约详情 -->
-	<div style="width:345px; height:auto; margin-left:23px; margin-top:20px; float:left;"> 
+	<div class="rightDiv1" style="width:345px; height:auto; margin-left:23px; margin-top:20px; float:left;"> 
 		<button class="rightHead">预约详情</button>
-		<button class="rightColor1" id="Info_No" style="width:95px;">Log ID</button>
-		<button class="rightColor2" id="Info_DateTime" style="width:160px;">数据库记录时间</button>
+		<button class="rightColor1" id="Info_No" style="width:95px;">日志编号</button>
+		<button class="rightColor2" id="Info_DateTime" style="width:160px;">数据库访问时间</button>
 		<button class="rightColor1" id="Info_Name" style="width:90px;">姓名</button>
-		<button class="rightColor2" id="Info_Id" style="width:125px;">学/证号</button>
+		<button class="rightColor2" id="Info_Id" style="width:125px;">证件号码</button>
 		<button class="rightColor1" id="Info_Phone" style="width:130px;">联系电话</button>
-		<button class="rightColor2" id="Info_Date" style="width:90px; font-size:12px;">Date</button>
-		<button class="rightColor1" id="Info_Time" style="width:55px; font-size:12px;">Time</button>
-		<button class="rightColor2" id="Info_Remark" style="width:200px; font-size:12px;">活动室借用事由</button>
+		<button class="rightColor2" id="Info_Date" style="width:90px; font-size:12px;">日期</button>
+		<button class="rightColor1" id="Info_Time" style="width:55px; font-size:12px;">时段</button>
+		<button class="rightColor2" id="Info_Remark" style="width:200px; font-size:12px;">借用事由</button>
 	</div>
 	
 	<!-- 右侧 2.数据导入 -->
-	<div style="width:345px; height:auto; margin-left:23px; margin-top:10px; float:left;"> 
+	<div class="rightDiv2" style="width:345px; height:auto; margin-left:23px; margin-top:10px; float:left;"> 
 		<button class="rightHead" style="float:left;">数据导入</button>
 		<form action="editFile.php" method="post" enctype="multipart/form-data" style="width:255px; float:left;">
 			<div class="rightColor2" style="width:185px; float:left;">
@@ -336,8 +336,8 @@
 		
 	</div>
 	
-	<!-- 右侧 3.统计数据 -->
-	<div style="width:341px; height:160px; margin-left:23px; margin-top:10px; float:left; border:2px solid #011935;"> 
+	<!-- 右侧 3.用户数据 -->
+	<div class="rightDiv3" style="width:341px; height:184px; margin-left:23px; margin-top:10px; float:left; border:2px solid #011935;"> 
 		<button class="rightHead" style="width:88px; height:30px;">用户数据</button>
 		<?php
 			echo "<div style='text-align:center;'>";
@@ -345,7 +345,6 @@
 			$result = mysqli_query($conn,$sql);
 			if ($num = mysqli_num_rows($result))
 			{
-				$i = 0;
 				while ($rows = mysqli_fetch_array($result,MYSQLI_ASSOC))
 				{
 					echo "<button class='logBtnDarkBlue' style='margin-top:3px; margin-left:0px;' >预约 ".$rows['RESERVE']."</button>";
@@ -371,14 +370,15 @@
 			}
 			echo "</div>";
 		?>
+		
 		<form action="index.php" method="POST">
 			<div class="optBorder2" style="width:76px; height:18px; margin-bottom:2px;">
 				<button class="optBlueTip18" disabled="disabled">号</button>
 				<input name="user_id" id="IdInput_data" class="logQInput" style="width:58px; height:18px;" onfocus="document.getElementById('IdInput_data').select();"/>
 			</div>
-			<div class="optBorder2" style="width:61px; height:18px; margin-bottom:2px;">
+			<div class="optBorder2" style="width:68px; height:18px; margin-bottom:2px;">
 				<button class="optBlueTip18" disabled="disabled">名</button>
-				<input name="user_name" id="NameInput_data" class="logQInput" style="width:43px; height:18px;" onfocus="document.getElementById('NameInput_data').select();"/>
+				<input name="user_name" id="NameInput_data" class="logQInput" style="width:50px; height:18px;" onfocus="document.getElementById('NameInput_data').select();"/>
 			</div>
 			<select name="user_identity" id="identitySelector">
 				<option value="#">请选择</option>
@@ -389,11 +389,12 @@
 				<option value="jg">教职工</option>
 				<option value="admin">管理员</option>
 			</select>
-			<button name="user_query" class="logBtnQuery" style="height:22px; width:37px;">查询</button>
-			<button name="user_edit" class="logBtnQuery" style="height:22px; width:37px;">修改</button>
-			<button name="user_new" class="logBtnQuery" style="height:22px; width:37px;">新增</button>
+			<button name="user_query" class="logBtnQuery" style="height:22px; width:25px;">查</button>
+			<button name="user_edit" class="logBtnQuery" style="height:22px; width:25px;">改</button>
+			<button name="user_new" class="logBtnQuery" style="height:22px; width:25px;">增</button>
+			<button name="user_del" class="logBtnQuery" style="height:22px; width:25px;">删</button>
 		</form>
-		<div style="height:72px; overflow:auto;">
+		<div style="height:95px; overflow:auto;">
 		<?php
 			function check_input($data)
 			{
@@ -436,42 +437,71 @@
 				$result = mysqli_query($conn,$sql);
 				if ($num = mysqli_num_rows($result))
 				{
-					$i = 0;
 					while ($rows = mysqli_fetch_array($result,MYSQLI_ASSOC))
 					{
-						echo "<button class='logBtn"; userColor($rows['identity']);
+						echo "<button id='user_id_".$rows['id']."' class='logBtn";
+							userColor($rows['identity']);
 						echo "' style='height:22px; width:80px'>".$rows['id']."</button>\r\n";
-						echo "<input type='hidden' value='".$rows['name']."'/>\r\n";
+						
+						echo "<input id='user_name_".$rows['id']."' type='hidden' value='".$rows['name']."'/>\r\n";
 						$username = "";
 						if (mb_strlen($rows['name'])<=4)
 							$username = $rows['name'];
 						else
 							$username = mb_substr($rows['name'],0,2)."…".mb_substr($rows['name'],mb_strlen($rows['name'])-1);
-						echo "<button class='logBtn"; userColor($rows['identity']);
-						echo "' style='height:22px; width:65px'>".$username."</button>\r\n";
+						echo "<button class='logBtn";	userColor($rows['identity']);
+						echo "' style='height:22px; width:72px'>".$username."</button>\r\n";
+						
+						echo "<button id='user_identity_".$rows['id']."' class='logBtn";
+							userColor($rows['identity']);
+						echo "' style='height:22px; width:65px'>";
+						switch ($rows['identity'])
+						{
+							case "bk":
+								echo "本科生";
+								break;
+							case "szy":
+								echo "硕士生";
+								break;
+							case "by":
+								echo "博士生";
+								break;
+							case "fdy":
+								echo "辅导员";
+								break;
+							case "jg":
+								echo "教职工";
+								break;
+							case "admin":
+								echo "管理员";
+								break;
+						}
+						echo "</button>\r\n";
+						
+						echo "<button class='logBtnQuery' style='height:22px; width:25px;' onclick='showUserInfo(`".$rows['id']."`);'>选</button>";
+						
+						echo "<button id='user_css_".$rows['id']."' class='logBtn";
+							userColor($rows['identity']);
+						echo "' style='height:22px; width:25px'>";
+						switch ($rows['css'])
+						{
+							case 0:
+								echo "简";
+								break;
+							case 1:
+								echo "彩";
+								break;
+						}
+						echo "</button>\r\n";
+						
+						echo "<button class='logBtn";	userColor($rows['identity']);
+						echo "' style='height:22px; width:35px'>".$rows['count']."</button>\r\n";
+						
 						echo "<br/>\r\n";
 					}
 				}
 			}
 		?>
-			<button class="logBtnDarkBlue" style="height:22px; width:80px">SY1914101</button>
-			<button class="logBtnDarkBlue" style="height:22px; width:65px">一二三四</button>
-			<button class="logBtnDarkBlue" style="height:22px; width:60px">辅导员</button>
-			<button class="logBtnDarkBlue" style="height:22px; width:37px">计</button>
-			<button class="logBtnDarkBlue" style="height:22px; width:37px">风格</button>
-			<button class="logBtnDarkBlue" style="height:22px; width:22px; padding:0px;">选</button>
-			<button class="logBtnDarkBlue" style="height:22px; width:80px">SY1914101</button>
-			<button class="logBtnDarkBlue" style="height:22px; width:70px">一二三四</button>
-			<button class="logBtnDarkBlue" style="height:22px; width:60px">辅导员</button>
-			<button class="logBtnDarkBlue" style="height:22px; width:37px">计</button>
-			<button class="logBtnDarkBlue" style="height:22px; width:37px">风格</button>
-			<button class="logBtnDarkBlue" style="height:22px; width:22px; padding:0px;">选</button>
-			<button class="logBtnDarkBlue" style="height:22px; width:80px">SY1914101</button>
-			<button class="logBtnDarkBlue" style="height:22px; width:70px">一二三四</button>
-			<button class="logBtnDarkBlue" style="height:22px; width:60px">辅导员</button>
-			<button class="logBtnDarkBlue" style="height:22px; width:37px">计</button>
-			<button class="logBtnDarkBlue" style="height:22px; width:37px">风格</button>
-			<button class="logBtnDarkBlue" style="height:22px; width:22px; padding:0px;">选</button>
 		</div>
 	</div>
 	
@@ -480,7 +510,7 @@
 		<div class="floatTopic">数据导入详情</div>
 		<button class="xBtn" onclick="document.getElementById('import_info_div').style.display='none';">×</button>
 		<div id="import_info_2" style="margin-top:5px; margin-left:5px; height:60px; font-family:'Microsoft Yahei','微软雅黑','sans-serif'; font-size:14px;"></div>
-		<div id="import_info" style="width:225px; height:410px; margin-left:5px; font-family:'Consolas','Microsoft Yahei','微软雅黑','sans-serif'; overflow:auto;"></div>
+		<div id="import_info" style="width:225px; height:410px; margin-left:5px; font-family:'Consolas','Microsoft Yahei','微软雅黑','sans-serif'; overflow:auto; font-size:16px; line-height:18px;"></div>
 	</div>
 	
 	<!-- 系统日志 Div -->
@@ -765,7 +795,7 @@
 		{
 			$str = fgets($file);
 			$user_id = substr($str,0,strpos($str,","));
-			$user_name = substr($str,strpos($str,",") + 1);
+			$user_name = str_replace(PHP_EOL, '', substr($str,strpos($str,",") + 1));
 			$recStr_Arr[$i] = $user_id." ".$user_name;
 			
 			$sql_insert = "INSERT IGNORE INTO userinfo(id,name,identity) VALUES ('".$user_id."','".$user_name."','".$str_Identity."');";

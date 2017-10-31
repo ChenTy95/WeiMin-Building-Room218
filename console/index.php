@@ -339,8 +339,8 @@
 	<!-- 右侧 3.用户数据 -->
 	<div class="rightDiv3" style="width:341px; height:184px; margin-left:23px; margin-top:10px; float:left; border:2px solid #011935;"> 
 		<button class="rightHead" style="width:88px; height:30px;">用户数据</button>
-		<?php
-			echo "<div style='text-align:center;'>";
+		<?php		
+			echo "<div class='data_radius' style='text-align:center;'>";
 			$sql = "SELECT SUM(CASE WHEN type='Reserve' THEN 1 ELSE 0 END) AS RESERVE, SUM(CASE WHEN type='Cancel' THEN 1 ELSE 0 END) AS CANCEL, SUM(CASE WHEN type='Login' THEN 1 ELSE 0 END) AS LOGIN FROM log;";
 			$result = mysqli_query($conn,$sql);
 			if ($num = mysqli_num_rows($result))
@@ -353,8 +353,8 @@
 				}
 			}
 			echo "</div><br/>";
-			echo "<div style='text-align:center;'>";
-			$sql =  "SELECT SUM(CASE WHEN identity='bk' THEN 1 ELSE 0 END) AS _BK, SUM(CASE WHEN identity='sy' OR identity='zy' THEN 1 ELSE 0 END) AS _SZY, SUM(CASE WHEN identity='by' THEN 1 ELSE 0 END) AS _BY, SUM(CASE WHEN identity='admin' THEN 1 ELSE 0 END) AS ADMIN, SUM(CASE WHEN identity='fdy' THEN 1 ELSE 0 END) AS FDY, SUM(CASE WHEN identity='jg' THEN 1 ELSE 0 END) AS JG FROM userinfo;";
+			echo "<div class='data_radius' style='text-align:center;'>";
+			$sql =  "SELECT SUM(CASE WHEN identity='bk' THEN 1 ELSE 0 END) AS _BK, SUM(CASE WHEN identity='szy' THEN 1 ELSE 0 END) AS _SZY, SUM(CASE WHEN identity='by' THEN 1 ELSE 0 END) AS _BY, SUM(CASE WHEN identity='admin' THEN 1 ELSE 0 END) AS ADMIN, SUM(CASE WHEN identity='fdy' THEN 1 ELSE 0 END) AS FDY, SUM(CASE WHEN identity='jg' THEN 1 ELSE 0 END) AS JG FROM userinfo;";
 			$result = mysqli_query($conn,$sql);
 			if ($num = mysqli_num_rows($result))
 			{
@@ -371,15 +371,18 @@
 			echo "</div>";
 		?>
 		
-		<form action="index.php" method="POST">
+		<form action="userData.php" method="POST">
 			<div class="optBorder2" style="width:76px; height:18px; margin-bottom:2px;">
+				<input name="user_id_Origin" id="user_id_Origin" type="hidden" value="" />";
 				<button class="optBlueTip18" disabled="disabled">号</button>
 				<input name="user_id" id="IdInput_data" class="logQInput" style="width:58px; height:18px;" onfocus="document.getElementById('IdInput_data').select();"/>
 			</div>
 			<div class="optBorder2" style="width:68px; height:18px; margin-bottom:2px;">
+				<input name="user_name_Origin" id="user_name_Origin" type="hidden" value="" />";
 				<button class="optBlueTip18" disabled="disabled">名</button>
 				<input name="user_name" id="NameInput_data" class="logQInput" style="width:50px; height:18px;" onfocus="document.getElementById('NameInput_data').select();"/>
 			</div>
+			<input name="user_identity_Origin" id="user_identity_Origin" type="hidden" value="" />";
 			<select name="user_identity" id="identitySelector">
 				<option value="#">请选择</option>
 				<option value="bk">本科生</option>
@@ -390,23 +393,12 @@
 				<option value="admin">管理员</option>
 			</select>
 			<button name="user_query" class="logBtnQuery" style="height:22px; width:25px;">查</button>
-			<button name="user_edit" class="logBtnQuery" style="height:22px; width:25px;">改</button>
-			<button name="user_new" class="logBtnQuery" style="height:22px; width:25px;">增</button>
-			<button name="user_del" class="logBtnQuery" style="height:22px; width:25px;">删</button>
+			<button name="user_edit" class="logBtnQuery" style="height:22px; width:25px;" onclick="return checkOperation('Edit');">改</button>
+			<button name="user_add" class="logBtnQuery" style="height:22px; width:25px;" onclick="return checkOperation('Add');">增</button>
+			<button name="user_del" class="logBtnQuery" style="height:22px; width:25px;" onclick="return checkOperation('Delete');">删</button>
 		</form>
 		<div style="height:95px; overflow:auto;">
 		<?php
-			function check_input($data)
-			{
-				$data = trim($data);
-				$data = htmlspecialchars($data);
-				if (get_magic_quotes_gpc())
-				{
-					$data = stripslashes($data);
-				}
-				$data = str_replace('|', '', $data);
-				return $data;
-			}
 			function userColor($identityType)
 			{
 				switch ($identityType)
@@ -431,76 +423,183 @@
 						break;
 				}
 			}
-			if (isset($_POST['user_query']))
+			
+			function showUserData($totNum)
 			{
-				$sql = "SELECT * FROM userinfo WHERE id LIKE '%".check_input($_POST['user_id'])."%' AND name LIKE '%".check_input($_POST['user_name'])."%';";
-				$result = mysqli_query($conn,$sql);
-				if ($num = mysqli_num_rows($result))
+				for ($i=0; $i<=$totNum; $i++)
 				{
-					while ($rows = mysqli_fetch_array($result,MYSQLI_ASSOC))
+					echo "<button id='user_id_".$_SESSION['id'][$i]."' class='logBtn";
+						userColor($_SESSION['identity'][$i]);
+					echo "' style='height:22px; width:80px'>".$_SESSION['id'][$i]."</button>\r\n";
+					
+					echo "<input id='user_name_".$_SESSION['id'][$i]."' type='hidden' value='".$_SESSION['name'][$i]."'/>\r\n";
+					$username = "";
+					if (mb_strlen($_SESSION['name'][$i])<=4)
+						$username = $_SESSION['name'][$i];
+					else
+						$username = mb_substr($_SESSION['name'][$i],0,2)."…".mb_substr($_SESSION['name'][$i],mb_strlen($_SESSION['name'][$i])-1);
+					echo "<button class='logBtn";	userColor($_SESSION['identity'][$i]);
+					echo "' style='height:22px; width:72px'>".$username."</button>\r\n";
+					
+					echo "<button id='user_identity_".$_SESSION['id'][$i]."' class='logBtn";
+						userColor($_SESSION['identity'][$i]);
+					echo "' style='height:22px; width:65px'>";
+					switch ($_SESSION['identity'][$i])
 					{
-						echo "<button id='user_id_".$rows['id']."' class='logBtn";
-							userColor($rows['identity']);
-						echo "' style='height:22px; width:80px'>".$rows['id']."</button>\r\n";
-						
-						echo "<input id='user_name_".$rows['id']."' type='hidden' value='".$rows['name']."'/>\r\n";
-						$username = "";
-						if (mb_strlen($rows['name'])<=4)
-							$username = $rows['name'];
-						else
-							$username = mb_substr($rows['name'],0,2)."…".mb_substr($rows['name'],mb_strlen($rows['name'])-1);
-						echo "<button class='logBtn";	userColor($rows['identity']);
-						echo "' style='height:22px; width:72px'>".$username."</button>\r\n";
-						
-						echo "<button id='user_identity_".$rows['id']."' class='logBtn";
-							userColor($rows['identity']);
-						echo "' style='height:22px; width:65px'>";
-						switch ($rows['identity'])
-						{
-							case "bk":
-								echo "本科生";
-								break;
-							case "szy":
-								echo "硕士生";
-								break;
-							case "by":
-								echo "博士生";
-								break;
-							case "fdy":
-								echo "辅导员";
-								break;
-							case "jg":
-								echo "教职工";
-								break;
-							case "admin":
-								echo "管理员";
-								break;
-						}
-						echo "</button>\r\n";
-						
-						echo "<button class='logBtnQuery' style='height:22px; width:25px;' onclick='showUserInfo(`".$rows['id']."`);'>选</button>";
-						
-						echo "<button id='user_css_".$rows['id']."' class='logBtn";
-							userColor($rows['identity']);
-						echo "' style='height:22px; width:25px'>";
-						switch ($rows['css'])
-						{
-							case 0:
-								echo "简";
-								break;
-							case 1:
-								echo "彩";
-								break;
-						}
-						echo "</button>\r\n";
-						
-						echo "<button class='logBtn";	userColor($rows['identity']);
-						echo "' style='height:22px; width:35px'>".$rows['count']."</button>\r\n";
-						
-						echo "<br/>\r\n";
+						case "bk":
+							echo "本科生";
+							break;
+						case "szy":
+							echo "硕士生";
+							break;
+						case "by":
+							echo "博士生";
+							break;
+						case "fdy":
+							echo "辅导员";
+							break;
+						case "jg":
+							echo "教职工";
+							break;
+						case "admin":
+							echo "管理员";
+							break;
 					}
+					echo "</button>\r\n";
+					
+					echo "<button class='logBtnQuery' style='height:22px; width:25px;' onclick='showUserInfo(`".$_SESSION['id'][$i]."`);'>选</button>";
+					
+					echo "<button id='user_css_".$_SESSION['id'][$i]."' class='logBtn";
+						userColor($_SESSION['identity'][$i]);
+					echo "' style='height:22px; width:25px'>";
+					switch ($_SESSION['css'][$i])
+					{
+						case 0:
+							echo "简";
+							break;
+						case 1:
+							echo "彩";
+							break;
+					}
+					echo "</button>\r\n";
+					
+					echo "<button class='logBtn";	userColor($_SESSION['identity'][$i]);
+					echo "' style='height:22px; width:35px'>".$_SESSION['count'][$i]."</button>\r\n";
+					
+					echo "<br/>\r\n";
 				}
 			}
+			
+			if (!isset($_SESSION['user_data_state']))
+				$_SESSION['user_data_state'] = "Default";
+			
+			function user_data_default()
+			{
+				global $conn;
+				$sql = "SELECT * FROM userinfo ORDER BY count DESC LIMIT 4;";
+				$result = mysqli_query($conn, $sql);
+				if ($num = mysqli_num_rows($result))
+				{
+					$i = -1;
+					while ($rows = mysqli_fetch_array($result,MYSQLI_ASSOC))
+					{
+						$i++;
+						$_SESSION['id'][$i] = $rows['id'];
+						$_SESSION['name'][$i] = $rows['name'];
+						$_SESSION['identity'][$i] = $rows['identity'];
+						$_SESSION['count'][$i] = $rows['count'];
+						$_SESSION['css'][$i] = $rows['css'];
+					}
+					$_SESSION['user_data_totNum'] = $i;
+				}
+				showUserData($_SESSION['user_data_totNum']);
+			}
+			
+			if ($_SESSION['user_data_state'] == "Default")
+			{
+				user_data_default();
+			}
+			
+			if ($_SESSION['user_data_state'] == 'Query')
+			{
+				showUserData($_SESSION['user_data_totNum']);
+			}
+			
+			function returnIdntity($identityCode)
+			{
+				switch ($identityCode)
+				{
+					case "bk":
+						echo "本科生";
+						break;
+					case "szy":
+						echo "硕士生";
+						break;
+					case "by":
+						echo "博士生";
+						break;
+					case "fdy":
+						echo "辅导员";
+						break;
+					case "jg":
+						echo "教职工";
+						break;
+					case "admin":
+						echo "管理员";
+						break;
+				}
+			}
+			
+			if ($_SESSION['user_data_state'] == 'Edit')
+			{
+				showUserData($_SESSION['user_data_totNum']);
+				echo "<script>setTimeout('";
+				echo "alert(`用户数据修改结果：";
+				if ($_SESSION['editFlag'] == 1)
+					echo "【 成功 】";
+				else
+					echo "【 失败 】";
+				echo "\\n\\n";
+				echo "原用户信息：\\n【证件号码】".$_SESSION['id_old']."，【姓名】".$_SESSION['name_old']."，【用户类别】";
+				returnIdntity($_SESSION['identity_old']);
+				echo "\\n\\n新用户信息：\\n【证件号码】".$_SESSION['id_new']."，【姓名】".$_SESSION['name_new']."，【用户类别】";
+				returnIdntity($_SESSION['identity_new']);
+				echo "`)',250); </script>";
+			}
+			
+			if ($_SESSION['user_data_state'] == 'Add')
+			{
+				if ($_SESSION['addFlag'] == 1)
+					showUserData($_SESSION['user_data_totNum']);
+				else
+					user_data_default();
+				echo "<script>setTimeout('";
+				echo "alert(`用户数据新增结果：";
+				if ($_SESSION['addFlag'] == 1)
+					echo "【 成功 】";
+				else
+					echo "【 失败 】";
+				echo "\\n\\n";
+				echo "用户信息：\\n【证件号码】".$_SESSION['id_new']."，【姓名】".$_SESSION['name_new']."，【用户类别】";
+				returnIdntity($_SESSION['identity_new']);
+				echo "`)',250); </script>";
+			}
+			
+			if ($_SESSION['user_data_state'] == 'Delete')
+			{
+				user_data_default();
+				echo "<script>setTimeout('";
+				echo "alert(`用户数据删除结果：";
+				if ($_SESSION['delFlag'] == 1)
+					echo "【 成功 】";
+				else
+					echo "【 失败 】";
+				echo "\\n\\n";
+				echo "原用户信息：\\n【证件号码】".$_SESSION['id_old']."，【姓名】".$_SESSION['name_old']."，【用户类别】";
+				returnIdntity($_SESSION['identity_old']);
+				echo "`)',250); </script>";
+			}
+			
 		?>
 		</div>
 	</div>

@@ -36,13 +36,97 @@ function showInfo(strid)
 
 function showUserInfo(userid)
 {
+	document.getElementById('user_id_Origin').value = document.getElementById('user_id_'+userid).innerHTML;
 	document.getElementById('IdInput_data').value = document.getElementById('user_id_'+userid).innerHTML;
+	document.getElementById('user_name_Origin').value = document.getElementById('user_name_'+userid).value;
 	document.getElementById('NameInput_data').value = document.getElementById('user_name_'+userid).value;
 	for (var i=0; i<=6; i++)
 	{
 		if (document.getElementById('identitySelector')[i].text == document.getElementById('user_identity_'+userid).innerHTML)
 		{
 			document.getElementById('identitySelector').selectedIndex = i;
+			document.getElementById('user_identity_Origin').value =document.getElementById('identitySelector')[i].value;
 		}
+	}
+}
+
+function identityCode(Code)
+{
+	switch (Code)
+	{
+		case "bk":
+			return "本科生";
+			break;
+		case "szy":
+			return "硕士生";
+			break;
+		case "by":
+			return "博士生";
+			break;
+		case "fdy":
+			return "辅导员";
+			break;
+		case "jg":
+			return "教职工";
+			break;
+		case "admin":
+			return "管理员";
+			break;
+	}
+}
+
+function checkOperation(OperationType)
+{
+	if (OperationType == 'Edit')
+	{
+		if (document.getElementById('user_id_Origin').value == "" || document.getElementById('user_name_Origin').value == "")
+		{
+			alert('请先选中原始数据行！');
+			return false;
+		}
+		else if (document.getElementById('IdInput_data').value == "" || document.getElementById('NameInput_data').value == "" || document.getElementById('identitySelector').value == "#")
+		{
+			alert('请检查新数据合法性！');
+			return false;
+		}
+		
+		var b = window.confirm('请确认进行数据修改：\n\n原用户信息：\n【证件号码】' + document.getElementById('user_id_Origin').value + '，【姓名】' + document.getElementById('user_name_Origin').value + '，【用户类别】' + identityCode(document.getElementById('user_identity_Origin').value) + '\n\n新用户信息：\n【证件号码】'  + document.getElementById('IdInput_data').value + '，【姓名】' + document.getElementById('NameInput_data').value + '，【用户类别】' + identityCode(document.getElementById('identitySelector').value));
+		if (b == true)
+		{
+			return true;
+		}
+		return false;
+	}
+	
+	if (OperationType == 'Add')
+	{
+		if (document.getElementById('IdInput_data').value == "" || document.getElementById('NameInput_data').value == "" || document.getElementById('identitySelector').value == "#")
+		{
+			alert('请检查新数据合法性！');
+			return false;
+		}
+		
+		var b = window.confirm('请确认进行数据新增：\n\n用户信息：\n【证件号码】' + document.getElementById('IdInput_data').value + '，【姓名】' + document.getElementById('NameInput_data').value + '，【用户类别】' + identityCode(document.getElementById('identitySelector').value));
+		if (b == true)
+		{
+			return true;
+		}
+		return false;
+	}
+	
+	if (OperationType == 'Delete')
+	{
+		if (document.getElementById('user_id_Origin').value == "" || document.getElementById('user_name_Origin').value == "")
+		{
+			alert('请先选中原始数据行！');
+			return false;
+		}
+		
+		var b = window.confirm('请确认进行数据删除：\n\n原用户信息：\n【证件号码】' + document.getElementById('user_id_Origin').value + '，【姓名】' + document.getElementById('user_name_Origin').value + '，【用户类别】' + identityCode(document.getElementById('user_identity_Origin').value));
+		if (b == true)
+		{
+			return true;
+		}
+		return false;
 	}
 }

@@ -148,7 +148,7 @@ button {
 .rightHead {
 	width: 90px;
 	height: 36px;
-	font-size: 16px;
+	font-size: 15px;
 	font-weight: bold;
 	float: left;
 	background-color: #011935;
@@ -449,3 +449,7 @@ button {
 .rightDiv3 .logBtnQuery:hover { background-color: #D2691E; }
 
 .rightDiv3 .logQInput { font-size: 11px; }
+
+.data_radius button {
+	border-radius: 5px;
+}

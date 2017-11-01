@@ -38,6 +38,31 @@
 		}
 	}
 	
+	function returnIdntity($identityCode)
+	{
+		switch ($identityCode)
+		{
+			case "bk":
+				return "本科生";
+				break;
+			case "szy":
+				return "硕士生";
+				break;
+			case "by":
+				return "博士生";
+				break;
+			case "fdy":
+				return "辅导员";
+				break;
+			case "jg":
+				return "教职工";
+				break;
+			case "admin":
+				return "管理员";
+				break;
+		}
+	}
+	
 	if (isset($_POST['user_query']))
 	{
 		$_SESSION['user_data_state'] = 'Query';
@@ -70,6 +95,10 @@
 			$_SESSION['editFlag'] = 1;
 			$sql = "SELECT * FROM userinfo WHERE id='".$_SESSION['id_new']."' AND name='".$_SESSION['name_new']."';";
 			showUser();
+			
+			$sql = "INSERT INTO log(id,date,time,type,remark,log) VALUES ('[A]".$_SESSION['AdminID']."','".date("Y-m-d")."','".date("His")."','DataEdit','EDIT|".$_SESSION['id_old']."，".$_SESSION['name_old']."，".returnIdntity($_SESSION['identity_old'])."->".$_SESSION['id_new']."，".$_SESSION['name_new']."，".returnIdntity($_SESSION['identity_new'])."','".date("ymd")."|".getenv('REMOTE_ADDR')."');";
+			mysqli_query($conn,$sql);
+			
 		}	
 		else
 		{
@@ -99,6 +128,9 @@
 			$_SESSION['addFlag'] = 1;
 			$sql = "SELECT * FROM userinfo WHERE id='".$_SESSION['id_new']."' AND name='".$_SESSION['name_new']."';";
 			showUser();
+			
+			$sql = "INSERT INTO log(id,date,time,type,remark,log) VALUES ('[A]".$_SESSION['AdminID']."','".date("Y-m-d")."','".date("His")."','DataEdit','ADD|".$_SESSION['id_new']."，".$_SESSION['name_new']."，".returnIdntity($_SESSION['identity_new'])."','".date("ymd")."|".getenv('REMOTE_ADDR')."');";
+			mysqli_query($conn,$sql);
 		}
 		else
 		{
@@ -124,6 +156,9 @@
 		if ($affected_row == 1)
 		{
 			$_SESSION['delFlag'] = 1;
+			
+			$sql = "INSERT INTO log(id,date,time,type,remark,log) VALUES ('[A]".$_SESSION['AdminID']."','".date("Y-m-d")."','".date("His")."','DataEdit','DELETE|".$_SESSION['id_old']."，".$_SESSION['name_old']."，".returnIdntity($_SESSION['identity_old'])."','".date("ymd")."|".getenv('REMOTE_ADDR')."');";
+			mysqli_query($conn,$sql);
 		}	
 		else
 		{

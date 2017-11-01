@@ -302,15 +302,17 @@ button {
 }
 
 .logBtnBlue {
-	height: 26px;
-	background-color: #8192D6;
-	color: #FFF;
+	min-height: 26px;
+	/* background-color: #8192D6; */
+	background-color: #4682B4;
+	/* color: #FFF; */
+	color: #FAFAD2;
 	font-size: 12px; 
 	margin-bottom: 3px; 
 	margin-left: 3px;
 }
 .logBtnDarkBlue {
-	height: 26px;
+	min-height: 26px;
 	background-color: #305496;
 	color: #FFF;
 	font-size: 12px;
@@ -318,7 +320,7 @@ button {
 	margin-left: 3px;
 }
 .logBtnGray {
-	height: 26px;
+	min-height: 26px;
 	background-color: #696969;
 	color: #FFF;
 	font-size: 12px; 
@@ -326,7 +328,7 @@ button {
 	margin-left: 3px;
 }
 .logBtnPink {
-	height: 26px;
+	min-height: 26px;
 	background-color: #C1194E;
 	color: #FFF;
 	font-size: 12px; 
@@ -334,7 +336,7 @@ button {
 	margin-left: 3px;
 }
 .logBtnOrange {
-	height: 26px;
+	min-height: 26px;
 	background-color: #D2691E;
 	color: #FFF;
 	font-size: 12px; 
@@ -342,7 +344,7 @@ button {
 	margin-left: 3px;
 }
 .logBtnGreen {
-	height: 26px;
+	min-height: 26px;
 	background-color: #008000;
 	color: #FFF;
 	font-size: 12px; 
@@ -412,7 +414,7 @@ button {
 }
 
 .optBlueTip {
-	height: 22px;
+	height: 23px;
 	width: 24px;
 	padding: 0px;
 	border-right: 2px solid #305496;
@@ -423,7 +425,7 @@ button {
 }
 
 .optBlueTip18 {
-	height: 18px;
+	height: 19px;
 	width: 18px;
 	padding: 0px;
 	border-right: 2px solid #305496;

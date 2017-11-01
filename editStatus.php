@@ -13,6 +13,8 @@
 			正在执行操作，完成后将自动跳转<br/>请耐心等待，不要手动刷新页面……
 		</div>
 	</div>
+</body>
+</html>
 
 <?php
 	include_once("conn.php");
@@ -235,8 +237,3 @@
 	}
 	mysqli_close($conn);
 ?>
-
-
-</body>
-
-</html>

@@ -4,13 +4,13 @@
 	// download_btn - 下载数据导入模板
 	if (isset($_POST['download_btn']))
 	{
-		$file = fopen('import/TEMPLET.txt',"r");
+		$file = fopen('import/TEMPLET.rar',"r");
 		// header("Content-Type: application/octet-stream");
 		header("Content-Type: text/plain");
 		header("Accept-Ranges: bytes");
-		header("Accept-Length: ".filesize('import/TEMPLET.txt'));
-		header("Content-Disposition: attachment; filename=TEMPLET.txt");
-		echo fread($file,filesize('import/TEMPLET.txt'));
+		header("Accept-Length: ".filesize('import/TEMPLET.rar'));
+		header("Content-Disposition: attachment; filename=TEMPLET.rar");
+		echo fread($file,filesize('import/TEMPLET.rar'));
 		fclose($file);
 		exit();
 	}
@@ -39,7 +39,7 @@
 					move_uploaded_file($_FILES["file"]["tmp_name"], "import/" . $_FILES["file"]["name"]);
 					$_SESSION['FileCode'] = "√ " . sprintf('%.2f', ($_FILES["file"]["size"] / 1024)) . " KiB OK!";
 					
-					$sql = "INSERT INTO log(id,date,time,type,remark,log) VALUES ('Admin','".date("Y-m-d")."','".date("His")."','FileUpload','".$_FILES["file"]["name"]."','".date("ymd")."|".getenv('REMOTE_ADDR')."');";
+					$sql = "INSERT INTO log(id,date,time,type,remark,log) VALUES ('[A]".$_SESSION['AdminID']."','".date("Y-m-d")."','".date("His")."','FileUpload','".$_FILES["file"]["name"]."','".date("ymd")."|".getenv('REMOTE_ADDR')."');";
 					mysqli_query($conn,$sql);
 				}
 			}
@@ -63,7 +63,7 @@
 		}
 		else
 		{
-			$sql = "INSERT INTO log(id,date,time,type,remark,log) VALUES ('Admin','".date("Y-m-d")."','".date("His")."','FileDelete','".$_SESSION['FileName']."','".date("ymd")."|".getenv('REMOTE_ADDR')."');";
+			$sql = "INSERT INTO log(id,date,time,type,remark,log) VALUES ('[A]".$_SESSION['AdminID']."','".date("Y-m-d")."','".date("His")."','FileDelete','".$_SESSION['FileName']."','".date("ymd")."|".getenv('REMOTE_ADDR')."');";
 			mysqli_query($conn,$sql);
 			
 			echo "<script>alert('数据文件已删除'); window.location.href='index.php';</script>";

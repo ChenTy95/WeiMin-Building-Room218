@@ -29,8 +29,8 @@
 ?>
 <div style="width:1200px; height:570px; margin:0 auto; margin-top:20px;">
 	<div class="Topic">
-		欢迎您，管理员！您本次的登录时间是<?php echo date("Y-m-d H:i"); ?>，此次登录有效期至<?php echo substr($_SESSION['T'],4,2).":".substr($_SESSION['T'],6,2); ?>。
-		<span style="font-weight:bold;">数据无价，请谨慎操作！</span> 
+		欢迎您，<?php echo $_SESSION['AdminName']; ?>！您本次的登录时间是<?php echo date("Y-m-d H:i"); ?>，此次登录有效期至<?php echo substr($_SESSION['T'],4,2).":".substr($_SESSION['T'],6,2); ?>。
+		<span style="font-weight:bold;">数据无价，谨慎操作！</span> 
 		注意：本页面需启用php_mbstring.dll。
 		<a href="login_check.php" style="text-decoration:none;">
 			<span style="float:right; margin-right:15px; color:#C7F2E7;">[退出系统]</span>
@@ -260,8 +260,7 @@
 					$EOF_Sign = 0;
 					echo "&lt; FILE &gt;";
 				}
-			?>
-			</textarea>
+			?>	</textarea>
 		</div>
 		<!-- 右侧统计数据显示 -->
 		<div>
@@ -325,7 +324,7 @@
 			<!-- 导入状态显示 -->
 			<button id="progress_mes" class="color1Thin" style="width:155px; padding:1px 2px 1px 2px;">[导入状态]</button>
 			<!-- 导入进度条 -->
-			<div class="color2Thin" style="width:70px; float:right; background-color:#011935;">
+			<div class="color2Thin" style="width:70px; background-color:#011935; position:absolute; margin-left:275px; margin-top:-26px;">
 				<div id="progress_col" style="height:20px; width:0px; background-color:#333366; margin:3px;"></div>
 				<div id="progress_per" style="height:26px; width:70px; margin-top:-26px; background-color:transparent; text-align:center; font-size:14px; font-weight:bold; line-height:26px; color:#FFF;">0%</div>
 			</div>
@@ -430,7 +429,7 @@
 				{
 					echo "<button id='user_id_".$_SESSION['id'][$i]."' class='logBtn";
 						userColor($_SESSION['identity'][$i]);
-					echo "' style='height:22px; width:80px'>".$_SESSION['id'][$i]."</button>\r\n";
+					echo "' style='min-height:22px; width:80px'>".$_SESSION['id'][$i]."</button>\r\n";
 					
 					echo "<input id='user_name_".$_SESSION['id'][$i]."' type='hidden' value='".$_SESSION['name'][$i]."'/>\r\n";
 					$username = "";
@@ -439,11 +438,11 @@
 					else
 						$username = mb_substr($_SESSION['name'][$i],0,2)."…".mb_substr($_SESSION['name'][$i],mb_strlen($_SESSION['name'][$i])-1);
 					echo "<button class='logBtn";	userColor($_SESSION['identity'][$i]);
-					echo "' style='height:22px; width:72px'>".$username."</button>\r\n";
+					echo "' style='min-height:22px; width:72px'>".$username."</button>\r\n";
 					
 					echo "<button id='user_identity_".$_SESSION['id'][$i]."' class='logBtn";
 						userColor($_SESSION['identity'][$i]);
-					echo "' style='height:22px; width:65px'>";
+					echo "' style='min-height:22px; width:65px'>";
 					switch ($_SESSION['identity'][$i])
 					{
 						case "bk":
@@ -467,11 +466,11 @@
 					}
 					echo "</button>\r\n";
 					
-					echo "<button class='logBtnQuery' style='height:22px; width:25px;' onclick='showUserInfo(`".$_SESSION['id'][$i]."`);'>选</button>";
+					echo "<button class='logBtnQuery' style='height:22px; width:25px;' onclick=\"showUserInfo('".$_SESSION['id'][$i]."');\">选</button>";
 					
 					echo "<button id='user_css_".$_SESSION['id'][$i]."' class='logBtn";
 						userColor($_SESSION['identity'][$i]);
-					echo "' style='height:22px; width:25px'>";
+					echo "' style='min-height:22px; width:25px'>";
 					switch ($_SESSION['css'][$i])
 					{
 						case 0:
@@ -484,7 +483,7 @@
 					echo "</button>\r\n";
 					
 					echo "<button class='logBtn";	userColor($_SESSION['identity'][$i]);
-					echo "' style='height:22px; width:35px'>".$_SESSION['count'][$i]."</button>\r\n";
+					echo "' style='min-height:22px; width:35px'>".$_SESSION['count'][$i]."</button>\r\n";
 					
 					echo "<br/>\r\n";
 				}
@@ -646,13 +645,13 @@
 					<button class="checkBox" id="showReserve" onclick="checkBoxfunc('showReserve');">&#10004;</button>
 					<button class="checkTxt" disabled="disabled" style="width:48px;">预约</button>
 				</div>
-				<div class="optBorder4" style="border-color:#8192D6;">
-					<button class="checkBox" id="showUpload" onclick="checkBoxfunc('showUpload');" style="border-color:#8192D6; color:#8192D6;">&#10004;</button>
-					<button class="checkTxt" disabled="disabled" style="border-color:#8192D6; background-color:#8192D6;">文件上传</button>
+				<div class="optBorder4" style="border-color:#4682B4;">
+					<button class="checkBox" id="showUpload" onclick="checkBoxfunc('showUpload');" style="border-color:#4682B4; color:#4682B4;">&#10004;</button>
+					<button class="checkTxt" disabled="disabled" style="border-color:#4682B4; background-color:#4682B4;">文件上传</button>
 				</div>
-				<div class="optBorder4" style="border-color:#8192D6;">
-					<button class="checkBox" id="showImport" onclick="checkBoxfunc('showImport');" style="border-color:#8192D6; color:#8192D6;">&#10004;</button>
-					<button class="checkTxt" disabled="disabled" style="border-color:#8192D6; background-color:#8192D6;">文件导入</button>
+				<div class="optBorder4" style="border-color:#4682B4;">
+					<button class="checkBox" id="showImport" onclick="checkBoxfunc('showImport');" style="border-color:#4682B4; color:#4682B4;">&#10004;</button>
+					<button class="checkTxt" disabled="disabled" style="border-color:#4682B4; background-color:#4682B4;">文件导入</button>
 				</div>
 				
 				
@@ -689,13 +688,13 @@
 					<button class="checkBox" id="showCancel" onclick="checkBoxfunc('showCancel');" style="border-color:#C1194E; color:#C1194E;">&#10004;</button>
 					<button class="checkTxt" disabled="disabled" style="width:48px; border-color:#C1194E; background-color:#C1194E;">取消</button>
 				</div>
-				<div class="optBorder4" style="border-color:#8192D6;">
-					<button class="checkBox" id="showDelete" onclick="checkBoxfunc('showDelete');" style="border-color:#8192D6; color:#8192D6;">&#10004;</button>
-					<button class="checkTxt" disabled="disabled" style="border-color:#8192D6; background-color:#8192D6;">文件删除</button>
+				<div class="optBorder4" style="border-color:#4682B4;">
+					<button class="checkBox" id="showDelete" onclick="checkBoxfunc('showDelete');" style="border-color:#4682B4; color:#4682B4;">&#10004;</button>
+					<button class="checkTxt" disabled="disabled" style="border-color:#4682B4; background-color:#4682B4;">文件删除</button>
 				</div>
-				<div class="optBorder4" style="border-color:#8192D6;">
-					<button class="checkBox" id="showDataEdit" onclick="checkBoxfunc('showDataEdit');" style="border-color:#8192D6; color:#8192D6;">&#10004;</button>
-					<button class="checkTxt" disabled="disabled" style="border-color:#8192D6; background-color:#8192D6;">数据修改</button>
+				<div class="optBorder4" style="border-color:#4682B4;">
+					<button class="checkBox" id="showDataEdit" onclick="checkBoxfunc('showDataEdit');" style="border-color:#4682B4; color:#4682B4;">&#10004;</button>
+					<button class="checkTxt" disabled="disabled" style="border-color:#4682B4; background-color:#4682B4;">数据修改</button>
 				</div>
 				<div class="optBorder2" style="width:106px;">
 					<button class="optBlueTip" disabled="disabled">IP</button>
@@ -798,6 +797,10 @@
 								else
 									echo substr($rows['remark'],strpos($rows['remark'],'|')+1);
 							}
+							if ($rows['type']=='DataEdit')
+							{
+								echo " pointer-events:auto;' title='".substr($rows['remark'],strpos($rows['remark'],'|')+1);
+							}
 							echo "'>";
 							switch ($rows['type'])
 							{
@@ -842,11 +845,18 @@
 								case "DataEdit":
 									switch (substr($rows['remark'],0,strpos($rows['remark'],'|')))
 									{
-										case "Add":
-											echo "【新增】用户数据：";
+										case "ADD":
+											echo "<font color=#011935>【新增】</font>用户数据：";
 											echo substr($rows['remark'],strpos($rows['remark'],'|')+1);
 											break;
-										case "Edit":
+										case "EDIT":
+											echo "<font color=#011935>【修改】</font>用户数据：<font color=#011935>【新】</font>";
+											echo substr($rows['remark'],strpos($rows['remark'],'>')+1);
+											echo " […]";
+											break;
+										case "DELETE":
+											echo "<font color=#011935>【删除】</font>用户数据：";
+											echo substr($rows['remark'],strpos($rows['remark'],'|')+1);
 											break;
 									}
 									break;
@@ -942,7 +952,7 @@
 		flush();
 		echo "<script>document.getElementById('import_info_2').innerHTML+='INS SUCCESS = ".$successTot." , <font color=red>FAIL = ". ($str_Rec-$successTot) ."</font><br/>';</script>";
 		
-		$sql = "INSERT INTO log(id,date,time,type,remark,log) VALUES ('Admin','".date("Y-m-d")."','".date("His")."','FileImport','".$_POST['HiddenName']."|SUCCESS=".$successTot."|FAIL=".($str_Rec-$successTot)."','".date("ymd")."|".getenv('REMOTE_ADDR')."');";
+		$sql = "INSERT INTO log(id,date,time,type,remark,log) VALUES ('[A]".$_SESSION['AdminID']."','".date("Y-m-d")."','".date("His")."','FileImport','".$_POST['HiddenName']."|SUCCESS=".$successTot."|FAIL=".($str_Rec-$successTot)."','".date("ymd")."|".getenv('REMOTE_ADDR')."');";
 		mysqli_query($conn,$sql);
 		
 		for ($i=1; $i<=$str_Rec; $i++)

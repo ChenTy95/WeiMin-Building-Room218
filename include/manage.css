@@ -8,14 +8,23 @@ body {
 	background-color: #305496;
 }
 
-#pass {
+.pass {
 	background-color: transparent;
-	width: 300px;
+	width: 120px;
 	height: 30px;
-	font-size: 28px;
+	/* font-size: 28px; */
 	color: #FFF;
 	border: 1.5px solid #FFF;
 	text-align: center;
+	font-size: 16px;
+	font-family: 'Segoe UI','Microsoft Yahei','微软雅黑','sans-serif';
+}
+#pass {
+	width: 180px;
+	border-left: 0px;
+}
+#adminid {
+	border-right: 0px;
 }
 
 #loginBtn {
@@ -450,6 +459,6 @@ button {
 
 .rightDiv3 .logQInput { font-size: 11px; }
 
-.data_radius button {
-	border-radius: 5px;
-}
+.data_radius button { border-radius: 5px; }
+
+/* .filterOption .checkBox:hover { color: #F00; } */

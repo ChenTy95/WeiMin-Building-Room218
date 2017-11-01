@@ -4,10 +4,7 @@ function setFilter()
 	document.getElementById('NoTo').value=document.getElementById('NoTo').value.trim();
 	document.getElementById('IdInput').value=document.getElementById('IdInput').value.trim();
 	document.getElementById('NameInput').value=document.getElementById('NameInput').value.trim();
-	// document.getElementById('NoFrom').value=document.getElementById('NoFrom').value.trim();
-	// document.getElementById('NoFrom').value=document.getElementById('NoFrom').value.trim();
-	
-	
+	document.getElementById('IPInput').value=document.getElementById('IPInput').value.trim();
 	
 	for (var i=1; i<=document.getElementById('maxNo').value; i++)
 	{
@@ -15,8 +12,8 @@ function setFilter()
 		{
 			document.getElementById('logdiv_'+i).style.display='none';
 			
-			if ((document.getElementById('showUsers').innerHTML == '✔' && document.getElementById('Id_'+i).innerHTML !='admin') ||
-			(document.getElementById('showAdmin').innerHTML == '✔' && document.getElementById('Id_'+i).innerHTML =='admin'))
+			if ((document.getElementById('showUsers').innerHTML == '✔' && document.getElementById('Type_'+i).value !='AdminLogin') ||
+			(document.getElementById('showAdmin').innerHTML == '✔' && document.getElementById('Type_'+i).value =='AdminLogin'))
 			{
 				if ((document.getElementById('showLogin').innerHTML == '✔' && document.getElementById('Type_'+i).value == 'Login') ||
 				(document.getElementById('showLogout').innerHTML == '✔' && document.getElementById('Type_'+i).value == 'Logout') ||
@@ -25,7 +22,8 @@ function setFilter()
 				(document.getElementById('showUpload').innerHTML == '✔' && document.getElementById('Type_'+i).value == 'FileUpload') ||
 				(document.getElementById('showDelete').innerHTML == '✔' && document.getElementById('Type_'+i).value == 'FileDelete') ||
 				(document.getElementById('showImport').innerHTML == '✔' && document.getElementById('Type_'+i).value == 'FileImport') ||
-				(document.getElementById('showAdminLogin').innerHTML == '✔' && document.getElementById('Type_'+i).value == 'AdminLogin') )
+				(document.getElementById('showDataEdit').innerHTML == '✔' && document.getElementById('Type_'+i).value == 'DataEdit') ||
+				(document.getElementById('showAdmin').innerHTML == '✔' && document.getElementById('Type_'+i).value == 'AdminLogin') )
 				{
 					if (parseInt(document.getElementById('No_'+i).innerHTML)<=document.getElementById('NoTo').value && parseInt(document.getElementById('No_'+i).innerHTML)>=document.getElementById('NoFrom').value)
 					{
@@ -72,10 +70,10 @@ function resetFilter()
 	document.getElementById('showLogout').innerHTML = '&#10008;';
 	document.getElementById('showReserve').innerHTML = '&#10004;';
 	document.getElementById('showCancel').innerHTML = '&#10004;';
-	document.getElementById('showUpload').innerHTML = '&#10008;';
-	document.getElementById('showDelete').innerHTML = '&#10008;';
-	document.getElementById('showImport').innerHTML = '&#10008;';
-	document.getElementById('showAdminLogin').innerHTML = '&#10008;';
+	document.getElementById('showUpload').innerHTML = '&#10004;';
+	document.getElementById('showDelete').innerHTML = '&#10004;';
+	document.getElementById('showImport').innerHTML = '&#10004;';
+	document.getElementById('showDataEdit').innerHTML = '&#10004;';
 
 	setFilter();
 }
@@ -85,28 +83,10 @@ function checkBoxfunc(checkName)
 	if (document.getElementById(checkName).innerHTML == '✘')
 	{
 		document.getElementById(checkName).innerHTML = '&#10004;';
-		if (checkName=='showAdmin')
-		{
-			document.getElementById('showUpload').innerHTML = '&#10004;';
-			document.getElementById('showImport').innerHTML = '&#10004;';
-			document.getElementById('showDelete').innerHTML = '&#10004;';
-			document.getElementById('showAdminLogin').innerHTML = '&#10004;';
-		}
-		if (checkName=='showUpload' || checkName=='showDelete' || checkName=='showImport' || checkName=='showAdminLogin')
-		{
-			document.getElementById('showAdmin').innerHTML = '&#10004;';
-		}
 	}
 	else 
 	{
 		document.getElementById(checkName).innerHTML = '&#10008;';
-		if (checkName=='showAdmin')
-		{
-			document.getElementById('showUpload').innerHTML = '&#10008;';
-			document.getElementById('showImport').innerHTML = '&#10008;';
-			document.getElementById('showDelete').innerHTML = '&#10008;';
-			document.getElementById('showAdminLogin').innerHTML = '&#10008;';
-		}
 	}
 		
 	setFilter();

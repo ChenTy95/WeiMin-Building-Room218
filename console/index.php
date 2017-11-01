@@ -620,7 +620,7 @@
 		<!-- 系统日志查询 -->
 		<div style="width:880px; height:auto; float:left; margin-top:5px; margin-left:10px;">
 			<!-- 过滤器 -->
-			<div style="height:60px; float:left; margin-top:2px;">
+			<div class="filterOption" style="height:60px; float:left; margin-top:2px;">
 				<!-- 过滤器第一行 -->
 				<div class="optBorder2" style="width:61px;">
 					<button class="optBlueTip" disabled="disabled">起</button>
@@ -630,9 +630,9 @@
 					<button class="checkBox" id="showUsers" onclick="checkBoxfunc('showUsers');">&#10004;</button>
 					<button class="checkTxt" disabled="disabled">显示用户</button>
 				</div>
-				<div class="optBorder4">
-					<button class="checkBox" id="showAdmin" onclick="checkBoxfunc('showAdmin');">&#10008;</button>
-					<button class="checkTxt" disabled="disabled">显示管理</button>
+				<div class="optBorder4" style="border-color:#008000;">
+					<button class="checkBox" id="showAdmin" onclick="checkBoxfunc('showAdmin');" style="border-color:#008000; color:#008000;">&#10008;</button>
+					<button class="checkTxt" disabled="disabled" style="border-color:#008000; background-color:#008000;">显示管理</button>
 				</div>
 				<div class="optBorder2" style="width:126px;">
 					<button class="optBlueTip" style="width:24px;" disabled="disabled">起</button>
@@ -647,11 +647,11 @@
 					<button class="checkTxt" disabled="disabled" style="width:48px;">预约</button>
 				</div>
 				<div class="optBorder4" style="border-color:#8192D6;">
-					<button class="checkBox" id="showUpload" onclick="checkBoxfunc('showUpload');" style="border-color:#8192D6; color:#8192D6;">&#10008;</button>
+					<button class="checkBox" id="showUpload" onclick="checkBoxfunc('showUpload');" style="border-color:#8192D6; color:#8192D6;">&#10004;</button>
 					<button class="checkTxt" disabled="disabled" style="border-color:#8192D6; background-color:#8192D6;">文件上传</button>
 				</div>
 				<div class="optBorder4" style="border-color:#8192D6;">
-					<button class="checkBox" id="showImport" onclick="checkBoxfunc('showImport');" style="border-color:#8192D6; color:#8192D6;">&#10008;</button>
+					<button class="checkBox" id="showImport" onclick="checkBoxfunc('showImport');" style="border-color:#8192D6; color:#8192D6;">&#10004;</button>
 					<button class="checkTxt" disabled="disabled" style="border-color:#8192D6; background-color:#8192D6;">文件导入</button>
 				</div>
 				
@@ -690,12 +690,12 @@
 					<button class="checkTxt" disabled="disabled" style="width:48px; border-color:#C1194E; background-color:#C1194E;">取消</button>
 				</div>
 				<div class="optBorder4" style="border-color:#8192D6;">
-					<button class="checkBox" id="showDelete" onclick="checkBoxfunc('showDelete');" style="border-color:#8192D6; color:#8192D6;">&#10008;</button>
+					<button class="checkBox" id="showDelete" onclick="checkBoxfunc('showDelete');" style="border-color:#8192D6; color:#8192D6;">&#10004;</button>
 					<button class="checkTxt" disabled="disabled" style="border-color:#8192D6; background-color:#8192D6;">文件删除</button>
 				</div>
-				<div class="optBorder4" style="border-color:#008000;">
-					<button class="checkBox" id="showAdminLogin" onclick="checkBoxfunc('showAdminLogin');" style="border-color:#008000; color:#008000;">&#10008;</button>
-					<button class="checkTxt" disabled="disabled" style="border-color:#008000; background-color:#008000;">管理登录</button>
+				<div class="optBorder4" style="border-color:#8192D6;">
+					<button class="checkBox" id="showDataEdit" onclick="checkBoxfunc('showDataEdit');" style="border-color:#8192D6; color:#8192D6;">&#10004;</button>
+					<button class="checkTxt" disabled="disabled" style="border-color:#8192D6; background-color:#8192D6;">数据修改</button>
 				</div>
 				<div class="optBorder2" style="width:106px;">
 					<button class="optBlueTip" disabled="disabled">IP</button>
@@ -740,13 +740,18 @@
 							case "FileImport":
 								echo "Blue";
 								break;
+							case "DataEdit":
+								echo "Blue";
+								break;
 							case "AdminLogin":
 								echo "Green";
 								break;
 						}
 					}
 
-					$sql =  "SELECT log.*,userinfo.name FROM log,userinfo WHERE userinfo.id=log.id ORDER BY no DESC;";
+					$sql =  "SELECT log.*,userinfo.name,userinfo.id AS userID FROM log,userinfo WHERE userinfo.id = 
+					(CASE WHEN SUBSTR(log.id,1,1)='[' THEN SUBSTR(log.id,4) ELSE log.id END)
+					ORDER BY no DESC;";
 					$result = mysqli_query($conn,$sql);
 					$js = 0;
 					if ($num = mysqli_num_rows($result))
@@ -761,10 +766,12 @@
 								echo "' style='width:65px;'>".$rows['no']."</button>\r\n";
 							
 							echo "  <button id='Id_".$rows['no']."' class='logBtn"; diffColor($rows['type']);
-							echo "' style='width:90px;'>".$rows['id']."</button>\r\n";
+							echo "' style='width:90px;'>".$rows['userID']."</button>\r\n";
 							
 							echo "  <button id='Name_".$rows['no']."' class='logBtn"; diffColor($rows['type']);
 							echo "' style='width:90px;'>";
+								if (substr($rows['id'],0,1) == '[')
+									echo "[A]";
 								if (mb_strlen($rows['name'])<=6)
 									echo $rows['name'];
 								else
@@ -831,6 +838,17 @@
 									break;
 								case "AdminLogin":
 									echo "管理员登录 […]";
+									break;
+								case "DataEdit":
+									switch (substr($rows['remark'],0,strpos($rows['remark'],'|')))
+									{
+										case "Add":
+											echo "【新增】用户数据：";
+											echo substr($rows['remark'],strpos($rows['remark'],'|')+1);
+											break;
+										case "Edit":
+											break;
+									}
 									break;
 								default:
 									echo "?";

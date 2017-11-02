@@ -463,4 +463,9 @@ button {
 
 .data_radius button { border-radius: 5px; }
 
-/* .filterOption .checkBox:hover { color: #F00; } */
+.delBOM .color2Thin {
+	width: 70px;
+	pointer-events: auto;
+	cursor: pointer;
+}
+.delBOM .color2Thin:hover { color: #F00; }

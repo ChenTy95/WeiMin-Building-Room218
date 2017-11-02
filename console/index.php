@@ -220,9 +220,9 @@
 				if (isset($_POST['CheckFile']) && ($_POST['FileSelect']!='#'))
 				{
 					$file = fopen("import/".$_POST['FileSelect'],"r");
-					$str_Name = substr(fgets($file),6);
-					$str_Rec = substr(fgets($file),13);
-					$str_Identity = substr(fgets($file),10);
+					$str_Name = str_replace(PHP_EOL, '', substr(fgets($file),6));
+					$str_Rec = str_replace(PHP_EOL, '', substr(fgets($file),13));
+					$str_Identity = str_replace(PHP_EOL, '', substr(fgets($file),10));
 					
 					$str = "";
 					$File_Sign = 1;
@@ -279,8 +279,8 @@
 					echo "[数据文件标识名]";
 			?>
 			</button>
-			<a href="UTF8_BOM.php" title="若左侧文件名显示不正常，请点击此按钮">
-				<button class="color2Thin" style="width:70px; font-size:14px;">× BOM</button>
+			<a class="delBOM" href="UTF8_BOM.php" title="若左侧文件名显示不正常，请点击此按钮">
+				<button class="color2Thin">× BOM</button>
 			</a>
 			<!-- 导入数据库按钮 -->
 			<form action="index.php" method="POST" style="float:right;">
@@ -924,7 +924,7 @@
 		for ($i=1; $i<=$str_Rec; $i++)
 		{
 			$str = fgets($file);
-			$user_id = substr($str,0,strpos($str,","));
+			$user_id = str_replace(PHP_EOL, '', substr($str,0,strpos($str,",")));
 			$user_name = str_replace(PHP_EOL, '', substr($str,strpos($str,",") + 1));
 			$recStr_Arr[$i] = $user_id." ".$user_name;
 			
@@ -1003,6 +1003,12 @@
 	
 	function importConfirm()
 	{
+		if (document.getElementById('dataFileName').innerHTML.trim().substring(0,3) == "me]")
+		{
+			alert('检测到欲导入的数据文件存在编码问题，请您点按【× BOM】按钮进行处理后再进行导入！');
+			return false;
+		}
+		
 		var b = window.confirm('你确认要将数据文件 [ <?php echo $_SESSION['FileName']; ?> ] 中的数据导入用户数据表吗？\n\n本数据文件共包含数据记录 [ <?php if (isset($str_Rec)) echo intval($str_Rec); else echo "---" ?> ] 条');
 		document.getElementById("hiddenName").value = '<?php echo $_SESSION['FileName']; ?>';
 		if (b==true)

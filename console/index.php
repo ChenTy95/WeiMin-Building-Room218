@@ -221,11 +221,9 @@
 				{
 					$file = fopen("import/".$_POST['FileSelect'],"r");
 					$str_Name = substr(fgets($file),6);
-					// echo "Import Data Name = ".$str_Name."<br/>";
 					$str_Rec = substr(fgets($file),13);
-					// echo "Data Quantity = ".$str_Rec."<br/>";
 					$str_Identity = substr(fgets($file),10);
-					// echo "User Identity = ".$str_Identity."<br/>";
+					
 					$str = "";
 					$File_Sign = 1;
 					if ($str_Rec>5)
@@ -251,7 +249,12 @@
 					}
 					$str_EOFSign = fgets($file);
 					if ($str_EOFSign=="[EOF.]")
-						$EOF_Sign = 1;
+					{
+						if ($str_Identity=="bk" || $str_Identity=="szy" || $str_Identity=="by" || $str_Identity=="fdy" || $str_Identity=="jg")
+							$EOF_Sign = 1;
+						else
+							$EOF_Sign = 0;
+					}
 					else
 						$EOF_Sign = 0;
 				}

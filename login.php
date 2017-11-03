@@ -122,7 +122,10 @@
 			setCookie("UserID", UserID.value, 30);
 			setCookie("UserCSS", document.getElementById("CSS_No").value, 30);
 		}
-		UserID.value = getCookie("UserID");
+		if (!(getCookie("UserID") == undefined))
+		{
+			AdminID.value = getCookie("UserID");
+		}
 		changeCSS(getCookie("UserCSS"));
 	}
 </script>

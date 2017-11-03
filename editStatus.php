@@ -125,7 +125,7 @@
 		if (check_input($_POST['InputID'])!=$_SESSION['IdToken'])
 		{
 			$allowWriteData = 0;
-			echo "<script>alert('抓包改学号有什么意义啊！换个人登录不就好了吗！\\n\\nBy 防注入防得很辛苦的汤圆'); history.go(-1); </script>";
+			echo "<script>alert('抓包改学号有什么意义啊…用一起预约的人的学号登录不就好了吗~\\n\\nBy 防注入防得很辛苦的汤圆'); history.go(-1); </script>";
 			exit();
 		}
 		

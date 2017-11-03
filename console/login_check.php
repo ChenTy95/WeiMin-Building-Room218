@@ -93,4 +93,5 @@
 		exit();
 	}
 	
+	mysqli_close($conn);
 ?>

@@ -167,4 +167,6 @@
 		header('location:index.php');
 		exit();
 	}
+	
+	mysqli_close($conn);
 ?>

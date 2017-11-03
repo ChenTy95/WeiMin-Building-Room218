@@ -74,4 +74,5 @@
 	echo "<script>alert('Illegal Access!'); window.location.href='login.php';</script>";
 	exit();
 
+	mysqli_close($conn);
 ?>

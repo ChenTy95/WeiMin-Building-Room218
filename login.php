@@ -37,7 +37,7 @@
 	
 	<input type="hidden" name="CSS_No" id="CSS_No" value="0"/>
 	
-	<button class="TextBtn1" style="margin-left:2.5%; text-align:center; pointer-events:auto; background-color:#1E90FF; color:#FFF;">登　　录</button>
+	<button class="TextBtn1" style="margin-left:2.5%; text-align:center; pointer-events:auto; background-color:#1E90FF; color:#FFF;" onclick="document.getElementById('UserID').value = document.getElementById('UserID').value.toUpperCase();">登　　录</button>
 </form>
 
 <?php

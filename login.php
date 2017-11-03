@@ -124,7 +124,7 @@
 		}
 		if (!(getCookie("UserID") == undefined))
 		{
-			AdminID.value = getCookie("UserID");
+			UserID.value = getCookie("UserID");
 		}
 		changeCSS(getCookie("UserCSS"));
 	}

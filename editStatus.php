@@ -129,17 +129,17 @@
 			exit();
 		}
 		
-		// 该账号在该日的预约情况检查（使用id查询当日log中的数量，通过奇偶性判断）
-		$sql = "SELECT COUNT(*) FROM log WHERE id='".$_SESSION['IdToken']."' AND date='".check_input($_POST['InputDate'])."' AND (type='Reserve' OR type='Cancel');";
+		// 该账号在该日的预约情况检查
+		$sql = "SELECT (SUM(CASE WHEN type='Reserve' THEN 1 ELSE 0 END)-SUM(CASE WHEN type='Cancel' THEN 1 ELSE 0 END)) AS CALC FROM log WHERE id='".$_SESSION['IdToken']."' AND date='".check_input($_POST['InputDate'])."';";
 		$result = mysqli_query($conn,$sql);
 		if ($num = mysqli_num_rows($result))
 		{
 			while ($rows = mysqli_fetch_array($result,MYSQLI_ASSOC))
 			{
-				if ($rows['COUNT(*)'] % 2 != 0)
+				if ($rows['CALC'] >= 2)
 				{
 					$allowWriteData = 0;
-					echo "<script>alert('你在这一天已经预约借用过了哟！每人每天只能借一次的～\\n\\nBy 防注入防得很辛苦的汤圆'); history.go(-1); </script>";
+					echo "<script>alert('你在这一天已经预约借用过两次了哟！每人每天最多只能借两次的～\\n\\nBy 防注入防得很辛苦的汤圆'); history.go(-1); </script>";
 					exit();
 				}
 			}

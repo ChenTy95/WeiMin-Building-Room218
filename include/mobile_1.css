@@ -90,6 +90,7 @@
 	margin-top: 5px;
 	border-width: 0px;
 	
+	font-family: "Microsoft Yahei","微软雅黑","Helvetica","sans-serif";
 	font-size: 16px;
 	font-weight: bold;
 	text-align: left;
@@ -106,6 +107,17 @@
 	
 	font-size: 14px;
 	text-align: left;
+}
+
+.bottom .TextBtn2 {
+	font-family: "Microsoft Yahei","微软雅黑","Helvetica","sans-serif";
+	line-height: 16px;
+	margin-left: 2.5%;
+	font-size: 12px;
+	text-align: center;
+	height: 50px;
+	border: 2px solid #FFD700;
+	width: calc(95% - 4px);
 }
 
 .TextBtn3 {
@@ -134,7 +146,7 @@
 	height: 35px;
 	width: 40%;
 	
-	font-family: "Helvetica","Microsoft Yahei","微软雅黑","sans-serif";
+	font-family: "Microsoft Yahei","微软雅黑","Helvetica","sans-serif";
 	font-size: 16px;
 	font-weight: bold;
 	text-align: center;
@@ -154,7 +166,7 @@
 	height: 35px;
 	width: 55%;
 	
-	font-family: "Helvetica","Microsoft Yahei","微软雅黑","sans-serif";
+	font-family: "Microsoft Yahei","微软雅黑","Helvetica","sans-serif";
 	font-size: 16px;
 	font-weight: bold;
 	text-align: center;
@@ -173,7 +185,7 @@
 	height: 35px;
 	width: 90%;
 	
-	font-family: "Helvetica","Microsoft Yahei","微软雅黑","sans-serif";
+	font-family: "Microsoft Yahei","微软雅黑","Helvetica","sans-serif";
 	font-size: 16px;
 	font-weight: bold;
 	text-align: center;
@@ -187,24 +199,4 @@
 	font-size: 12px;
 	color: #F00;
 }
-
-@media screen and (max-width: 350px){
-	.TextBtn2 {
-		font-size: 12px;
-	}
-	.TextBtn3 {
-		font-size: 12px;
-	}
-	.TimeBtn {
-		font-size: 8px;
-	}
-	.DateBtn {
-		font-size: 12px;
-	}
-	.StatusBtnBlue {
-		font-size: 13px;
-	}
-	.StatusBtnBlue:hover {
-		font-size: 13px;
-	}
-}
+#logoutText:hover {	color: #000; }

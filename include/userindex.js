@@ -82,12 +82,19 @@ function checkInfo()
 		alert("手机号码输入不正确，请重新输入！");
 		return false;
 	}
-	if ((remark=="")||(remark=="请输入借用事由（15字以内）"))
+	if ((remark=="")||(remark=="（15字以内）")||!isNaN(remark)||remark.indexOf('15字')>=0||remark.indexOf('以内')>=0)
 	{
-		alert("请输入预约借用事由！");
+		alert("请输入有效的预约借用事由！");
 		return false;
 	}
-	return true;
+	
+	var weekday = new Array('星期日','星期一','星期二','星期三','星期四','星期五','星期六');
+	var b = window.confirm('你的预约信息如下，请确认：\n\n人员信息：[' + document.getElementById("Info_Id2").innerHTML + "] " + document.getElementById("Info_Name2").innerHTML + '\n预约日期：' + document.getElementById("Info_Date").innerHTML + " "+ weekday[new Date(document.getElementById("Info_Date").innerHTML).getDay() ]+'\n预约时间：' + document.getElementById("Info_Time").innerHTML +'\n预约事由：' + document.getElementById("InputRemark").value);
+	if (b==true)
+	{
+		return true;
+	}
+	return false;
 }
 
 function cancelConfirm()

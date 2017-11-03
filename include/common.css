@@ -4,9 +4,16 @@
 }
 
 @media screen and (min-width: 550px){
-	.ResDiv {
-		width: 550px;
-	}
+	.ResDiv { width: 550px; }
+}
+
+@media screen and (max-width: 350px){	
+	.TextBtn2 {	font-size: 12px; }
+	.TextBtn3 {	font-size: 12px; }
+	.TimeBtn { font-size: 8px; }
+	.DateBtn { font-size: 12px; }
+	.StatusBtnBlue { font-size: 13px; }
+	.StatusBtnBlue:hover { font-size: 13px; }
 }
 
 body {
@@ -40,7 +47,7 @@ body {
 
 button {
 	pointer-events: none;
-	font-family: "Helvetica","Microsoft Yahei","微软雅黑","sans-serif";
+	font-family: "Microsoft Yahei","微软雅黑","Helvetica","sans-serif";
 	border-width: 0px;
 }
 
@@ -49,7 +56,7 @@ button {
 	
 	height: 35px;
 	
-	font-family: "Helvetica","Microsoft Yahei","微软雅黑","sans-serif";
+	font-family: "Microsoft Yahei","微软雅黑","Helvetica","sans-serif";
 	font-size: 14px;
 	text-align: center;
 	color: #FFF;

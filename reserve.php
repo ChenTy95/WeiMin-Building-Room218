@@ -53,7 +53,7 @@
 	<div style="margin-top:10px; text-align:center;">
 		<img src="./include/TopPic.jpg" width="95%" />
 		<button class="TextBtn1" style="text-align:center;">预约成功</button>
-		<button class="TextBtn2" style="text-align:center; height:45px; pointer-events:auto;">请持有效证件凭本页面截图到指定地点领取钥匙<br/><span style="color:#305496; font-weight:bold;">使用完毕后请关窗、断电并按时交还钥匙</span></button>
+		<button class="TextBtn2" style="text-align:center; height:45px;">请持有效证件凭本页面截图到指定地点领取钥匙<br/><span style="color:#305496; font-weight:bold;">使用完毕后请关窗、断电并按时交还钥匙</span></button>
 	</div>
 	
 	<div id="InfoDiv" style="margin-top:0px;">

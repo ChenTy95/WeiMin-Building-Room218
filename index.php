@@ -46,7 +46,7 @@
 ?>
 	<div style="margin-top:10px; text-align:center;">
 		<img src="./include/TopPic.jpg" width="95%" />
-		<button class="TextBtn1" style="pointer-events:auto;">欢迎您，<?php echo $rows['name']."［".$rows['id']."］" ?><a href="check.php" style="text-decoration:none;" onclick="return logoutConfirm();";><span id='logoutText'>［注销］</span></a></button>
+		<div class="TextBtn1" style="margin-left:2.5%; line-height:35px; padding-left:2%; width:93%;">欢迎您，<?php echo $rows['name']."［".$rows['id']."］" ?><a href="check.php" style="text-decoration:none;" onclick="return logoutConfirm();";><span id='logoutText'>［注销］</span></a></div>
 		
 		<input id="HiddenId" type="hidden" value="<?php echo $rows['id']; ?>" />
 		<input id="HiddenName" type="hidden" value="<?php echo $rows['name']; ?>" />
@@ -213,8 +213,8 @@
 		</div>
 	</div>
 	
-	<div id="visiDiv2" style="margin-left:2.5%; display:none;">
-		<button class="TextBtn1" style="text-align:center;">预约借用</button>
+	<div id="visiDiv2" style="display:none;">
+		<button class="TextBtn1" style="margin-left:2.5%; text-align:center;">预约借用</button>
 		<div class="InfoLabel">预约人员</div><div class="InfoText" id="Info_Name2"></div>
 		<div class="InfoLabel">人员编号</div><div class="InfoText" id="Info_Id2"></div>
 		<div class="InfoLabel">联系电话</div>

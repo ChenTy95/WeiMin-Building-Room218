@@ -22,7 +22,7 @@
 	<button class="TextBtn1" style="text-align:center; margin-left:2.5%;">请输入凭据以登录</button>
 	<div class="InfoLabel" style="width:45%;">学号 / 工作证号</div>
 	<div class="InfoText"  style="width:50%;">
-		<input id="UserID" name="ID" class="InputBox" style="height:25px; width:80%;" value="" />
+		<input id="UserID" name="ID" class="InputBox" style="height:25px; width:80%;" value="" onblur="document.getElementById('UserID').value = document.getElementById('UserID').value.toUpperCase();"/>
 	</div>
 	<div class="InfoLabel" style="width:45%;">姓　　名</div>
 	<div class="InfoText"  style="width:50%;">

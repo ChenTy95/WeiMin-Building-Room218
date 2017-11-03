@@ -48,7 +48,7 @@
 	}
 	
 	// 用户登录检查
-	$sql = sprintf("SELECT COUNT(*) FROM userinfo WHERE id='%s'",mysqli_real_escape_string($conn,check_input($_POST['ID'])));
+	$sql = sprintf("SELECT COUNT(*) FROM userinfo WHERE id=binary '%s'",mysqli_real_escape_string($conn,check_input($_POST['ID'])));
 	$sql = $sql.sprintf(" AND name='%s' LIMIT 1;",mysqli_real_escape_string($conn,check_input($_POST['Name'])));
 	
 	$result = mysqli_query($conn,$sql);

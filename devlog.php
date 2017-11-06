@@ -48,13 +48,14 @@
 		?>
 		
 	</div>
-
-</div>
-
 <?php
 	fclose($log);
 	include_once(".\include\bottom.php");
 ?>
+
+</div>
+
+
 
 </body>
 </html>

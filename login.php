@@ -7,7 +7,7 @@
 	<link rel="stylesheet" type="text/css" href=".\include\mobile_0.css" />
 	<link rel="stylesheet" type="text/css" href=".\include\mobile_1.css" disabled="true" />
 	<link rel="stylesheet" type="text/css" href=".\include\common.css" />
-	<title>登录 - 为民楼218活动室自助预约平台_Alpha</title>
+	<title>登录 - 为民楼218活动室自助预约平台</title>
 </head>
 
 <body>

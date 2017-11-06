@@ -947,6 +947,7 @@
 			flush();
 			$progress += $pix;
 		}
+		fclose($file);
 ?>
 <script>
 	updateProgress("Finish !", 64);

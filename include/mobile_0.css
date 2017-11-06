@@ -115,13 +115,20 @@
 .bottom .TextBtn2 {
 	font-family: "Microsoft Yahei","微软雅黑","Helvetica","sans-serif";
 	line-height: 16px;
+	padding: 3px 0px 3px 0px;
 	margin-left: 2.5%;
 	font-size: 12px;
 	text-align: center;
-	height: 50px;
+	height: auto;
 	border: 2px solid #305496;
 	width: calc(95% - 4px);
 }
+.bottom a {
+	color: #000;
+	text-decoration: none;
+	cursor: pointer;
+}
+
 
 .TextBtn3 {
 	width: 95%;

@@ -26,7 +26,6 @@
 	document.getElementById('pass').focus();
 	if (document.getElementById('adminid').value == "")
 		document.getElementById('adminid').focus();
-	document.getElementById('pass').value='wml218<?php echo date("mdHi"); ?>';
 	
 	
 	// 写入及读取cookie
